@@ -1,4 +1,4 @@
-﻿# proyecto-pizzeria
+﻿# proyecto-pizzeria 🍕
  
 * [Villasenorgu](https://github.com/Villasenorgu)
 * [PedroAix](https://github.com/PedroAix)
