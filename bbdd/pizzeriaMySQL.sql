@@ -92,7 +92,7 @@ CREATE TABLE `Ingredientes` (
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Id_UNIQUE` (`Id`),
   UNIQUE KEY `Nombre_UNIQUE` (`Nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,7 +101,7 @@ CREATE TABLE `Ingredientes` (
 
 LOCK TABLES `Ingredientes` WRITE;
 /*!40000 ALTER TABLE `Ingredientes` DISABLE KEYS */;
-INSERT INTO `Ingredientes` VALUES (4,'Mozzarella',0.25,'otros'),(7,'Barbacoa',0.50,'salsa'),(8,'Fina',0.15,'base'),(9,'Pimiento Rojo',0.15,'otros');
+INSERT INTO `Ingredientes` VALUES (1,'Clasica',3.50,'base'),(2,'Fina',3.50,'base'),(3,'Gruesa',3.50,'base'),(4,'Bordes Queso',4.50,'base'),(5,'Tomate',1.00,'salsa'),(6,'Tomate Albahaca',1.10,'salsa'),(7,'Barbacoa',1.20,'salsa'),(8,'Carbonara',1.20,'salsa'),(9,'Pesto Verde',1.50,'salsa'),(10,'Chocolate',2.00,'salsa'),(11,'Mozzarella',0.50,'otros'),(12,'Jamon Cocido',0.50,'otros'),(13,'Bacon',0.50,'otros'),(14,'Carne Picada',0.50,'otros'),(15,'Pollo',0.50,'otros'),(16,'Pepperoni',0.50,'otros'),(17,'Salchicha',0.50,'otros'),(18,'Jamon Serrano',0.50,'otros'),(19,'Salami',0.50,'otros'),(20,'Cebolla',0.15,'otros'),(21,'Pimiento Verde',0.15,'otros'),(22,'Pimiento Rojo',0.15,'otros'),(23,'Champiñon',0.15,'otros'),(24,'Seta',0.30,'otros'),(25,'Aceituna',0.20,'otros'),(26,'Alcachofa',0.20,'otros'),(27,'Maiz',0.15,'otros'),(28,'Piña',0.15,'otros'),(29,'Tomate Natural',0.15,'otros'),(30,'Jalapeño',0.20,'otros'),(31,'Rucula',0.30,'otros'),(32,'Atun',0.50,'otros'),(33,'Anchoa',0.50,'otros'),(34,'Gamba',0.50,'otros');
 /*!40000 ALTER TABLE `Ingredientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -129,7 +129,6 @@ CREATE TABLE `IngredientesPizzas` (
 
 LOCK TABLES `IngredientesPizzas` WRITE;
 /*!40000 ALTER TABLE `IngredientesPizzas` DISABLE KEYS */;
-INSERT INTO `IngredientesPizzas` VALUES (1,4,2),(1,9,1),(2,4,1);
 /*!40000 ALTER TABLE `IngredientesPizzas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -218,7 +217,7 @@ CREATE TABLE `Pizzas` (
   KEY `FK_Pizzas_Ingedientes_salsa_idx` (`IdSalsa`),
   CONSTRAINT `FK_Pizzas_Ingedientes_salsa` FOREIGN KEY (`IdSalsa`) REFERENCES `Ingredientes` (`Id`),
   CONSTRAINT `FK_Pizzas_Ingredientes_base` FOREIGN KEY (`IdBase`) REFERENCES `Ingredientes` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -227,7 +226,7 @@ CREATE TABLE `Pizzas` (
 
 LOCK TABLES `Pizzas` WRITE;
 /*!40000 ALTER TABLE `Pizzas` DISABLE KEYS */;
-INSERT INTO `Pizzas` VALUES (1,8,7,'',10.00,11.00,NULL,1),(2,8,7,NULL,15.00,16.00,NULL,1);
+INSERT INTO `Pizzas` VALUES (1,1,5,'Margarita Clasica',8.00,8.80,NULL,1),(2,2,5,'Margarita Fina',8.00,8.80,NULL,1),(3,3,5,'Margarita Gruesa',8.00,8.80,NULL,1),(4,4,5,'Margarita Queso',10.00,11.00,NULL,1);
 /*!40000 ALTER TABLE `Pizzas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -246,6 +245,7 @@ CREATE TABLE `Usuarios` (
   `Apellido` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
   `Contraseña` varchar(8000) COLLATE utf8_spanish_ci NOT NULL,
   `FechaNacimiento` date DEFAULT NULL,
+  `Activo` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`IdUsuario`),
   UNIQUE KEY `email_UNIQUE` (`Email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_spanish_ci;
@@ -269,4 +269,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-05 20:24:37
+-- Dump completed on 2022-03-06 17:47:57
