@@ -16,248 +16,248 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `Comentarios`
+-- Table structure for table `Comment`
 --
 
-DROP TABLE IF EXISTS `Comentarios`;
+DROP TABLE IF EXISTS `Comment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Comentarios` (
-  `IdComentarios` int NOT NULL AUTO_INCREMENT,
-  `IdUsuario` int NOT NULL,
-  `IdPizza` int NOT NULL,
-  `Fecha` datetime NOT NULL,
-  `Puntuacion` int DEFAULT NULL,
-  `Texto` text COLLATE utf8_spanish_ci,
-  PRIMARY KEY (`IdComentarios`),
-  KEY `FK_Comentarios_Pizzas_idx` (`IdPizza`),
-  KEY `FK_Comentarios_Usuarios_idx` (`IdUsuario`),
-  CONSTRAINT `FK_Comentarios_Pizzas` FOREIGN KEY (`IdPizza`) REFERENCES `Pizzas` (`IdPizza`),
-  CONSTRAINT `FK_Comentarios_Usuarios` FOREIGN KEY (`IdUsuario`) REFERENCES `Usuarios` (`IdUsuario`)
+CREATE TABLE `Comment` (
+  `idComment` int NOT NULL AUTO_INCREMENT,
+  `idUser` int NOT NULL,
+  `idPizza` int NOT NULL,
+  `date` datetime NOT NULL,
+  `rating` int DEFAULT NULL,
+  `text` text COLLATE utf8_spanish_ci,
+  PRIMARY KEY (`idComment`),
+  KEY `FK_Comment_Pizza_idx` (`idPizza`),
+  KEY `FK_Comment_User_idx` (`idUser`),
+  CONSTRAINT `FK_Comment_Pizza` FOREIGN KEY (`idPizza`) REFERENCES `Pizza` (`idPizza`),
+  CONSTRAINT `FK_Comment_User` FOREIGN KEY (`idUser`) REFERENCES `User` (`idUser`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Comentarios`
+-- Dumping data for table `Comment`
 --
 
-LOCK TABLES `Comentarios` WRITE;
-/*!40000 ALTER TABLE `Comentarios` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Comentarios` ENABLE KEYS */;
+LOCK TABLES `Comment` WRITE;
+/*!40000 ALTER TABLE `Comment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Direcciones`
+-- Table structure for table `Address`
 --
 
-DROP TABLE IF EXISTS `Direcciones`;
+DROP TABLE IF EXISTS `Address`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Direcciones` (
-  `IdDirecciones` int NOT NULL AUTO_INCREMENT,
-  `IdUsuario` int NOT NULL,
-  `Calle` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
-  `Numero` int NOT NULL,
-  `Ciudad` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
-  `Poblacion` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
-  `CodigoPostal` int NOT NULL,
-  `Nombre` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`IdDirecciones`),
-  KEY `FK_Direcciones_Usuarios_idx` (`IdUsuario`),
-  CONSTRAINT `FK_Direcciones_Usuarios` FOREIGN KEY (`IdUsuario`) REFERENCES `Usuarios` (`IdUsuario`)
+CREATE TABLE `Address` (
+  `idAddress` int NOT NULL AUTO_INCREMENT,
+  `idUser` int NOT NULL,
+  `street` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
+  `number` int NOT NULL,
+  `city` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
+  `location` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
+  `postalCode` int NOT NULL,
+  `name` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`idAddress`),
+  KEY `FK_Address_User_idx` (`idUser`),
+  CONSTRAINT `FK_Address_User` FOREIGN KEY (`idUser`) REFERENCES `User` (`idUser`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Direcciones`
+-- Dumping data for table `Address`
 --
 
-LOCK TABLES `Direcciones` WRITE;
-/*!40000 ALTER TABLE `Direcciones` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Direcciones` ENABLE KEYS */;
+LOCK TABLES `Address` WRITE;
+/*!40000 ALTER TABLE `Address` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Address` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Ingredientes`
+-- Table structure for table `Ingredient`
 --
 
-DROP TABLE IF EXISTS `Ingredientes`;
+DROP TABLE IF EXISTS `Ingredient`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Ingredientes` (
-  `Id` int NOT NULL AUTO_INCREMENT,
-  `Nombre` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
-  `Importe` decimal(10,2) NOT NULL,
-  `Tipo` enum('base','salsa','otros') COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`Id`),
-  UNIQUE KEY `Id_UNIQUE` (`Id`),
-  UNIQUE KEY `Nombre_UNIQUE` (`Nombre`)
+CREATE TABLE `Ingredient` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `type` enum('base','salsa','otros') COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `Id_UNIQUE` (`id`),
+  UNIQUE KEY `name_UNIQUE` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Ingredientes`
+-- Dumping data for table `Ingredient`
 --
 
-LOCK TABLES `Ingredientes` WRITE;
-/*!40000 ALTER TABLE `Ingredientes` DISABLE KEYS */;
-INSERT INTO `Ingredientes` VALUES (1,'Clasica',3.50,'base'),(2,'Fina',3.50,'base'),(3,'Gruesa',3.50,'base'),(4,'Bordes Queso',4.50,'base'),(5,'Tomate',1.00,'salsa'),(6,'Tomate Albahaca',1.10,'salsa'),(7,'Barbacoa',1.20,'salsa'),(8,'Carbonara',1.20,'salsa'),(9,'Pesto Verde',1.50,'salsa'),(10,'Chocolate',2.00,'salsa'),(11,'Mozzarella',0.50,'otros'),(12,'Jamon Cocido',0.50,'otros'),(13,'Bacon',0.50,'otros'),(14,'Carne Picada',0.50,'otros'),(15,'Pollo',0.50,'otros'),(16,'Pepperoni',0.50,'otros'),(17,'Salchicha',0.50,'otros'),(18,'Jamon Serrano',0.50,'otros'),(19,'Salami',0.50,'otros'),(20,'Cebolla',0.15,'otros'),(21,'Pimiento Verde',0.15,'otros'),(22,'Pimiento Rojo',0.15,'otros'),(23,'Champiñon',0.15,'otros'),(24,'Seta',0.30,'otros'),(25,'Aceituna',0.20,'otros'),(26,'Alcachofa',0.20,'otros'),(27,'Maiz',0.15,'otros'),(28,'Piña',0.15,'otros'),(29,'Tomate Natural',0.15,'otros'),(30,'Jalapeño',0.20,'otros'),(31,'Rucula',0.30,'otros'),(32,'Atun',0.50,'otros'),(33,'Anchoa',0.50,'otros'),(34,'Gamba',0.50,'otros');
-/*!40000 ALTER TABLE `Ingredientes` ENABLE KEYS */;
+LOCK TABLES `Ingredient` WRITE;
+/*!40000 ALTER TABLE `Ingredient` DISABLE KEYS */;
+INSERT INTO `Ingredient` VALUES (1,'Clasica',3.50,'base'),(2,'Fina',3.50,'base'),(3,'Gruesa',3.50,'base'),(4,'Bordes Queso',4.50,'base'),(5,'Tomate',1.00,'salsa'),(6,'Tomate Albahaca',1.10,'salsa'),(7,'Barbacoa',1.20,'salsa'),(8,'Carbonara',1.20,'salsa'),(9,'Pesto Verde',1.50,'salsa'),(10,'Chocolate',2.00,'salsa'),(11,'Mozzarella',0.50,'otros'),(12,'Jamon Cocido',0.50,'otros'),(13,'Bacon',0.50,'otros'),(14,'Carne Picada',0.50,'otros'),(15,'Pollo',0.50,'otros'),(16,'Pepperoni',0.50,'otros'),(17,'Salchicha',0.50,'otros'),(18,'Jamon Serrano',0.50,'otros'),(19,'Salami',0.50,'otros'),(20,'Cebolla',0.15,'otros'),(21,'Pimiento Verde',0.15,'otros'),(22,'Pimiento Rojo',0.15,'otros'),(23,'Champiñon',0.15,'otros'),(24,'Seta',0.30,'otros'),(25,'Aceituna',0.20,'otros'),(26,'Alcachofa',0.20,'otros'),(27,'Maiz',0.15,'otros'),(28,'Piña',0.15,'otros'),(29,'Tomate Natural',0.15,'otros'),(30,'Jalapeño',0.20,'otros'),(31,'Rucula',0.30,'otros'),(32,'Atun',0.50,'otros'),(33,'Anchoa',0.50,'otros'),(34,'Gamba',0.50,'otros');
+/*!40000 ALTER TABLE `Ingredient` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `IngredientesPizzas`
+-- Table structure for table `ingredientPizza`
 --
 
-DROP TABLE IF EXISTS `IngredientesPizzas`;
+DROP TABLE IF EXISTS `IngredientPizza`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `IngredientesPizzas` (
-  `IdPizza` int NOT NULL,
-  `IdIngrediente` int NOT NULL,
-  `Cantidad` int NOT NULL,
-  PRIMARY KEY (`IdPizza`,`IdIngrediente`),
-  KEY `FK_Ingredientes_IngredientesPizza` (`IdIngrediente`),
-  CONSTRAINT `FK_Ingredientes_IngredientesPizza` FOREIGN KEY (`IdIngrediente`) REFERENCES `Ingredientes` (`Id`),
-  CONSTRAINT `FK_IngredientesPizzas_Pizzas` FOREIGN KEY (`IdPizza`) REFERENCES `Pizzas` (`IdPizza`) ON DELETE CASCADE
+CREATE TABLE `IngredientPizza` (
+  `idPizza` int NOT NULL,
+  `idIngredient` int NOT NULL,
+  `quantity` int NOT NULL,
+  PRIMARY KEY (`idPizza`,`idIngredient`),
+  KEY `FK_ingredient_ingredientPizza` (`idIngredient`),
+  CONSTRAINT `FK_Ingredient_IngredientPizza` FOREIGN KEY (`idIngredient`) REFERENCES `Ingredient` (`id`),
+  CONSTRAINT `FK_IngredientPizza_Pizza` FOREIGN KEY (`idPizza`) REFERENCES `Pizza` (`idPizza`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `IngredientesPizzas`
+-- Dumping data for table `IngredientPizza`
 --
 
-LOCK TABLES `IngredientesPizzas` WRITE;
-/*!40000 ALTER TABLE `IngredientesPizzas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `IngredientesPizzas` ENABLE KEYS */;
+LOCK TABLES `IngredientPizza` WRITE;
+/*!40000 ALTER TABLE `IngredientPizza` DISABLE KEYS */;
+/*!40000 ALTER TABLE `IngredientPizza` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Pedidos`
+-- Table structure for table `Order`
 --
 
-DROP TABLE IF EXISTS `Pedidos`;
+DROP TABLE IF EXISTS `Order`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Pedidos` (
-  `IdPedido` int NOT NULL AUTO_INCREMENT,
-  `IdUsuario` int NOT NULL,
-  `FechaPedido` datetime NOT NULL,
-  `FechaEntrega` datetime NOT NULL,
-  `Comentario` text COLLATE utf8_spanish_ci,
-  `IdDireccionReparto` int NOT NULL,
-  `IdCocinero` int NOT NULL,
-  `IdRepartidor` int NOT NULL,
-  `Importe` decimal(10,2) NOT NULL,
-  `EstadoPedido` enum('solicitado','elaborandose','preparado','enviado','recibido','cancelado') COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`IdPedido`),
-  KEY `FK_Pedidos_Usuarios_idx` (`IdUsuario`),
-  KEY `FK_Pedidos_Direcciones_idx` (`IdDireccionReparto`,`IdUsuario`),
-  CONSTRAINT `FK_Pedidos_Direcciones` FOREIGN KEY (`IdDireccionReparto`) REFERENCES `Direcciones` (`IdDirecciones`),
-  CONSTRAINT `FK_Pedidos_Usuarios` FOREIGN KEY (`IdUsuario`) REFERENCES `Usuarios` (`IdUsuario`)
+CREATE TABLE `Order` (
+  `idOrder` int NOT NULL AUTO_INCREMENT,
+  `idUser` int NOT NULL,
+  `orderDate` datetime NOT NULL,
+  `deliveryDate` datetime NOT NULL,
+  `comment` text COLLATE utf8_spanish_ci,
+  `idDeliveryAddress` int NOT NULL,
+  `idChef` int NOT NULL,
+  `idDeliveryPerson` int NOT NULL,
+  `amount` decimal(10,2) NOT NULL,
+  `orderStatus` enum('solicitado','elaborandose','preparado','enviado','recibido','cancelado') COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`idOrder`),
+  KEY `FK_Order_User_idx` (`idUser`),
+  KEY `FK_Order_Address_idx` (`idDeliveryAddress`,`idUser`),
+  CONSTRAINT `FK_Order_Address` FOREIGN KEY (`idDeliveryAddress`) REFERENCES `Address` (`idAddress`),
+  CONSTRAINT `FK_Order_User` FOREIGN KEY (`idUser`) REFERENCES `User` (`idUser`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Pedidos`
+-- Dumping data for table `Order`
 --
 
-LOCK TABLES `Pedidos` WRITE;
-/*!40000 ALTER TABLE `Pedidos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Pedidos` ENABLE KEYS */;
+LOCK TABLES `Order` WRITE;
+/*!40000 ALTER TABLE `Order` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Order` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `PizzaPedido`
+-- Table structure for table `PizzaOrder`
 --
 
-DROP TABLE IF EXISTS `PizzaPedido`;
+DROP TABLE IF EXISTS `PizzaOrder`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `PizzaPedido` (
-  `IdPedido` int NOT NULL AUTO_INCREMENT,
-  `IdPizza` int NOT NULL,
-  `Cantidad` int NOT NULL,
-  `Importe` decimal(10,2) NOT NULL,
-  KEY `FK_PizzasPedido_Pizzas_idx` (`IdPizza`),
-  KEY `FK_PizzaPedido_Pedido_idx` (`IdPedido`),
-  CONSTRAINT `FK_PizzaPedido_Pedidos` FOREIGN KEY (`IdPedido`) REFERENCES `Pedidos` (`IdPedido`) ON DELETE CASCADE,
-  CONSTRAINT `FK_PizzaPedido_Pizzas` FOREIGN KEY (`IdPizza`) REFERENCES `Pizzas` (`IdPizza`)
+CREATE TABLE `PizzaOrder` (
+  `idOrder` int NOT NULL AUTO_INCREMENT,
+  `idPizza` int NOT NULL,
+  `quantity` int NOT NULL,
+  `amount` decimal(10,2) NOT NULL,
+  KEY `FK_PizzaOrder_Pizza_idx` (`idPizza`),
+  KEY `FK_PizzaOrder_Order_idx` (`idOrder`),
+  CONSTRAINT `FK_PizzaOrder_Order` FOREIGN KEY (`idOrder`) REFERENCES `Order` (`idOrder`) ON DELETE CASCADE,
+  CONSTRAINT `FK_PizzaOrder_Pizza` FOREIGN KEY (`idPizza`) REFERENCES `Pizza` (`idPizza`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `PizzaPedido`
+-- Dumping data for table `PizzaOrder`
 --
 
-LOCK TABLES `PizzaPedido` WRITE;
-/*!40000 ALTER TABLE `PizzaPedido` DISABLE KEYS */;
-/*!40000 ALTER TABLE `PizzaPedido` ENABLE KEYS */;
+LOCK TABLES `PizzaOrder` WRITE;
+/*!40000 ALTER TABLE `PizzaOrder` DISABLE KEYS */;
+/*!40000 ALTER TABLE `PizzaOrder` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Pizzas`
+-- Table structure for table `Pizza`
 --
 
-DROP TABLE IF EXISTS `Pizzas`;
+DROP TABLE IF EXISTS `Pizza`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Pizzas` (
-  `IdPizza` int NOT NULL AUTO_INCREMENT,
-  `IdBase` int NOT NULL,
-  `IdSalsa` int NOT NULL,
-  `descripcion` text COLLATE utf8_spanish_ci,
-  `ImporteNeto` decimal(10,2) NOT NULL,
-  `Importe` decimal(10,2) NOT NULL,
-  `MeGusta` int DEFAULT NULL,
-  `Activa` tinyint NOT NULL DEFAULT '1',
-  PRIMARY KEY (`IdPizza`),
-  UNIQUE KEY `idPizzas_UNIQUE` (`IdPizza`),
-  KEY `FK_Pizzas_Ingredientes_base_idx` (`IdBase`),
-  KEY `FK_Pizzas_Ingedientes_salsa_idx` (`IdSalsa`),
-  CONSTRAINT `FK_Pizzas_Ingedientes_salsa` FOREIGN KEY (`IdSalsa`) REFERENCES `Ingredientes` (`Id`),
-  CONSTRAINT `FK_Pizzas_Ingredientes_base` FOREIGN KEY (`IdBase`) REFERENCES `Ingredientes` (`Id`)
+CREATE TABLE `Pizza` (
+  `idPizza` int NOT NULL AUTO_INCREMENT,
+  `idBase` int NOT NULL,
+  `idSauce` int NOT NULL,
+  `description` text COLLATE utf8_spanish_ci,
+  `netPrice` decimal(10,2) NOT NULL,
+  `amount` decimal(10,2) NOT NULL,
+  `like` int DEFAULT NULL,
+  `active` tinyint NOT NULL DEFAULT '1',
+  PRIMARY KEY (`idPizza`),
+  UNIQUE KEY `idPizza_UNIQUE` (`idPizza`),
+  KEY `FK_Pizza_Ingredient_Base_idx` (`idBase`),
+  KEY `FK_Pizza_Ingredient_Sauce_idx` (`idSauce`),
+  CONSTRAINT `FK_Pizza_Ingredient_Sauce` FOREIGN KEY (`idSauce`) REFERENCES `Ingredient` (`id`),
+  CONSTRAINT `FK_Pizza_Ingredient_Base` FOREIGN KEY (`idBase`) REFERENCES `Ingredient` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Pizzas`
+-- Dumping data for table `Pizza`
 --
 
-LOCK TABLES `Pizzas` WRITE;
-/*!40000 ALTER TABLE `Pizzas` DISABLE KEYS */;
-INSERT INTO `Pizzas` VALUES (1,1,5,'Margarita Clasica',8.00,8.80,NULL,1),(2,2,5,'Margarita Fina',8.00,8.80,NULL,1),(3,3,5,'Margarita Gruesa',8.00,8.80,NULL,1),(4,4,5,'Margarita Queso',10.00,11.00,NULL,1);
-/*!40000 ALTER TABLE `Pizzas` ENABLE KEYS */;
+LOCK TABLES `Pizza` WRITE;
+/*!40000 ALTER TABLE `Pizza` DISABLE KEYS */;
+INSERT INTO `Pizza` VALUES (1,1,5,'Margarita Clasica',8.00,8.80,NULL,1),(2,2,5,'Margarita Fina',8.00,8.80,NULL,1),(3,3,5,'Margarita Gruesa',8.00,8.80,NULL,1),(4,4,5,'Margarita Queso',10.00,11.00,NULL,1);
+/*!40000 ALTER TABLE `Pizza` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Usuarios`
+-- Table structure for table `User`
 --
 
-DROP TABLE IF EXISTS `Usuarios`;
+DROP TABLE IF EXISTS `User`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Usuarios` (
-  `IdUsuario` int NOT NULL AUTO_INCREMENT,
-  `Email` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
-  `Rol` enum('cliente','gerente','cocinero','repartidor') COLLATE utf8_spanish_ci NOT NULL,
-  `Nombre` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
-  `Apellido` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
-  `Contraseña` varchar(8000) COLLATE utf8_spanish_ci NOT NULL,
-  `FechaNacimiento` date DEFAULT NULL,
-  `Activo` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`IdUsuario`),
-  UNIQUE KEY `email_UNIQUE` (`Email`)
+CREATE TABLE `User` (
+  `idUser` int NOT NULL AUTO_INCREMENT,
+  `email` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+  `role` enum('cliente','gerente','cocinero','repartidor') COLLATE utf8_spanish_ci NOT NULL,
+  `name` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+  `lastName` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+  `password` varchar(8000) COLLATE utf8_spanish_ci NOT NULL,
+  `birthDate` date DEFAULT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`idUser`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Usuarios`
+-- Dumping data for table `User`
 --
 
-LOCK TABLES `Usuarios` WRITE;
-/*!40000 ALTER TABLE `Usuarios` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Usuarios` ENABLE KEYS */;
+LOCK TABLES `User` WRITE;
+/*!40000 ALTER TABLE `User` DISABLE KEYS */;
+/*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
