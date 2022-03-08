@@ -1,4 +1,4 @@
-package com.example.exceptions;
+package com.pizzaiolo.exceptions;
 
 public class DuplicateKeyException extends Exception {
 	private static final long serialVersionUID = 1L;
