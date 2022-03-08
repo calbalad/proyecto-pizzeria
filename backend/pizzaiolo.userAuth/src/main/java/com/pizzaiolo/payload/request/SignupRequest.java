@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class SignupRequest {
 	@NotBlank
 	@Size(min = 3, max = 20)
-	private String name;
+	private String username;
 
 	@NotBlank
 	@Size(min = 3, max = 20)
@@ -33,12 +33,12 @@ public class SignupRequest {
 	@Size(min = 6, max = 40)
 	private String password;
 
-	public String getName() {
-		return name;
+	public String getUserName() {
+		return username;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUserName(String username) {
+		this.username = username;
 	}
 
 	public String getLastName() {

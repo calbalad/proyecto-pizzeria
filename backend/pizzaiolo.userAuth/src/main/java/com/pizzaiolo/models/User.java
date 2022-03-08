@@ -25,7 +25,7 @@ public class User {
 
 	@NotBlank
 	@Size(max = 20)
-	private String name;
+	private String username;
 
 	@NotBlank
 	@Size(max = 20)
@@ -55,11 +55,11 @@ public class User {
 	public User() {
 	}
 
-	public User(@NotBlank @Size(max = 20) String name, @NotBlank @Size(max = 20) String lastName,
+	public User(@NotBlank @Size(max = 20) String username, @NotBlank @Size(max = 20) String lastName,
 			Date birthDate, @NotBlank @Size(max = 50) @Email String email, @NotBlank @Size(max = 120) String password,
 			boolean active) {
 		super();
-		this.name = name;
+		this.username = username;
 		this.lastName = lastName;
 		this.birthDate = birthDate;
 		this.email = email;
@@ -80,12 +80,12 @@ public class User {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getUserName() {
+		return username;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUserName(String username) {
+		this.username = username;
 	}
 
 	public String getLastName() {
