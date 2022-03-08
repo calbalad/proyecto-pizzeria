@@ -19,7 +19,7 @@ public class UserDetailsImpl implements UserDetails {
 
 	private String id;
 
-	private String name;
+	private String username;
 
 	private String lastName;
 
@@ -36,10 +36,11 @@ public class UserDetailsImpl implements UserDetails {
 
 	private Collection<? extends GrantedAuthority> authorities;
 
-	public UserDetailsImpl(String id, String name, String lastName, String email, Date birthDate, List<Address> address,
-			boolean active, String password, Collection<? extends GrantedAuthority> authorities) {
+	public UserDetailsImpl(String id, String username, String lastName, String email, Date birthDate,
+			List<Address> address, boolean active, String password,
+			Collection<? extends GrantedAuthority> authorities) {
 		this.id = id;
-		this.name = name;
+		this.username = username;
 		this.lastName = lastName;
 		this.email = email;
 		this.birthDate = birthDate;
@@ -53,7 +54,7 @@ public class UserDetailsImpl implements UserDetails {
 		List<GrantedAuthority> authorities = user.getRoles().stream()
 				.map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
 
-		return new UserDetailsImpl(user.getId(), user.getName(), user.getLastName(), user.getEmail(),
+		return new UserDetailsImpl(user.getId(), user.getUserName(), user.getLastName(), user.getEmail(),
 				user.getBirthDate(), user.getAddress(), user.isActive(), user.getPassword(), authorities);
 	}
 
@@ -66,10 +67,10 @@ public class UserDetailsImpl implements UserDetails {
 		return id;
 	}
 
-    public String getName() {
-		return name;
+	@Override
+	public String getUsername() {
+		return username;
 	}
-
 
 	public String getLastName() {
 		return lastName;
@@ -79,16 +80,13 @@ public class UserDetailsImpl implements UserDetails {
 		return email;
 	}
 
-
 	public Date getBirthDate() {
 		return birthDate;
 	}
 
-
 	public List<Address> getAddress() {
 		return address;
 	}
-
 
 	public boolean isActive() {
 		return active;
@@ -98,7 +96,6 @@ public class UserDetailsImpl implements UserDetails {
 	public String getPassword() {
 		return password;
 	}
-
 
 	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
 		this.authorities = authorities;
@@ -134,9 +131,6 @@ public class UserDetailsImpl implements UserDetails {
 		return Objects.equals(id, user.id);
 	}
 
-	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
+
 }

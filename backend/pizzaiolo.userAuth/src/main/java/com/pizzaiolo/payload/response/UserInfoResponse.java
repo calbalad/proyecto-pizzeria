@@ -7,7 +7,7 @@ import com.pizzaiolo.models.Address;
 
 public class UserInfoResponse {
 	private String id;
-	private String name;
+	private String username;
 	private String lastName;
 	private Date birthDate;
 	private String email;
@@ -15,11 +15,11 @@ public class UserInfoResponse {
 	private List<String> roles;
 	private boolean active;
 
-	public UserInfoResponse(String id, String name, String lastName, Date birthDate, String email,
+	public UserInfoResponse(String id, String username, String lastName, Date birthDate, String email,
 			List<Address> address, List<String> roles, boolean active) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.username = username;
 		this.lastName = lastName;
 		this.birthDate = birthDate;
 		this.email = email;
@@ -36,12 +36,12 @@ public class UserInfoResponse {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getUserName() {
+		return username;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUserName(String name) {
+		this.username = name;
 	}
 
 	public String getLastName() {
