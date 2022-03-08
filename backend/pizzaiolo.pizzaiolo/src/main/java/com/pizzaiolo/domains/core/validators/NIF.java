@@ -1,4 +1,4 @@
-package com.example.domains.core.validators;
+package com.pizzaiolo.domains.core.validators;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

@@ -1,4 +1,4 @@
-package com.example;
+package com.pizzaiolo;
 
 import java.io.Serializable;
 
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.example.exceptions.DuplicateKeyException;
-import com.example.exceptions.InvalidDataException;
-import com.example.exceptions.NotFoundException;
+import com.pizzaiolo.exceptions.DuplicateKeyException;
+import com.pizzaiolo.exceptions.InvalidDataException;
+import com.pizzaiolo.exceptions.NotFoundException;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
