@@ -1,4 +1,4 @@
-package models;
+package com.pizzaiolo.models;
 
 import org.springframework.data.annotation.Id;
 
