@@ -8,10 +8,10 @@
 		<version>2.5.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>ms.eureka</artifactId>
+	<groupId>com.pizzaiolo</groupId>
+	<artifactId>pizzaiolo.eureka</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ms.eureka</name>
+	<name>pizzaiolo.eureka</name>
 	<description>Ejemplo de servidor de descubrimiento</description>
 	<properties>
 		<java.version>11</java.version>
