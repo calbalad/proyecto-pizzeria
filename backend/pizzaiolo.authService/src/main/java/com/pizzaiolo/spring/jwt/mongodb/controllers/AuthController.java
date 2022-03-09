@@ -1,5 +1,6 @@
 package com.pizzaiolo.spring.jwt.mongodb.controllers;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,6 +31,7 @@ import com.pizzaiolo.spring.jwt.mongodb.repository.RoleRepository;
 import com.pizzaiolo.spring.jwt.mongodb.repository.UserRepository;
 import com.pizzaiolo.spring.jwt.mongodb.security.jwt.JwtUtils;
 import com.pizzaiolo.spring.jwt.mongodb.security.services.UserDetailsImpl;
+import com.pizzaiolo.spring.jwt.mongodb.models.Address;
 import com.pizzaiolo.spring.jwt.mongodb.models.ERole;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -89,7 +91,7 @@ public class AuthController {
 		// Create new user's account
 		User user = new User(signUpRequest.getUsername(), signUpRequest.getLastName(), signUpRequest.getBirthDate(),
 				signUpRequest.getEmail(), encoder.encode(signUpRequest.getPassword()), true);
-
+		List<Address> address = new ArrayList<Address>();
 		Set<String> strRoles = signUpRequest.getRoles();
 		Set<Role> roles = new HashSet<>();
 
@@ -133,6 +135,7 @@ public class AuthController {
 		}
 
 		user.setRoles(roles);
+		user.setAddress(address);
 		userRepository.save(user);
 
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
