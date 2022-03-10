@@ -16,6 +16,37 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `Comment`
+--
+
+DROP TABLE IF EXISTS `Comment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Comment` (
+  `idComment` int NOT NULL AUTO_INCREMENT,
+  `idUser` int NOT NULL,
+  `idPizza` int NOT NULL,
+  `date` datetime NOT NULL,
+  `rating` int DEFAULT NULL,
+  `text` text COLLATE utf8_spanish_ci,
+  PRIMARY KEY (`idComment`),
+  KEY `FK_Comment_Pizza_idx` (`idPizza`),
+  KEY `FK_Comment_User_idx` (`idUser`),
+  CONSTRAINT `FK_Comment_Pizza` FOREIGN KEY (`idPizza`) REFERENCES `Pizza` (`idPizza`),
+  CONSTRAINT `FK_Comment_User` FOREIGN KEY (`idUser`) REFERENCES `User` (`idUser`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Comment`
+--
+
+LOCK TABLES `Comment` WRITE;
+/*!40000 ALTER TABLE `Comment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Comment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Ingredient`
 --
 
@@ -79,20 +110,16 @@ DROP TABLE IF EXISTS `Order`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Order` (
   `idOrder` int NOT NULL AUTO_INCREMENT,
-  `idUser` int NOT NULL,
+  `idUser` varchar(120) NOT NULL,
   `orderDate` datetime NOT NULL,
   `deliveryDate` datetime DEFAULT NULL,
   `comment` text CHARACTER SET utf8 COLLATE utf8_spanish_ci,
   `idDeliveryAddress` int NOT NULL,
-  `idChef` int DEFAULT NULL,
-  `idCourier` int DEFAULT NULL,
+  `idChef` varchar(120) DEFAULT NULL,
+  `idCourier` varchar(120) DEFAULT NULL,
   `amount` decimal(10,2) NOT NULL,
   `orderStatus` enum('solicitado','elaborandose','preparado','enviado','recibido','cancelado') CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`idOrder`),
-  KEY `FK_Order_User_idx` (`idUser`),
-  KEY `FK_Order_Address_idx` (`idDeliveryAddress`,`idUser`),
-  CONSTRAINT `FK_Order_Address` FOREIGN KEY (`idDeliveryAddress`) REFERENCES `Address` (`idAddress`),
-  CONSTRAINT `FK_Order_User` FOREIGN KEY (`idUser`) REFERENCES `User` (`idUser`)
+  PRIMARY KEY (`idOrder`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
