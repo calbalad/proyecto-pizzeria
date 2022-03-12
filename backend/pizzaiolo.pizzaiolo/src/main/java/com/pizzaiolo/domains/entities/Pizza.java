@@ -2,62 +2,109 @@ package com.pizzaiolo.domains.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 
-
+import com.pizzaiolo.domains.core.entities.EntityBase;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
-
+import java.util.Objects;
 
 /**
  * The persistent class for the Pizza database table.
  * 
  */
 @Entity
-@NamedQuery(name="Pizza.findAll", query="SELECT p FROM Pizza p")
-public class Pizza implements Serializable {
+@NamedQuery(name = "Pizza.findAll", query = "SELECT p FROM Pizza p")
+public class Pizza extends EntityBase<Pizza> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@NotNull
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="idPizza")
 	private int idPizza;
 
-	private boolean active;
-
-	private BigDecimal amount;
-
-	@Lob
-	private String description;
-
-	@Lob
-	private byte[] image;
-
-	private int like;
-
-	private BigDecimal netPrice;
-
-	//bi-directional many-to-one association to Comment
-	@OneToMany(mappedBy="pizza")
-	private List<Comment> comments;
-
-	//bi-directional many-to-one association to IngredientPizza
-	@OneToMany(mappedBy="pizza")
-	private List<IngredientPizza> ingredientPizzas;
-
-	//bi-directional many-to-one association to Ingredient
+	// bi-directional many-to-one association to Ingredient
 	@ManyToOne
-	@JoinColumn(name="idBase")
+	@JoinColumn(name = "idBase")
 	private Ingredient idBase;
 
-	//bi-directional many-to-one association to Ingredient
+	// bi-directional many-to-one association to Ingredient
 	@ManyToOne
-	@JoinColumn(name="idSauce")
+	@JoinColumn(name = "idSauce")
 	private Ingredient idSauce;
 
-	//bi-directional many-to-one association to PizzaOrder
-	@OneToMany(mappedBy="pizza")
+	@Lob
+	@Column(name="description")
+	private String description;
+
+	@Column(name="netPrice")
+	@NotNull
+	@DecimalMin(value = "0.0", inclusive = false)
+	@Digits(integer = 8, fraction = 2)
+	private BigDecimal netPrice;
+
+	@Column(name="amount")
+	@NotNull
+	@DecimalMin(value = "0.0", inclusive = false)
+	@Digits(integer = 8, fraction = 2)
+	private BigDecimal amount;
+
+	@Column(name="like")
+	@PositiveOrZero
+	private int like = 0;
+
+	@Column(name="active")
+	@NotNull
+	private boolean active = true;
+
+	@Lob
+	@Column(name="image")
+	private byte[] image = null;
+	
+
+	// bi-directional many-to-one association to Comment
+	@OneToMany(mappedBy = "pizza")
+	private List<Comment> comments;
+
+	// bi-directional many-to-one association to IngredientPizza
+	@OneToMany(mappedBy = "pizza")
+	private List<IngredientPizza> ingredientPizzas;
+
+	// bi-directional many-to-one association to PizzaOrder
+	@OneToMany(mappedBy = "pizza")
 	private List<PizzaOrder> pizzaOrders;
 
+	
 	public Pizza() {
+	}
+	
+	public Pizza(int idPizza) {
+		super();
+		this.idPizza = idPizza;
+	}
+
+	
+
+	public Pizza(@NotNull int idPizza, Ingredient idBase, Ingredient idSauce, String description,
+			@NotNull @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 8, fraction = 2) @PositiveOrZero BigDecimal netPrice,
+			@NotNull @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 8, fraction = 2) @PositiveOrZero BigDecimal amount,
+			@PositiveOrZero int like, @NotNull boolean active, byte[] image) {
+		super();
+		this.idPizza = idPizza;
+		this.idBase = idBase;
+		this.idSauce = idSauce;
+		this.description = description;
+		this.netPrice = netPrice;
+		this.amount = amount;
+		this.like = like;
+		this.active = active;
+		this.image = image;
 	}
 
 	public int getIdPizza() {
@@ -186,16 +233,42 @@ public class Pizza implements Serializable {
 
 	public PizzaOrder addPizzaOrder(PizzaOrder pizzaOrder) {
 		getPizzaOrders().add(pizzaOrder);
-		pizzaOrder.setPizza(this);
+		pizzaOrder.setIdPizza(this);
 
 		return pizzaOrder;
 	}
 
 	public PizzaOrder removePizzaOrder(PizzaOrder pizzaOrder) {
 		getPizzaOrders().remove(pizzaOrder);
-		pizzaOrder.setPizza(null);
+		pizzaOrder.setIdPizza(null);
 
 		return pizzaOrder;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(idPizza);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Pizza other = (Pizza) obj;
+		return idPizza == other.idPizza;
+	}
+
+	@Override
+	public String toString() {
+		return "Pizza [idPizza=" + idPizza + ", idBase=" + idBase + ", idSauce=" + idSauce + ", description="
+				+ description + ", netPrice=" + netPrice + ", amount=" + amount + ", like=" + like + ", active="
+				+ active + ", image=" + Arrays.toString(image) + "]";
+	}
+	
+	
 
 }
