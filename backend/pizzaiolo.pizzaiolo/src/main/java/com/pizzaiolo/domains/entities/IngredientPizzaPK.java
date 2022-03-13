@@ -20,6 +20,13 @@ public class IngredientPizzaPK implements Serializable {
 
 	public IngredientPizzaPK() {
 	}
+	
+	public IngredientPizzaPK(int idPizza, int idIngredient) {
+		super();
+		this.idPizza = idPizza;
+		this.idIngredient = idIngredient;
+	}
+	
 	public int getIdPizza() {
 		return this.idPizza;
 	}
