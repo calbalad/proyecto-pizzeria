@@ -3,9 +3,6 @@ package com.pizzaiolo.domains.entities;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import kk.domain.entities.Order;
-import kk.domain.entities.Pizza;
-
 import java.math.BigDecimal;
 
 
@@ -14,10 +11,14 @@ import java.math.BigDecimal;
  * 
  */
 @Entity
+@Table(name="pizza_order")
 @NamedQuery(name="PizzaOrder.findAll", query="SELECT p FROM PizzaOrder p")
 public class PizzaOrder implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@EmbeddedId
+	private PizzaOrderPK id;
+	
 	private BigDecimal amount;
 
 	private int quantity;
@@ -25,16 +26,31 @@ public class PizzaOrder implements Serializable {
 	//bi-directional many-to-one association to Order
 	@ManyToOne
 	@JoinColumn(name="idOrder")
-	private Order idOrder;
+	private Order order;
 
 	//bi-directional many-to-one association to Pizza
 	@ManyToOne
 	@JoinColumn(name="idPizza")
-	private Pizza idPizza;
+	private Pizza pizza;
 
 	public PizzaOrder() {
 	}
-
+	
+	public PizzaOrder(Pizza pizza, Order order) {
+		super();
+		this.pizza = pizza;
+		this.order = order;
+		this.id = new PizzaOrderPK(pizza.getIdPizza(), order.getIdOrder());
+	}
+	
+	public PizzaOrderPK getId() {
+		return this.id;
+	}
+	
+	public void setId(PizzaOrderPK id) {
+		this.id = id;
+	}
+	
 	public BigDecimal getAmount() {
 		return this.amount;
 	}
@@ -51,20 +67,20 @@ public class PizzaOrder implements Serializable {
 		this.quantity = quantity;
 	}
 
-	public Order getIdOrder() {
-		return this.idOrder;
+	public Order getOrder() {
+		return this.order;
 	}
 
-	public void setIdOrder(Order idOrder) {
-		this.idOrder = idOrder;
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 
-	public Pizza getIdPizza() {
-		return this.idPizza;
+	public Pizza getPizza() {
+		return this.pizza;
 	}
 
-	public void setIdPizza(Pizza idPizza) {
-		this.idPizza = idPizza;
+	public void setPizza(Pizza pizza) {
+		this.pizza = pizza;
 	}
 
 }
