@@ -3,7 +3,7 @@ package com.pizzaiolo.domains.entities;
 import java.io.Serializable;
 import javax.persistence.*;
 
-
+import com.pizzaiolo.domains.core.entities.EntityBase;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name="Order.findAll", query="SELECT o FROM Order o")
-public class Order implements Serializable {
+public class Order extends EntityBase<Order> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
