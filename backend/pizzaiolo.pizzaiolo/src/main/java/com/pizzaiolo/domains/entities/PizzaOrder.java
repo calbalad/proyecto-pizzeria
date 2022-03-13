@@ -4,9 +4,11 @@ import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 
 /**
@@ -28,7 +30,7 @@ public class PizzaOrder implements Serializable {
 	private BigDecimal amount;
 	
 	@NotNull
-	@DecimalMin(value = "0", inclusive = false)
+	@Min(1)
 	private int quantity;
 
 	//bi-directional many-to-one association to Order
@@ -91,4 +93,22 @@ public class PizzaOrder implements Serializable {
 		this.pizza = pizza;
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PizzaOrder other = (PizzaOrder) obj;
+		return Objects.equals(id, other.id);
+	}
+	
+	
 }
