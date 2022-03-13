@@ -13,6 +13,7 @@ import org.hibernate.annotations.GenerationTime;
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pizzaiolo.domains.core.entities.EntityBase;
 
 import java.math.BigDecimal;
@@ -122,6 +123,7 @@ public class Order extends EntityBase<Order> implements Serializable {
 
 	//bi-directional many-to-one association to PizzaOrder
 	@OneToMany(mappedBy="order")
+	@JsonIgnore
 	private List<PizzaOrder> pizzaOrders = new ArrayList<>();
 
 	public Order() {
@@ -133,17 +135,25 @@ public class Order extends EntityBase<Order> implements Serializable {
 		this.idOrder = idOrder;
 	}
 	
-	public Order(int idOrder, @Length(min = 2, max = 500) @NotBlank String address,
+
+	
+	public Order(int idOrder, @NotBlank @Length(min = 2, max = 120) String idUser,
+			@Length(min = 2, max = 500) @NotBlank String address,
 			@NotNull @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 8, fraction = 2) BigDecimal amount,
-			@NotBlank @Length(min = 2, max = 120) String idUser, @NotNull @PastOrPresent Date orderDate,
-			@NotNull OrderStatus orderStatus) {
+			@NotNull OrderStatus orderStatus, @NotNull @PastOrPresent Date orderDate,
+			@Length(min = 2, max = 120) String idChef, @Length(min = 2, max = 120) String idCourier,
+			@PastOrPresent Date deliveryDate, String comment) {
 		super();
 		this.idOrder = idOrder;
+		this.idUser = idUser;
 		this.address = address;
 		this.amount = amount;
-		this.idUser = idUser;
-		this.orderDate = orderDate;
 		this.orderStatus = orderStatus;
+		this.orderDate = orderDate;
+		this.idChef = idChef;
+		this.idCourier = idCourier;
+		this.deliveryDate = deliveryDate;
+		this.comment = comment;
 	}
 
 
