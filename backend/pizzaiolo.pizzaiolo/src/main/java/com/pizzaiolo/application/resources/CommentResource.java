@@ -35,16 +35,16 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.http.HttpStatus;
 
 @RestController
-@RequestMapping("/api/comentarios")
+@RequestMapping("/api/v1/comentarios")
 //Todo: cambiar documentacion
-@Api(value = "/comentarios", description = "Mantenimiento de películas", produces = "application/json, application/xml", consumes="application/json, application/xml")
+@Api(value = "/comentarios", description = "Mantenimiento de comentarios", produces = "application/json, application/xml", consumes="application/json, application/xml")
 public class CommentResource {
 
 	@Autowired
 	private CommentService srv;
 
 	@GetMapping
-	@ApiOperation(value = "Listado de las películas")
+	@ApiOperation(value = "Listado de los comentarios")
 	public List<CommentShortDTO> getAll() {
 		return srv.getByProjection(CommentShortDTO.class);
 	}
@@ -63,13 +63,13 @@ public class CommentResource {
 	
 	@PostMapping
 	@Transactional
-	@ApiOperation(value = "Añadir una nueva película")
+	@ApiOperation(value = "Añadir una nuevo comentario")
 	
 //	todo implementar swagger
 //	@ApiResponses({
-//		@ApiResponse(code = 201, message = "Película añadida"),
+//		@ApiResponse(code = 201, message = "Comentario añadido"),
 //		@ApiResponse(code = 400, message = "Error al validar los datos o clave duplicada"),
-//		@ApiResponse(code = 404, message = "Película no encontrada")
+//		@ApiResponse(code = 404, message = "Comentario no encontrado")
 //	})
 	public ResponseEntity<Object> create(@Valid @RequestBody CommentEditDTO item)
 			throws InvalidDataException, DuplicateKeyException, NotFoundException {
@@ -86,13 +86,13 @@ public class CommentResource {
 	}
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@ApiOperation(value = "Borrar una película existente")
+	@ApiOperation(value = "Borrar un comentario existente")
 //	todo implementar swagger y cambiar documentación
 //	@ApiResponses({
-//		@ApiResponse(code = 204, message = "Película borrada"),
-//		@ApiResponse(code = 404, message = "Película no encontrada")
+//		@ApiResponse(code = 204, message = "Comentario borrado"),
+//		@ApiResponse(code = 404, message = "Comentario no encontrado")
 //	})
-	public void delete(@ApiParam(value = "Identificador de la película") @PathVariable int id) {
+	public void delete(@ApiParam(value = "Identificador del comentario") @PathVariable int id) {
 		srv.deleteById(id);
 	}
 	
