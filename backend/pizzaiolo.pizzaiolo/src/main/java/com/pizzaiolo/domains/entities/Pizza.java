@@ -231,20 +231,6 @@ public class Pizza extends EntityBase<Pizza> implements Serializable {
 		this.pizzaOrders = pizzaOrders;
 	}
 
-	public PizzaOrder addPizzaOrder(PizzaOrder pizzaOrder) {
-		getPizzaOrders().add(pizzaOrder);
-		pizzaOrder.setIdPizza(this);
-
-		return pizzaOrder;
-	}
-
-	public PizzaOrder removePizzaOrder(PizzaOrder pizzaOrder) {
-		getPizzaOrders().remove(pizzaOrder);
-		pizzaOrder.setIdPizza(null);
-
-		return pizzaOrder;
-	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(idPizza);
