@@ -27,7 +27,7 @@ import java.util.Objects;
  * 
  */
 @Entity
-@Table(name="orders")
+@Table(name="orders", schema = "pizzeriadb")
 @NamedQuery(name="Order.findAll", query="SELECT o FROM Order o")
 public class Order extends EntityBase<Order> implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -70,55 +70,55 @@ public class Order extends EntityBase<Order> implements Serializable {
 	private Date orderDate;
 
 	@NotNull
-	@Convert(converter = OrderStatusConverter.class)
-	private String orderStatus;
+	@Convert(converter = StatusConverter.class)
+	private Status orderStatus;
 	
-	public static enum OrderStatus {
-	    PEDIDO_SOLICITADO("Solicitado"),
-	    PEDIDO_ELABORANDOSE("Elaborandose"),
-	    PEDIDO_PREPARADO("Preparado"),
-	    PEDIDO_ENVIADO("Enviado"),
-	    PEDIDO_RECIBIDO("Recibido"),
-	    PEDIDO_CANCELADO("Cancelado");
+	public static enum Status {
+	    PEDIDO_SOLICITADO("solicitado"),
+	    PEDIDO_ELABORANDOSE("elaborandose"),
+	    PEDIDO_PREPARADO("preparado"),
+	    PEDIDO_ENVIADO("enviado"),
+	    PEDIDO_RECIBIDO("recibido"),
+	    PEDIDO_CANCELADO("cancelado");
 
 	    String value;
 	    
-	    OrderStatus(String value) {
+	    Status(String value) {
 	        this.value = value;
 	    }
 
 	    public String getValue() {
 	        return value;
 	    }
-		public static OrderStatus getEnum(String value) {
+		public static Status getEnum(String value) {
 			switch (value) {
-			case "Solicitado": return OrderStatus.PEDIDO_SOLICITADO;
-			case "Elaborandose": return OrderStatus.PEDIDO_ELABORANDOSE;
-			case "Preparado": return OrderStatus.PEDIDO_PREPARADO;
-			case "Enviado": return OrderStatus.PEDIDO_ENVIADO;
-			case "Recibido": return OrderStatus.PEDIDO_RECIBIDO;
-			case "Cancelado": return OrderStatus.PEDIDO_CANCELADO;
+			case "solicitado": return Status.PEDIDO_SOLICITADO;
+			case "elaborandose": return Status.PEDIDO_ELABORANDOSE;
+			case "preparado": return Status.PEDIDO_PREPARADO;
+			case "enviado": return Status.PEDIDO_ENVIADO;
+			case "recibido": return Status.PEDIDO_RECIBIDO;
+			case "cancelado": return Status.PEDIDO_CANCELADO;
 			default:
 				throw new IllegalArgumentException("Unexpected value: " + value);
 			}
 		}
 	}
 	@Converter
-	private static class OrderStatusConverter implements AttributeConverter<OrderStatus, String> {
+	private static class StatusConverter implements AttributeConverter<Status, String> {
 	    @Override
-	    public String convertToDatabaseColumn(OrderStatus orderStatus) {
+	    public String convertToDatabaseColumn(Status orderStatus) {
 	        if (orderStatus == null) {
 	            return null;
 	        }
 	        return orderStatus.getValue();
 	    }
 	    @Override
-	    public OrderStatus convertToEntityAttribute(String value) {
+	    public Status convertToEntityAttribute(String value) {
 	        if (value == null) {
 	            return null;
 	        }
 
-	        return OrderStatus.getEnum(value);
+	        return Status.getEnum(value);
 	    }
 	}
 	
@@ -139,7 +139,7 @@ public class Order extends EntityBase<Order> implements Serializable {
 	public Order(int idOrder, @NotBlank @Length(min = 2, max = 120) String idUser,
 			@Length(min = 2, max = 500) @NotBlank String address,
 			@NotNull @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 8, fraction = 2) BigDecimal amount,
-			@NotNull String orderStat, @NotNull @PastOrPresent Date orderDate,
+			@NotNull Status orderStat, @NotNull @PastOrPresent Date orderDate,
 			@Length(min = 2, max = 120) String idChef, @Length(min = 2, max = 120) String idCourier,
 			@PastOrPresent Date deliveryDate, String comment) {
 		super();
@@ -228,11 +228,11 @@ public class Order extends EntityBase<Order> implements Serializable {
 		this.orderDate = orderDate;
 	}
 
-	public String getOrderStatus() {
+	public Status getOrderStatus() {
 		return this.orderStatus;
 	}
 
-	public void setOrderStatus(String orderStatus) {
+	public void setOrderStatus(Status orderStatus) {
 		this.orderStatus = orderStatus;
 	}
 
