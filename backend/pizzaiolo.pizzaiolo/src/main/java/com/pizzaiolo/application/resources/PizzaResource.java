@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.pizzaiolo.application.dtos.PizzaDetailsDTO;
 import com.pizzaiolo.application.dtos.PizzaShortDTO;
 import com.pizzaiolo.domains.contracts.services.PizzaService;
 import com.pizzaiolo.exceptions.DuplicateKeyException;
@@ -53,12 +54,14 @@ public class PizzaResource {
 		return srv.getByProjection(page, PizzaShortDTO.class);
 	}
 	
-	/*@GetMapping(path = "/{id}")
+	@GetMapping(path = "/{id}")
+	@ApiOperation(value = "Recupera una pizza")
 	public PizzaDetailsDTO getOneDetails(@PathVariable int id, @RequestParam(required = false, defaultValue = "details") String mode)
 			throws NotFoundException {
 			return PizzaDetailsDTO.from(srv.getOne(id));
 	}
 	
+	/*
 	@PostMapping
 	@Transactional
 	@ApiOperation(value = "Añadir una nueva pizza")
