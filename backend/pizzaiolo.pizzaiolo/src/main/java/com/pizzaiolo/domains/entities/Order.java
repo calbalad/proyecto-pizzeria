@@ -139,7 +139,6 @@ public class Order extends EntityBase<Order> implements Serializable {
 	public Order(int idOrder, @NotBlank @Length(min = 2, max = 120) String idUser,
 			@Length(min = 2, max = 500) @NotBlank String address,
 			@NotNull @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 8, fraction = 2) BigDecimal amount,
-			@NotNull Status orderStat, @NotNull @PastOrPresent Date orderDate,
 			@Length(min = 2, max = 120) String idChef, @Length(min = 2, max = 120) String idCourier,
 			@PastOrPresent Date deliveryDate, String comment) {
 		super();
@@ -147,8 +146,8 @@ public class Order extends EntityBase<Order> implements Serializable {
 		this.idUser = idUser;
 		this.address = address;
 		this.amount = amount;
-		this.orderStatus = orderStat;
-		this.orderDate = orderDate;
+		this.setOrderStatus(Status.PEDIDO_SOLICITADO);
+		this.orderDate = new Date();
 		this.idChef = idChef;
 		this.idCourier = idCourier;
 		this.deliveryDate = deliveryDate;
