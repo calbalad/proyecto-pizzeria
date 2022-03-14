@@ -10,6 +10,8 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 import com.pizzaiolo.domains.core.entities.EntityBase;
+import com.pizzaiolo.domains.entities.Ingredient.Type;
+import com.pizzaiolo.domains.entities.Ingredient.TypeConverter;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -17,13 +19,15 @@ import java.util.Objects;
 
 
 /**
- * The persistent class for the Ingredient database table.
+ * The persistent class for the ingredients database table.
  * 
  */
 @Entity
+@Table(name="ingredients")
 @NamedQuery(name="Ingredient.findAll", query="SELECT i FROM Ingredient i")
 public class Ingredient extends EntityBase<Ingredient> implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
 	public static enum Type {
 	    INGREDIENTE_BASE("Base"),
 	    INGREDIENTE_SALSA("Salsa"),
@@ -49,7 +53,7 @@ public class Ingredient extends EntityBase<Ingredient> implements Serializable {
 		}
 	}
 	@Converter
-	private static class TypeConverter implements AttributeConverter<Type, String> {
+	static class TypeConverter implements AttributeConverter<Type, String> {
 	    @Override
 	    public String convertToDatabaseColumn(Type type) {
 	        if (type == null) {
@@ -66,18 +70,18 @@ public class Ingredient extends EntityBase<Ingredient> implements Serializable {
 	        return Type.getEnum(value);
 	    }
 	}
-
+	
 	@Id
 	@NotNull
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
-
+	
 	@NotBlank
 	@Length(min = 1, max = 45)
 	@Column(name="name", unique = true)
 	private String name;
-
+	
 	@NotNull
 	@DecimalMin(value = "0.0", inclusive = false)
 	@Digits(integer = 8, fraction = 2)
@@ -88,20 +92,18 @@ public class Ingredient extends EntityBase<Ingredient> implements Serializable {
 	@Convert(converter = TypeConverter.class)
 	private Type type;
 
-	//bi-directional many-to-one association to IngredientPizza
+	//bi-directional many-to-one association to Ingredientpizza
 	@OneToMany(mappedBy="ingredient")
-	private List<IngredientPizza> ingredientPizzas;
+	private List<Ingredientpizza> ingredientpizzas;
 
 	//bi-directional many-to-one association to Pizza
-	@OneToMany(mappedBy="idBase")
-	private List<Pizza> basePizza;
+	@OneToMany(mappedBy="base")
+	private List<Pizza> bases;
 
 	//bi-directional many-to-one association to Pizza
-	@OneToMany(mappedBy="idSauce")
-	private List<Pizza> salsaPizza;
+	@OneToMany(mappedBy="sauce")
+	private List<Pizza> sauces;
 
-	
-	
 	public Ingredient() {
 	}
 	
@@ -119,9 +121,7 @@ public class Ingredient extends EntityBase<Ingredient> implements Serializable {
 		this.price = price;
 		this.type = type;
 	}
-
-
-
+	
 	public int getId() {
 		return this.id;
 	}
@@ -154,72 +154,71 @@ public class Ingredient extends EntityBase<Ingredient> implements Serializable {
 		this.type = type;
 	}
 
-	public List<IngredientPizza> getIngredientPizzas() {
-		return this.ingredientPizzas;
+	public List<Ingredientpizza> getIngredientpizzas() {
+		return this.ingredientpizzas;
 	}
 
-	public void setIngredientPizzas(List<IngredientPizza> ingredientPizzas) {
-		this.ingredientPizzas = ingredientPizzas;
+	public void setIngredientpizzas(List<Ingredientpizza> ingredientpizzas) {
+		this.ingredientpizzas = ingredientpizzas;
 	}
 
-	public IngredientPizza addIngredientPizza(IngredientPizza ingredientPizza) {
-		getIngredientPizzas().add(ingredientPizza);
-		ingredientPizza.setIngredient(this);
+	public Ingredientpizza addIngredientpizza(Ingredientpizza ingredientpizza) {
+		getIngredientpizzas().add(ingredientpizza);
+		ingredientpizza.setIngredient(this);
 
-		return ingredientPizza;
+		return ingredientpizza;
 	}
 
-	public IngredientPizza removeIngredientPizza(IngredientPizza ingredientPizza) {
-		getIngredientPizzas().remove(ingredientPizza);
-		ingredientPizza.setIngredient(null);
+	public Ingredientpizza removeIngredientpizza(Ingredientpizza ingredientpizza) {
+		getIngredientpizzas().remove(ingredientpizza);
+		ingredientpizza.setIngredient(null);
 
-		return ingredientPizza;
+		return ingredientpizza;
 	}
 
-	public List<Pizza> getBasePizza() {
-		return this.basePizza;
+	public List<Pizza> getBases() {
+		return this.bases;
 	}
 
-	public void setBasePizza(List<Pizza> pizzas) {
-		this.basePizza = pizzas;
+	public void setBases(List<Pizza> bases) {
+		this.bases = bases;
 	}
 
-	public Pizza addBasePizza(Pizza pizza) {
-		getBasePizza().add(pizza);
-		pizza.setIdBase(this);
+	public Pizza addBas(Pizza bas) {
+		getBases().add(bas);
+		bas.setBase(this);
 
-		return pizza;
+		return bas;
 	}
 
-	public Pizza removeBasePizza(Pizza pizza) {
-		getBasePizza().remove(pizza);
-		pizza.setIdBase(null);
+	public Pizza removeBas(Pizza bas) {
+		getBases().remove(bas);
+		bas.setBase(null);
 
-		return pizza;
+		return bas;
 	}
 
-	public List<Pizza> getSalsaPizza() {
-		return this.salsaPizza;
+	public List<Pizza> getSauces() {
+		return this.sauces;
 	}
 
-	public void setSalsaPizza(List<Pizza> pizzas) {
-		this.salsaPizza = pizzas;
+	public void setSauces(List<Pizza> sauces) {
+		this.sauces = sauces;
 	}
 
-	public Pizza addSalsaPizza(Pizza pizza) {
-		getSalsaPizza().add(pizza);
-		pizza.setIdSauce(this);
+	public Pizza addSauce(Pizza sauce) {
+		getSauces().add(sauce);
+		sauce.setSauce(this);
 
-		return pizza;
+		return sauce;
 	}
 
-	public Pizza removeSalsaPizza(Pizza pizza) {
-		getSalsaPizza().remove(pizza);
-		pizza.setIdSauce(null);
+	public Pizza removeSauce(Pizza sauce) {
+		getSauces().remove(sauce);
+		sauce.setSauce(null);
 
-		return pizza;
+		return sauce;
 	}
-	
 	
 	@Override
 	public int hashCode() {
@@ -242,4 +241,5 @@ public class Ingredient extends EntityBase<Ingredient> implements Serializable {
 	public String toString() {
 		return "Ingredient [id=" + id + ", name=" + name + ", price=" + price + ", type=" + type + "]";
 	}
+
 }
