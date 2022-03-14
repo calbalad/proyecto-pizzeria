@@ -58,7 +58,7 @@ public class Pizza extends EntityBase<Pizza> implements Serializable {
 
 	@Column(name = "like")
 	@PositiveOrZero
-	private int like = 0;
+	private Integer like = 0;
 
 	@Column(name = "active")
 	@NotNull
