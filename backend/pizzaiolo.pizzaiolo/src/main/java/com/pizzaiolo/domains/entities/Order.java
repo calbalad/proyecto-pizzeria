@@ -13,7 +13,6 @@ import org.hibernate.annotations.GenerationTime;
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pizzaiolo.domains.core.entities.EntityBase;
 
 import java.math.BigDecimal;
@@ -24,21 +23,23 @@ import java.util.Objects;
 
 
 /**
- * The persistent class for the Order database table.
+ * The persistent class for the orders database table.
  * 
  */
 @Entity
+@Table(name="orders")
 @NamedQuery(name="Order.findAll", query="SELECT o FROM Order o")
 public class Order extends EntityBase<Order> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idOrder;
-	
+
 	@Length(min=2, max=500)
 	@NotBlank
 	private String address;
-	
+
 	@NotNull
 	@DecimalMin(value = "0.0", inclusive = false)
 	@Digits(integer = 8, fraction = 2)
@@ -51,22 +52,26 @@ public class Order extends EntityBase<Order> implements Serializable {
 	@PastOrPresent
 	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	private Date deliveryDate;
-	
+
 	@Length(min=2, max=120)
 	private String idChef;
-	
+
 	@Length(min=2, max=120)
 	private String idCourier;
 
 	@NotBlank
 	@Length(min=2, max=120)
 	private String idUser;
-	
+
 	@NotNull
 	@PastOrPresent
 	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	@Generated(value = GenerationTime.INSERT)
 	private Date orderDate;
+
+	@NotNull
+	@Convert(converter = OrderStatusConverter.class)
+	private String orderStatus;
 	
 	public static enum OrderStatus {
 	    PEDIDO_SOLICITADO("Solicitado"),
@@ -117,18 +122,12 @@ public class Order extends EntityBase<Order> implements Serializable {
 	    }
 	}
 	
-	@NotNull
-	@Convert(converter = OrderStatusConverter.class)
-	private OrderStatus orderStatus;
-
-	//bi-directional many-to-one association to PizzaOrder
+	//bi-directional many-to-one association to Pizzaorder
 	@OneToMany(mappedBy="order")
-	@JsonIgnore
-	private List<PizzaOrder> pizzaOrders = new ArrayList<>();
+	private List<Pizzaorder> pizzaorders = new ArrayList<>();
 
 	public Order() {
 	}
-	
 	
 	public Order(int idOrder) {
 		super();
@@ -140,7 +139,7 @@ public class Order extends EntityBase<Order> implements Serializable {
 	public Order(int idOrder, @NotBlank @Length(min = 2, max = 120) String idUser,
 			@Length(min = 2, max = 500) @NotBlank String address,
 			@NotNull @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 8, fraction = 2) BigDecimal amount,
-			@NotNull OrderStatus orderStatus, @NotNull @PastOrPresent Date orderDate,
+			@NotNull String orderStat, @NotNull @PastOrPresent Date orderDate,
 			@Length(min = 2, max = 120) String idChef, @Length(min = 2, max = 120) String idCourier,
 			@PastOrPresent Date deliveryDate, String comment) {
 		super();
@@ -148,7 +147,7 @@ public class Order extends EntityBase<Order> implements Serializable {
 		this.idUser = idUser;
 		this.address = address;
 		this.amount = amount;
-		this.orderStatus = orderStatus;
+		this.orderStatus = orderStat;
 		this.orderDate = orderDate;
 		this.idChef = idChef;
 		this.idCourier = idCourier;
@@ -156,7 +155,7 @@ public class Order extends EntityBase<Order> implements Serializable {
 		this.comment = comment;
 	}
 
-
+	
 	public int getIdOrder() {
 		return this.idOrder;
 	}
@@ -229,37 +228,36 @@ public class Order extends EntityBase<Order> implements Serializable {
 		this.orderDate = orderDate;
 	}
 
-	public OrderStatus getOrderStatus() {
+	public String getOrderStatus() {
 		return this.orderStatus;
 	}
 
-	public void setOrderStatus(OrderStatus orderStatus) {
+	public void setOrderStatus(String orderStatus) {
 		this.orderStatus = orderStatus;
 	}
 
-	public List<PizzaOrder> getPizzaOrders() {
-		return this.pizzaOrders;
+	public List<Pizzaorder> getPizzaorders() {
+		return this.pizzaorders;
 	}
 
-	public void setPizzaOrders(List<PizzaOrder> pizzaOrders) {
-		this.pizzaOrders = pizzaOrders;
+	public void setPizzaorders(List<Pizzaorder> pizzaorders) {
+		this.pizzaorders = pizzaorders;
 	}
 
-	public PizzaOrder addPizzaOrder(PizzaOrder pizzaOrder) {
-		getPizzaOrders().add(pizzaOrder);
-		pizzaOrder.setOrder(this);
+	public Pizzaorder addPizzaorder(Pizzaorder pizzaorder) {
+		getPizzaorders().add(pizzaorder);
+		pizzaorder.setOrder(this);
 
-		return pizzaOrder;
+		return pizzaorder;
 	}
 
-	public PizzaOrder removePizzaOrder(PizzaOrder pizzaOrder) {
-		getPizzaOrders().remove(pizzaOrder);
-		pizzaOrder.setOrder(null);
+	public Pizzaorder removePizzaorder(Pizzaorder pizzaorder) {
+		getPizzaorders().remove(pizzaorder);
+		pizzaorder.setOrder(null);
 
-		return pizzaOrder;
+		return pizzaorder;
 	}
-
-
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(idOrder);
@@ -284,5 +282,5 @@ public class Order extends EntityBase<Order> implements Serializable {
 		return "Order [idOrder=" + idOrder + ", address=" + address + ", orderStatus=" + orderStatus + "]";
 	}
 	
-	
+
 }
