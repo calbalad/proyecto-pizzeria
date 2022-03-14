@@ -27,9 +27,9 @@ public class Ingredient extends EntityBase<Ingredient> implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	public static enum Type {
-	    INGREDIENTE_BASE("Base"),
-	    INGREDIENTE_SALSA("Salsa"),
-	    INGREDIENTE_OTROS("Otros");
+	    INGREDIENTE_BASE("base"),
+	    INGREDIENTE_SALSA("salsa"),
+	    INGREDIENTE_OTROS("otros");
 
 	    String value;
 	    
@@ -42,9 +42,9 @@ public class Ingredient extends EntityBase<Ingredient> implements Serializable {
 	    }
 		public static Type getEnum(String value) {
 			switch (value) {
-			case "Base": return Type.INGREDIENTE_BASE;
-			case "Salsa": return Type.INGREDIENTE_SALSA;
-			case "Otros": return Type.INGREDIENTE_OTROS;
+			case "base": return Type.INGREDIENTE_BASE;
+			case "salsa": return Type.INGREDIENTE_SALSA;
+			case "otros": return Type.INGREDIENTE_OTROS;
 			default:
 				throw new IllegalArgumentException("Unexpected value: " + value);
 			}
