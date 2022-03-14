@@ -7,73 +7,78 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
+import com.pizzaiolo.domains.core.entities.EntityBase;
+
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-
 
 /**
  * The persistent class for the pizzas database table.
  * 
  */
 @Entity
-@Table(name="pizzas")
-@NamedQuery(name="Pizza.findAll", query="SELECT p FROM Pizza p")
-public class Pizza extends com.pizzaiolo.domains.core.entities.EntityBase implements Serializable {
+@Table(name = "pizzas")
+@NamedQuery(name = "Pizza.findAll", query = "SELECT p FROM Pizza p")
+public class Pizza extends EntityBase<Pizza> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@NotNull
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="idPizza")
+	@Column(name = "idPizza")
 	private int idPizza;
 
-	@Column(name="active")
-	@NotNull
-	private boolean active = true;
+	// bi-directional many-to-one association to Ingredient
+	@ManyToOne
+	@JoinColumn(name = "idBase")
+	private Ingredient base;
 
-	@Column(name="amount")
+	// bi-directional many-to-one association to Ingredient
+	@ManyToOne
+	@JoinColumn(name = "idSauce")
+	private Ingredient sauce;
+
+	@Lob
+	@Column(name = "description")
+	private String description;
+
+	@Column(name = "netPrice")
+	@NotNull
+	@DecimalMin(value = "0.0", inclusive = false)
+	@Digits(integer = 8, fraction = 2)
+	private BigDecimal netPrice;
+
+	@Column(name = "amount")
 	@NotNull
 	@DecimalMin(value = "0.0", inclusive = false)
 	@Digits(integer = 8, fraction = 2)
 	private BigDecimal amount;
 
-	@Lob
-	@Column(name="description")
-	private String description;
+	@Column(name = "like")
+	@PositiveOrZero
+	private int like = 0;
+
+	@Column(name = "active")
+	@NotNull
+	private boolean active = true;
 
 	@Lob
-	@Column(name="image")
+	@Column(name = "image")
 	private byte[] image;
 
-	@Column(name="like")
-	@PositiveOrZero
-	private int like;
-
-	private BigDecimal netPrice;
-
-	//bi-directional many-to-one association to Comment
-	@OneToMany(mappedBy="pizza")
+	// bi-directional many-to-one association to Comment
+	@OneToMany(mappedBy = "pizza")
 	private List<Comment> comments;
 
-	//bi-directional many-to-one association to Ingredientpizza
-	@OneToMany(mappedBy="pizza")
+	// bi-directional many-to-one association to Ingredientpizza
+	@OneToMany(mappedBy = "pizza")
 	private List<Ingredientpizza> ingredientpizzas;
 
-	//bi-directional many-to-one association to Pizzaorder
-	@OneToMany(mappedBy="pizza")
+	// bi-directional many-to-one association to Pizzaorder
+	@OneToMany(mappedBy = "pizza")
 	private List<Pizzaorder> pizzaorders;
-
-	//bi-directional many-to-one association to Ingredient
-	@ManyToOne
-	@JoinColumn(name="idBase")
-	private Ingredient base;
-
-	//bi-directional many-to-one association to Ingredient
-	@ManyToOne
-	@JoinColumn(name="idSauce")
-	private Ingredient sauce;
 
 	public Pizza() {
 	}
@@ -207,20 +212,6 @@ public class Pizza extends com.pizzaiolo.domains.core.entities.EntityBase implem
 		this.pizzaorders = pizzaorders;
 	}
 
-	public Pizzaorder addPizzaorder(Pizzaorder pizzaorder) {
-		getPizzaorders().add(pizzaorder);
-		pizzaorder.setPizza(this);
-
-		return pizzaorder;
-	}
-
-	public Pizzaorder removePizzaorder(Pizzaorder pizzaorder) {
-		getPizzaorders().remove(pizzaorder);
-		pizzaorder.setPizza(null);
-
-		return pizzaorder;
-	}
-
 	public Ingredient getBase() {
 		return this.base;
 	}
@@ -236,6 +227,7 @@ public class Pizza extends com.pizzaiolo.domains.core.entities.EntityBase implem
 	public void setSauce(Ingredient sauce) {
 		this.sauce = sauce;
 	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(idPizza);
@@ -255,9 +247,9 @@ public class Pizza extends com.pizzaiolo.domains.core.entities.EntityBase implem
 
 	@Override
 	public String toString() {
-		return "Pizza [idPizza=" + idPizza + ", idBase=" + base + ", idSauce=" + sauce + ", description="
-				+ description + ", netPrice=" + netPrice + ", amount=" + amount + ", like=" + like + ", active="
-				+ active + ", image=" + Arrays.toString(image) + "]";
+		return "Pizza [idPizza=" + idPizza + ", idBase=" + base + ", idSauce=" + sauce + ", description=" + description
+				+ ", netPrice=" + netPrice + ", amount=" + amount + ", like=" + like + ", active=" + active + ", image="
+				+ Arrays.toString(image) + "]";
 	}
-	
+
 }

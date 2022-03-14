@@ -10,8 +10,6 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 import com.pizzaiolo.domains.core.entities.EntityBase;
-import com.pizzaiolo.domains.entities.Ingredient.Type;
-import com.pizzaiolo.domains.entities.Ingredient.TypeConverter;
 
 import java.math.BigDecimal;
 import java.util.List;
