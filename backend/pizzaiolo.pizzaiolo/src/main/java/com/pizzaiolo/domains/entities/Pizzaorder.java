@@ -7,28 +7,30 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import com.pizzaiolo.domains.core.entities.EntityBase;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 
 
 /**
- * The persistent class for the PizzaOrder database table.
+ * The persistent class for the pizzaorders database table.
  * 
  */
 @Entity
-@Table(name="pizza_order")
-@NamedQuery(name="PizzaOrder.findAll", query="SELECT p FROM PizzaOrder p")
-public class PizzaOrder implements Serializable {
+@Table(name="pizzaorders")
+@NamedQuery(name="Pizzaorder.findAll", query="SELECT p FROM Pizzaorder p")
+public class Pizzaorder extends EntityBase<Pizzaorder> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
-	private PizzaOrderPK id;
-	
+	private PizzaorderPK id;
+
 	@NotNull
 	@DecimalMin(value = "0.0", inclusive = false)
 	@Digits(integer = 8, fraction = 2)
 	private BigDecimal amount;
-	
+
 	@NotNull
 	@Min(1)
 	private int quantity;
@@ -43,24 +45,23 @@ public class PizzaOrder implements Serializable {
 	@JoinColumn(name="idPizza", insertable=false, updatable=false)
 	private Pizza pizza;
 
-	public PizzaOrder() {
+	public Pizzaorder() {
 	}
-	
-	public PizzaOrder(Pizza pizza, Order order) {
+
+	public Pizzaorder(Pizza pizza, Order order) {
 		super();
 		this.pizza = pizza;
 		this.order = order;
-		this.id = new PizzaOrderPK(pizza.getIdPizza(), order.getIdOrder());
+		this.id = new PizzaorderPK(pizza.getIdPizza(), order.getIdOrder());
 	}
-	
-	public PizzaOrderPK getId() {
+	public PizzaorderPK getId() {
 		return this.id;
 	}
-	
-	public void setId(PizzaOrderPK id) {
+
+	public void setId(PizzaorderPK id) {
 		this.id = id;
 	}
-	
+
 	public BigDecimal getAmount() {
 		return this.amount;
 	}
@@ -92,7 +93,6 @@ public class PizzaOrder implements Serializable {
 	public void setPizza(Pizza pizza) {
 		this.pizza = pizza;
 	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -106,9 +106,7 @@ public class PizzaOrder implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PizzaOrder other = (PizzaOrder) obj;
+		Pizzaorder other = (Pizzaorder) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
 }
