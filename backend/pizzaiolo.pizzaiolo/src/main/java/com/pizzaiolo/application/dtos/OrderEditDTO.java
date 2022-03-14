@@ -35,13 +35,13 @@ public class OrderEditDTO {
 				source.getIdUser(),
 				source.getAddress(),
 				source.getAmount(),
-				source.getOrderStatus().getValue(),
+				source.getOrderStatus(),
 				source.getOrderDate(),
 				source.getIdChef() == null ? null : source.getIdChef(),
 				source.getIdCourier() == null ? null : source.getIdCourier(),
 				source.getDeliveryDate() == null ? null : source.getDeliveryDate(),
 				source.getComment() == null ? null : source.getComment(),
-				source.getPizzaOrders().stream().map(item -> item.getPizza().getIdPizza()).toList()
+				source.getPizzaorders().stream().map(item -> item.getPizza().getIdPizza()).toList()
 						);
 	}
 
@@ -51,8 +51,8 @@ public class OrderEditDTO {
 				source.getIdUser(),
 				source.getAddress(),
 				source.getAmount(),
-				Order.OrderStatus.getEnum(source.getOrderStatus()),
-				new Date(),
+				source.getOrderStatus(),
+				source.getOrderDate(),
 				source.getIdChef(),
 				source.getIdCourier(),
 				source.getDeliveryDate(),
