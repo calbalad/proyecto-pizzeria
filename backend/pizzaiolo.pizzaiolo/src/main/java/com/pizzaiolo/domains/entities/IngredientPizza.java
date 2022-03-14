@@ -22,12 +22,12 @@ public class IngredientPizza extends EntityBase<IngredientPizza> implements Seri
 
 	// bi-directional many-to-one association to Pizza
 	@ManyToOne
-	@JoinColumn(name = "idPizza")
+	@JoinColumn(name = "idPizza", insertable = false, updatable = false)
 	private Pizza pizza;
 
 	// bi-directional many-to-one association to Ingredient
 	@ManyToOne
-	@JoinColumn(name = "idIngredient")
+	@JoinColumn(name = "idIngredient", insertable = false, updatable = false)
 	private Ingredient ingredient;
 
 	@Column(name="quantity")
