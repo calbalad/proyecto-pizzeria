@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pizzaiolo.domains.entities.Order;
+import com.pizzaiolo.domains.entities.Order.Status;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Value;
@@ -19,8 +20,8 @@ public class OrderEditDTO {
 	private String idUser;
 	private String address;
 	private BigDecimal amount;
-	@ApiModelProperty(value = "Estados de pedido.", allowableValues = "Solicitado,Elaborandose,Preparado,Enviado,Recibido,Cancelado")
-	private String orderStatus;
+	@ApiModelProperty(value = "Estados de pedido.", allowableValues = "solicitado,elaborandose,preparado,enviado,recibido,cancelado")
+	private Status orderStatus;
 	private Date orderDate;
 	private String idChef;
 	private String idCourier;
@@ -51,8 +52,6 @@ public class OrderEditDTO {
 				source.getIdUser(),
 				source.getAddress(),
 				source.getAmount(),
-				source.getOrderStatus(),
-				source.getOrderDate(),
 				source.getIdChef(),
 				source.getIdCourier(),
 				source.getDeliveryDate(),
