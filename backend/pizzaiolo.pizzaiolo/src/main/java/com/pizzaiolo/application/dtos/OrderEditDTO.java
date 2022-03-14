@@ -55,7 +55,8 @@ public class OrderEditDTO {
 				source.getIdChef(),
 				source.getIdCourier(),
 				source.getDeliveryDate(),
-				source.getComment()
+				source.getComment(),
+				source.getOrderDate()
 				);
 	}
 	
