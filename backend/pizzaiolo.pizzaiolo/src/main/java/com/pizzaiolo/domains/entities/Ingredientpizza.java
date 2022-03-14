@@ -8,37 +8,36 @@ import javax.validation.constraints.Positive;
 
 import com.pizzaiolo.domains.core.entities.EntityBase;
 
-
 /**
  * The persistent class for the ingredientpizzas database table.
  * 
  */
 @Entity
-@Table(name="ingredientpizzas")
-@NamedQuery(name="Ingredientpizza.findAll", query="SELECT i FROM Ingredientpizza i")
+@Table(name = "ingredientpizzas")
+@NamedQuery(name = "Ingredientpizza.findAll", query = "SELECT i FROM Ingredientpizza i")
 public class Ingredientpizza extends EntityBase<Ingredientpizza> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
 	private IngredientpizzaPK id;
 
-	@Column(name="quantity")
+	// bi-directional many-to-one association to Pizza
+	@ManyToOne
+	@JoinColumn(name = "idPizza", insertable = false, updatable = false)
+	private Pizza pizza;
+
+	// bi-directional many-to-one association to Ingredient
+	@ManyToOne
+	@JoinColumn(name = "idIngredient", insertable = false, updatable = false)
+	private Ingredient ingredient;
+
+	@Column(name = "quantity")
 	@Positive
 	private int quantity = 1;
 
-	//bi-directional many-to-one association to Ingredient
-	@ManyToOne
-	@JoinColumn(name="idIngredient", insertable = false, updatable = false)
-	private Ingredient ingredient;
-
-	//bi-directional many-to-one association to Pizza
-	@ManyToOne
-	@JoinColumn(name="idPizza", insertable = false, updatable = false)
-	private Pizza pizza;
-
 	public Ingredientpizza() {
 	}
-	
+
 	public Ingredientpizza(IngredientpizzaPK id, Pizza pizza, Ingredient ingredient, @Positive int quantity) {
 		super();
 		this.id = new IngredientpizzaPK(pizza.getIdPizza(), ingredient.getId());
@@ -78,6 +77,7 @@ public class Ingredientpizza extends EntityBase<Ingredientpizza> implements Seri
 	public void setPizza(Pizza pizza) {
 		this.pizza = pizza;
 	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
