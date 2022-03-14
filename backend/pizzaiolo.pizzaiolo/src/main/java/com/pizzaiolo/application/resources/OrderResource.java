@@ -40,8 +40,6 @@ import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("/api/v1/pedidos")
-//Todo: cambiar documentacion
-@Api(value = "/pedidos", produces = "application/json, application/xml", consumes="application/json, application/xml")
 public class OrderResource {
 
 	@Autowired
