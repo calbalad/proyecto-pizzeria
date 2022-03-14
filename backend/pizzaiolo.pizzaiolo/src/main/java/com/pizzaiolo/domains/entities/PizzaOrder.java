@@ -2,8 +2,13 @@ package com.pizzaiolo.domains.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 
 /**
@@ -19,18 +24,23 @@ public class PizzaOrder implements Serializable {
 	@EmbeddedId
 	private PizzaOrderPK id;
 	
+	@NotNull
+	@DecimalMin(value = "0.0", inclusive = false)
+	@Digits(integer = 8, fraction = 2)
 	private BigDecimal amount;
-
+	
+	@NotNull
+	@Min(1)
 	private int quantity;
 
 	//bi-directional many-to-one association to Order
 	@ManyToOne
-	@JoinColumn(name="idOrder")
+	@JoinColumn(name="idOrder", insertable=false, updatable=false)
 	private Order order;
 
 	//bi-directional many-to-one association to Pizza
 	@ManyToOne
-	@JoinColumn(name="idPizza")
+	@JoinColumn(name="idPizza", insertable=false, updatable=false)
 	private Pizza pizza;
 
 	public PizzaOrder() {
@@ -83,4 +93,22 @@ public class PizzaOrder implements Serializable {
 		this.pizza = pizza;
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PizzaOrder other = (PizzaOrder) obj;
+		return Objects.equals(id, other.id);
+	}
+	
+	
 }
