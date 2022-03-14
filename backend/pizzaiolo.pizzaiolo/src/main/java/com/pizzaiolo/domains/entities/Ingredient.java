@@ -90,7 +90,7 @@ public class Ingredient extends EntityBase<Ingredient> implements Serializable {
 
 	@NotNull
 	@Convert(converter = TypeConverter.class)
-	private String type;
+	private Type type;
 
 	//bi-directional many-to-one association to Ingredientpizza
 	@OneToMany(mappedBy="ingredient")
@@ -114,7 +114,7 @@ public class Ingredient extends EntityBase<Ingredient> implements Serializable {
 
 	public Ingredient(@NotNull int id, @NotBlank @Length(min = 1, max = 45) String name,
 			@NotNull @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 8, fraction = 2) BigDecimal price,
-			String type) {
+			Type type) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -146,11 +146,11 @@ public class Ingredient extends EntityBase<Ingredient> implements Serializable {
 		this.price = price;
 	}
 
-	public String getType() {
+	public Type getType() {
 		return this.type;
 	}
 
-	public void setType(String type) {
+	public void setType(Type type) {
 		this.type = type;
 	}
 

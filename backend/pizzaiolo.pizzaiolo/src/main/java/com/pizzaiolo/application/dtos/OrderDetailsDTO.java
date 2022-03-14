@@ -33,7 +33,7 @@ public class OrderDetailsDTO {
 				source.getIdUser(),
 				source.getAddress(),
 				source.getAmount(),
-				source.getOrderStatus(),
+				source.getOrderStatus().getValue(),
 				source.getOrderDate(),
 				source.getIdChef() == null ? null : source.getIdChef(),
 				source.getIdCourier() == null ? null : source.getIdCourier(),
