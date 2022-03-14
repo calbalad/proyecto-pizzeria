@@ -18,16 +18,15 @@ import java.util.Objects;
 
 
 /**
- * The persistent class for the Comment database table.
+ * The persistent class for the comments database table.
  * 
  */
 @Entity
-@Table(name="comment")
+@Table(name="comments")
 @NamedQuery(name="Comment.findAll", query="SELECT c FROM Comment c")
 public class Comment extends EntityBase<Comment> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="idComment")
@@ -43,7 +42,7 @@ public class Comment extends EntityBase<Comment> implements Serializable {
 	@Length(max = 150)
 	@JsonProperty("usuario")
 	private String idUser;
-	
+
 	@NotNull
 	@Column(name="rating")
 	@JsonProperty("rating")
@@ -53,7 +52,6 @@ public class Comment extends EntityBase<Comment> implements Serializable {
 	private String text;
 
 	//bi-directional many-to-one association to Pizza
-	
 	@ManyToOne
 	@JoinColumn(name="idPizza")
 	private Pizza pizza;
@@ -136,7 +134,7 @@ public class Comment extends EntityBase<Comment> implements Serializable {
 	public void setPizza(Pizza pizza) {
 		this.pizza = pizza;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(date, idComment, idUser, pizza, rating, text);
@@ -160,6 +158,4 @@ public class Comment extends EntityBase<Comment> implements Serializable {
 		return "Comment [idComment=" + idComment + ", date=" + date + ", idUser=" + idUser + ", rating=" + rating
 				+ ", text=" + text + ", pizza=" + pizza + "]";
 	}
-	
-
 }
