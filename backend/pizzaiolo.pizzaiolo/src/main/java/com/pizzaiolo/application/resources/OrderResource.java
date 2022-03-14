@@ -65,8 +65,7 @@ public class OrderResource {
 	
 	@PostMapping
 	@Transactional
-	@ApiOperation(value = "Añadir una nuevo comentario")
-	
+	@ApiOperation(value = "Añadir una nuevo comentario")	
 //	todo implementar swagger
 //	@ApiResponses({
 //		@ApiResponse(code = 201, message = "Comentario añadido"),
