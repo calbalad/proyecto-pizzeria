@@ -37,7 +37,6 @@ import org.springframework.http.HttpStatus;
 @RestController
 @RequestMapping("/api/v1/comentarios")
 //Todo: cambiar documentacion
-@Api(value = "/comentarios", description = "Mantenimiento de comentarios", produces = "application/json, application/xml", consumes="application/json, application/xml")
 public class CommentResource {
 
 	@Autowired
