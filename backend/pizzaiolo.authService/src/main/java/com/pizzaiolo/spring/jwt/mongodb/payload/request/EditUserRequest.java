@@ -7,7 +7,7 @@ import javax.validation.constraints.*;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
  
-public class SignupRequest {
+public class EditUserRequest {
 	@NotBlank
 	@Size(min = 3, max = 20)
 	private String username;
@@ -27,10 +27,6 @@ public class SignupRequest {
 	
 	@NotBlank
 	private String phone;
-
-	private Set<String> roles;
-
-	private boolean active;
 
 	@NotBlank
 	@Size(min = 6, max = 40)
@@ -66,22 +62,6 @@ public class SignupRequest {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public Set<String> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<String> roles) {
-		this.roles = roles;
-	}
-
-	public boolean isActive() {
-		return active;
-	}
-
-	public void setActive(boolean active) {
-		this.active = active;
 	}
 
 	public String getPassword() {

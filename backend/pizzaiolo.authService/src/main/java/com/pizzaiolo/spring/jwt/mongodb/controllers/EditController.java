@@ -16,13 +16,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pizzaiolo.spring.jwt.mongodb.models.Role;
 import com.pizzaiolo.spring.jwt.mongodb.models.User;
+import com.pizzaiolo.spring.jwt.mongodb.payload.request.EditUserRequest;
 import com.pizzaiolo.spring.jwt.mongodb.payload.request.LoginRequest;
 import com.pizzaiolo.spring.jwt.mongodb.payload.request.SignupRequest;
 import com.pizzaiolo.spring.jwt.mongodb.payload.response.JwtResponse;
@@ -37,7 +40,7 @@ import com.pizzaiolo.spring.jwt.mongodb.models.ERole;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/v1/auth")
-public class AuthController {
+public class EditController {
 	@Autowired
 	AuthenticationManager authenticationManager;
 
@@ -53,19 +56,10 @@ public class AuthController {
 	@Autowired
 	JwtUtils jwtUtils;
 
-	@PostMapping("/signin")
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-
-		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
-
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		String jwt = jwtUtils.generateJwtToken(authentication);
+	@PutMapping("/editUser/{id}")
+	public ResponseEntity<?> editUser(@PathVariable String id ,@Valid @RequestBody EditUserRequest loginRequest) {
+		userRepository.findById(id);
 		
-		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();		
-		List<String> roles = userDetails.getAuthorities().stream()
-				.map(item -> item.getAuthority())
-				.collect(Collectors.toList());
 
 		return ResponseEntity.ok(new JwtResponse(jwt, 
 												 userDetails.getId(), 
@@ -76,6 +70,11 @@ public class AuthController {
 
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+			return ResponseEntity
+					.badRequest()
+					.body(new MessageResponse("Error: Username is already taken!"));
+		}
 
 		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
 			return ResponseEntity

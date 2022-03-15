@@ -32,6 +32,9 @@ public class User {
 	@PastOrPresent
 	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	private Date birthDate;
+	
+	@NotBlank
+	private String phone;
 
 	@NotBlank
 	@Size(max = 50)
@@ -54,13 +57,14 @@ public class User {
   }
 
   public User(@NotBlank @Size(max = 20) String username, @NotBlank @Size(max = 20) String lastName,
-			Date birthDate, @NotBlank @Size(max = 50) @Email String email, @NotBlank @Size(max = 120) String password,
+			Date birthDate, @NotBlank @Size(max = 50) @Email String email,String phone,@NotBlank @Size(max = 120) String password,
 			boolean active) {
 		super();
 		this.username = username;
 		this.lastName = lastName;
 		this.birthDate = birthDate;
 		this.email = email;
+		this.phone = phone;
 		this.password = password;
 		this.active = active;
 	}
@@ -136,4 +140,14 @@ public class User {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	
+	
 }
