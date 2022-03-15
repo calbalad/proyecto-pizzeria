@@ -16,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pizzaiolo.domains.core.entities.EntityBase;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -66,7 +67,7 @@ public class Order extends EntityBase<Order> implements Serializable {
 	@NotNull
 	@PastOrPresent
 	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-	@Generated(value = GenerationTime.INSERT)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date orderDate;
 
 	@NotNull
@@ -134,27 +135,24 @@ public class Order extends EntityBase<Order> implements Serializable {
 		this.idOrder = idOrder;
 	}
 	
-
-	
 	public Order(int idOrder, @NotBlank @Length(min = 2, max = 120) String idUser,
 			@Length(min = 2, max = 500) @NotBlank String address,
 			@NotNull @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 8, fraction = 2) BigDecimal amount,
 			@Length(min = 2, max = 120) String idChef, @Length(min = 2, max = 120) String idCourier,
-			@PastOrPresent Date deliveryDate, String comment) {
+			@PastOrPresent Date deliveryDate, String comment, @NotNull @PastOrPresent Date orderDate) {
 		super();
 		this.idOrder = idOrder;
 		this.idUser = idUser;
 		this.address = address;
 		this.amount = amount;
-		this.setOrderStatus(Status.PEDIDO_SOLICITADO);
-		this.orderDate = new Date();
 		this.idChef = idChef;
 		this.idCourier = idCourier;
 		this.deliveryDate = deliveryDate;
 		this.comment = comment;
+		this.orderDate = orderDate;
+		this.setOrderStatus(Status.PEDIDO_SOLICITADO);
 	}
 
-	
 	public int getIdOrder() {
 		return this.idOrder;
 	}

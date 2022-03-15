@@ -8,13 +8,20 @@ import com.pizzaiolo.domains.entities.Pizza;
 import lombok.Value;
 
 @Value
+//todo implementar swagger
+//@ApiModel(value = "Pizzas cortas", description = "Version corta de las pizzas.")
 public class PizzaShortDTO {
 	
 	@JsonProperty("idPizza")
+//	@ApiModelProperty(value = "Identificador de la pizza.")
 	private int idPizza;
+	
 	@JsonProperty("description")
+//	@ApiModelProperty(value = "Descripción de la pizza.")
 	private String description;
+	
 	@JsonProperty("amount")
+//	@ApiModelProperty(value = "Coste total de la pizza.")
 	private BigDecimal amount;
 
 	public static PizzaShortDTO from(Pizza source) {

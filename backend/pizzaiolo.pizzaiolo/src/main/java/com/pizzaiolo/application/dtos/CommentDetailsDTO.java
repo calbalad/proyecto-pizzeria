@@ -30,13 +30,6 @@ public class CommentDetailsDTO {
 				source.getText());
 	}
 	
-//	public static Comment  from( CommentDetailsDTO source) {
-//		return new Comment(
-//				source.getIdComment(), 
-//				source.getDate(), 
-//				source.getIdUser(), 
-//				source.getRating(), 
-//				source.getText());
-//	}
+
 	
 }
