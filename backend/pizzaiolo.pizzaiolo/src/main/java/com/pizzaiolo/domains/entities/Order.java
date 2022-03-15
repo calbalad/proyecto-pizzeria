@@ -124,10 +124,12 @@ public class Order extends EntityBase<Order> implements Serializable {
 	}
 	
 	//bi-directional many-to-one association to Pizzaorder
-	@OneToMany(mappedBy="order")
+	@OneToMany(mappedBy="order",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Pizzaorder> pizzaorders = new ArrayList<>();
 
 	public Order() {
+		super();
+		pizzaorders = new ArrayList<Pizzaorder>();
 	}
 	
 	public Order(int idOrder) {
