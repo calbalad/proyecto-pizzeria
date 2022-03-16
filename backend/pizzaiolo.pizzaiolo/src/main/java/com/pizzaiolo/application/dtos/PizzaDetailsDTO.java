@@ -1,9 +1,9 @@
 package com.pizzaiolo.application.dtos;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.pizzaiolo.domains.entities.Ingredient;
 import com.pizzaiolo.domains.entities.Pizza;
 
 import io.swagger.annotations.ApiModel;
@@ -46,6 +46,10 @@ public class PizzaDetailsDTO {
 	@ApiModelProperty(value = "Imagen de la pizza.")
 	private byte[] image;
 	
+	@JsonProperty("ingredientPizza")
+	@ApiModelProperty(value = "Ingredientes.")
+	private List<String> ingredientpizzas;
+	
 	
 
 	public static PizzaDetailsDTO from(Pizza source) {
@@ -57,6 +61,8 @@ public class PizzaDetailsDTO {
 				source.getNetPrice(),
 				source.getAmount(),
 				source.getActive(),
-				source.getImage());
+				source.getImage(),
+				source.getIngredientpizzas().stream().map(item -> item.getIngredient().getName()).sorted().toList()
+				);
 	}
 }
