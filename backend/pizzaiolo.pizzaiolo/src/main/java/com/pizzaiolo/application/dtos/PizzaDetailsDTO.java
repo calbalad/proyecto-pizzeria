@@ -6,44 +6,47 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pizzaiolo.domains.entities.Ingredient;
 import com.pizzaiolo.domains.entities.Pizza;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Value;
 
 @Value
-//todo implementar swagger
-//@ApiModel(value = "Pizzas detalladas", description = "Version detallada de las pizzas.")
+@ApiModel(value = "Pizzas detalladas", description = "Version detallada de las pizzas.")
 public class PizzaDetailsDTO {
 	
 	@JsonProperty("idPizza")
-//	@ApiModelProperty(value = "Identificador de la pizza.")
+	@ApiModelProperty(value = "Identificador de la pizza.")
 	private int idPizza;
 	
 	@JsonProperty("idBase")
-//	@ApiModelProperty(value = "Identificador de la base.")
+	@ApiModelProperty(value = "Identificador de la base.")
 		private String base;
 
 	@JsonProperty("idSauce")
-//	@ApiModelProperty(value = "Identificador de la salsa.")
+	@ApiModelProperty(value = "Identificador de la salsa.")
 		private String sauce;
 	
 	@JsonProperty("description")
-//	@ApiModelProperty(value = "Descripción de la pizza.")
+	@ApiModelProperty(value = "Descripción de la pizza.")
 	private String description;
 	
 	@JsonProperty("netPrice")
-//	@ApiModelProperty(value = "Precio neto de la pizza.")
+	@ApiModelProperty(value = "Precio neto de la pizza.")
 	private BigDecimal netPrice;
 	
 	@JsonProperty("amount")
-//	@ApiModelProperty(value = "Coste total de la pizza.")
+	@ApiModelProperty(value = "Coste total de la pizza.")
 	private BigDecimal amount;
 	
 	@JsonProperty("active")
-//	@ApiModelProperty(value = "Pizza activa.")
+	@ApiModelProperty(value = "Pizza activa.")
 	private boolean active;
 	
 	@JsonProperty("image")
-//	@ApiModelProperty(value = "Imagen de la pizza.")
+	@ApiModelProperty(value = "Imagen de la pizza.")
 	private byte[] image;
+	
+	
 
 	public static PizzaDetailsDTO from(Pizza source) {
 		return new PizzaDetailsDTO(
