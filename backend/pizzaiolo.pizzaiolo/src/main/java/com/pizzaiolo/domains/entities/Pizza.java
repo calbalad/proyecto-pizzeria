@@ -56,10 +56,6 @@ public class Pizza extends EntityBase<Pizza> implements Serializable {
 	@Digits(integer = 8, fraction = 2)
 	private BigDecimal amount;
 
-	@Column(name = "like")
-	@PositiveOrZero
-	private Integer like = 0;
-
 	@Column(name = "active")
 	@NotNull
 	private boolean active = true;
@@ -91,7 +87,7 @@ public class Pizza extends EntityBase<Pizza> implements Serializable {
 	public Pizza(@NotNull int idPizza, Ingredient base, Ingredient sauce, String description,
 			@NotNull @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 8, fraction = 2) @PositiveOrZero BigDecimal netPrice,
 			@NotNull @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 8, fraction = 2) @PositiveOrZero BigDecimal amount,
-			@PositiveOrZero int like, @NotNull boolean active, byte[] image) {
+			@NotNull boolean active, byte[] image) {
 		super();
 		this.idPizza = idPizza;
 		this.base = base;
@@ -99,7 +95,6 @@ public class Pizza extends EntityBase<Pizza> implements Serializable {
 		this.description = description;
 		this.netPrice = netPrice;
 		this.amount = amount;
-		this.like = like;
 		this.active = active;
 		this.image = image;
 	}
@@ -142,14 +137,6 @@ public class Pizza extends EntityBase<Pizza> implements Serializable {
 
 	public void setImage(byte[] image) {
 		this.image = image;
-	}
-
-	public int getLike() {
-		return this.like;
-	}
-
-	public void setLike(int like) {
-		this.like = like;
 	}
 
 	public BigDecimal getNetPrice() {
@@ -248,7 +235,7 @@ public class Pizza extends EntityBase<Pizza> implements Serializable {
 	@Override
 	public String toString() {
 		return "Pizza [idPizza=" + idPizza + ", idBase=" + base + ", idSauce=" + sauce + ", description=" + description
-				+ ", netPrice=" + netPrice + ", amount=" + amount + ", like=" + like + ", active=" + active + ", image="
+				+ ", netPrice=" + netPrice + ", amount=" + amount + ", active=" + active + ", image="
 				+ Arrays.toString(image) + "]";
 	}
 
