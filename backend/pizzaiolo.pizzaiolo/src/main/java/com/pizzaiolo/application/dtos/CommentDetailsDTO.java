@@ -20,6 +20,8 @@ public class CommentDetailsDTO {
 	private int rating;
 	@JsonProperty("comentario")
 	private String text;
+	@JsonProperty("idPizza")
+	private int idPizza;
 
 	public static CommentDetailsDTO from(Comment source) {
 		return new CommentDetailsDTO(
@@ -27,7 +29,8 @@ public class CommentDetailsDTO {
 				source.getDate(), 
 				source.getIdUser(), 
 				source.getRating(), 
-				source.getText());
+				source.getText(), 
+				source.getPizza().getIdPizza());
 	}
 	
 
