@@ -87,6 +87,18 @@ public class Comment extends EntityBase<Comment> implements Serializable {
 		
 	}
 
+	
+	public Comment(int idComment, Date date, String idUser, int rating, String text, Pizza pizza) {
+		super();
+		this.idComment = idComment;
+		this.date = date;
+		this.idUser = idUser;
+		this.rating = rating;
+		this.text = text;
+		this.pizza= pizza;
+		
+	}
+
 	public int getIdComment() {
 		return this.idComment;
 	}
