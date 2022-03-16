@@ -34,11 +34,13 @@ import com.pizzaiolo.exceptions.NotFoundException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("/api/v1/pizzas")
-//Todo: cambiar documentacion
 @Api(value = "/pizzas", description = "Mantenimiento de pizzas", produces = "application/json, application/xml", consumes="application/json, application/xml")
 public class PizzaResource {
 
@@ -66,11 +68,11 @@ public class PizzaResource {
 	
 	@GetMapping(path = "/{id}", params = "mode=edit")
 	@ApiOperation(value = "Recupera una pizza")
-//	todo implementar swagger
-//	@ApiResponses({
-//		@ApiResponse(code = 200, message = "Alquiler encontrado"),
-//		@ApiResponse(code = 404, message = "Alquiler no encontrado")
-//	})
+	
+	@ApiResponses({
+		@ApiResponse(code = 200, message = "Alquiler encontrado"),
+		@ApiResponse(code = 404, message = "Alquiler no encontrado")
+	})
 	public PizzaEditDTO getOneEdit(@ApiParam(value = "Identificador de la pizza") @PathVariable int id, 
 			@ApiParam(value = "Versión completa o editable", required = true, allowableValues = "details,edit") String mode)
 			throws NotFoundException {
