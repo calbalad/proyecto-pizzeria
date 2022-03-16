@@ -2,6 +2,7 @@ package com.pizzaiolo.application.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.pizzaiolo.application.dtos.CommentShortDTO;
 import com.pizzaiolo.application.dtos.PizzaDetailsDTO;
 import com.pizzaiolo.application.dtos.PizzaShortDTO;
 import com.pizzaiolo.domains.contracts.services.PizzaService;
@@ -59,6 +61,12 @@ public class PizzaResource {
 	public PizzaDetailsDTO getOneDetails(@PathVariable int id, @RequestParam(required = false, defaultValue = "details") String mode)
 			throws NotFoundException {
 			return PizzaDetailsDTO.from(srv.getOne(id));
+	}
+	
+	@GetMapping(path = "/{id}/comentarios")
+	@Transactional
+	public List<CommentShortDTO> getComments(@PathVariable int id) throws NotFoundException {
+		return srv.getOne(id).getComments().stream().map(item -> CommentShortDTO.from(item)).collect(Collectors.toList());
 	}
 	
 	/*
