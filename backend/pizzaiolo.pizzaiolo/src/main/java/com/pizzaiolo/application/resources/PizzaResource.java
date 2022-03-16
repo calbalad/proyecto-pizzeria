@@ -24,6 +24,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pizzaiolo.application.dtos.CommentShortDTO;
 import com.pizzaiolo.application.dtos.PizzaDetailsDTO;
+import com.pizzaiolo.application.dtos.PizzaEditDTO;
 import com.pizzaiolo.application.dtos.PizzaShortDTO;
 import com.pizzaiolo.domains.contracts.services.PizzaService;
 import com.pizzaiolo.exceptions.DuplicateKeyException;
@@ -61,6 +62,19 @@ public class PizzaResource {
 	public PizzaDetailsDTO getOneDetails(@PathVariable int id, @RequestParam(required = false, defaultValue = "details") String mode)
 			throws NotFoundException {
 			return PizzaDetailsDTO.from(srv.getOne(id));
+	}
+	
+	@GetMapping(path = "/{id}", params = "mode=edit")
+	@ApiOperation(value = "Recupera una pizza")
+//	todo implementar swagger
+//	@ApiResponses({
+//		@ApiResponse(code = 200, message = "Alquiler encontrado"),
+//		@ApiResponse(code = 404, message = "Alquiler no encontrado")
+//	})
+	public PizzaEditDTO getOneEdit(@ApiParam(value = "Identificador de la pizza") @PathVariable int id, 
+			@ApiParam(value = "Versión completa o editable", required = true, allowableValues = "details,edit") String mode)
+			throws NotFoundException {
+			return PizzaEditDTO.from(srv.getOne(id));
 	}
 	
 	@GetMapping(path = "/{id}/comentarios")
