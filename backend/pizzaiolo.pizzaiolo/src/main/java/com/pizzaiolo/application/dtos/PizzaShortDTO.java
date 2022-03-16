@@ -5,27 +5,28 @@ import java.math.BigDecimal;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pizzaiolo.domains.entities.Pizza;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Value;
 
 @Value
-//todo implementar swagger
-//@ApiModel(value = "Pizzas cortas", description = "Version corta de las pizzas.")
+@ApiModel(value = "Pizzas cortas", description = "Version corta de las pizzas.")
 public class PizzaShortDTO {
 	
 	@JsonProperty("idPizza")
-//	@ApiModelProperty(value = "Identificador de la pizza.")
+	@ApiModelProperty(value = "Identificador de la pizza.")
 	private int idPizza;
 	
 	@JsonProperty("description")
-//	@ApiModelProperty(value = "Descripción de la pizza.")
+	@ApiModelProperty(value = "Descripción de la pizza.")
 	private String description;
 	
 	@JsonProperty("image")
-//	@ApiModelProperty(value = "Imagen de la pizza.")
+	@ApiModelProperty(value = "Imagen de la pizza.")
 	private byte[] image;
 	
 	@JsonProperty("amount")
-//	@ApiModelProperty(value = "Coste total de la pizza.")
+	@ApiModelProperty(value = "Coste total de la pizza.")
 	private BigDecimal amount;
 
 	public static PizzaShortDTO from(Pizza source) {
