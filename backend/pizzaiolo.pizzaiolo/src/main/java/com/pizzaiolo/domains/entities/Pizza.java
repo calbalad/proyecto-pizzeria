@@ -6,10 +6,12 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
+import javax.validation.Valid;
 
 import com.pizzaiolo.domains.core.entities.EntityBase;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -70,6 +72,7 @@ public class Pizza extends EntityBase<Pizza> implements Serializable {
 
 	// bi-directional many-to-one association to Ingredientpizza
 	@OneToMany(mappedBy = "pizza")
+	@Valid
 	private List<Ingredientpizza> ingredientpizzas;
 
 	// bi-directional many-to-one association to Pizzaorder
@@ -77,6 +80,8 @@ public class Pizza extends EntityBase<Pizza> implements Serializable {
 	private List<Pizzaorder> pizzaorders;
 
 	public Pizza() {
+		super();
+		ingredientpizzas = new ArrayList<Ingredientpizza>();
 	}
 
 	public Pizza(int idPizza) {
@@ -88,7 +93,7 @@ public class Pizza extends EntityBase<Pizza> implements Serializable {
 			@NotNull @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 8, fraction = 2) @PositiveOrZero BigDecimal netPrice,
 			@NotNull @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 8, fraction = 2) @PositiveOrZero BigDecimal amount,
 			@NotNull boolean active, byte[] image) {
-		super();
+		this();
 		this.idPizza = idPizza;
 		this.base = base;
 		this.sauce = sauce;
