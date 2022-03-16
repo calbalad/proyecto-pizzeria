@@ -37,10 +37,6 @@ public class PizzaDetailsDTO {
 //	@ApiModelProperty(value = "Coste total de la pizza.")
 	private BigDecimal amount;
 	
-	@JsonProperty("like")
-//	@ApiModelProperty(value = "Cantidad de like.")
-	private int like;
-	
 	@JsonProperty("active")
 //	@ApiModelProperty(value = "Pizza activa.")
 	private boolean active;
@@ -51,13 +47,12 @@ public class PizzaDetailsDTO {
 
 	public static PizzaDetailsDTO from(Pizza source) {
 		return new PizzaDetailsDTO(
-				source.getIdPizza(), 
+				source.getIdPizza(),
 				source.getBase().getName(), 
 				source.getSauce().getName(), 
 				source.getDescription(), 
 				source.getNetPrice(),
 				source.getAmount(),
-				source.getLike(),
 				source.getActive(),
 				source.getImage());
 	}
