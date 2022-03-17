@@ -59,7 +59,7 @@ public class CommentResource {
 	
 	@GetMapping(path = "/{id}")
 	@ApiOperation(value = "Recuperar un comentario por Id")
-	public CommentDetailsDTO getOneDetails(@PathVariable int id, @RequestParam(required = false, defaultValue = "details") String mode)
+	public CommentDetailsDTO getOne(@PathVariable int id, @RequestParam(required = false, defaultValue = "details") String mode)
 			throws NotFoundException {
 			return CommentDetailsDTO.from(srv.getOne(id));
 	}
