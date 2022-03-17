@@ -4,6 +4,8 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pizzaiolo.domains.entities.Comment;
+import com.pizzaiolo.domains.entities.Pizza;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -43,6 +45,15 @@ public class CommentDetailsDTO {
 				source.getPizza().getIdPizza());
 	}
 	
-
+	public static Comment  from( CommentDetailsDTO source) {
+		return new Comment(
+				source.getIdComment(), 
+				source.getDate(), 
+				source.getIdUser(), 
+				source.getRating(), 
+				source.getText(),
+				new Pizza (source.getIdPizza())
+				);
+	}
 	
 }
