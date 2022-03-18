@@ -32,11 +32,14 @@ import com.pizzaiolo.exceptions.NotFoundException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.ApiResponse;
 import org.springframework.http.HttpStatus;
 
 @RestController
-@RequestMapping("/api/v1/comentarios")
-//Todo: cambiar documentacion
+@RequestMapping("/api/v1/comments")
+@Api(value = "/comments", description = "Mantenimiento de comentarios", produces = "application/json, application/xml", consumes = "application/json, application/xml")
+
 public class CommentResource {
 
 	@Autowired
@@ -55,7 +58,8 @@ public class CommentResource {
 	}
 	
 	@GetMapping(path = "/{id}")
-	public CommentDetailsDTO getOneDetails(@PathVariable int id, @RequestParam(required = false, defaultValue = "details") String mode)
+	@ApiOperation(value = "Recuperar un comentario por Id")
+	public CommentDetailsDTO getOne(@PathVariable int id, @RequestParam(required = false, defaultValue = "details") String mode)
 			throws NotFoundException {
 			return CommentDetailsDTO.from(srv.getOne(id));
 	}
@@ -64,19 +68,18 @@ public class CommentResource {
 	@Transactional
 	@ApiOperation(value = "Añadir una nuevo comentario")
 	
-//	todo implementar swagger
-//	@ApiResponses({
-//		@ApiResponse(code = 201, message = "Comentario añadido"),
-//		@ApiResponse(code = 400, message = "Error al validar los datos o clave duplicada"),
-//		@ApiResponse(code = 404, message = "Comentario no encontrado")
-//	})
+
+	@ApiResponses({
+		@ApiResponse(code = 201, message = "Comentario añadido"),
+		@ApiResponse(code = 400, message = "Error al validar los datos o clave duplicada"),
+		@ApiResponse(code = 404, message = "Comentario no encontrado")
+	})
 	public ResponseEntity<Object> create(@Valid @RequestBody CommentEditDTO item)
 			throws InvalidDataException, DuplicateKeyException, NotFoundException {
 		var entity = CommentEditDTO.from(item);
 		if (entity.isInvalid())
 			throw new InvalidDataException(entity.getErrorsMessage());
 		entity = srv.add(entity);
-//		item.update(entity);
 		srv.change(entity);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(entity.getIdComment()).toUri();
@@ -86,11 +89,10 @@ public class CommentResource {
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@ApiOperation(value = "Borrar un comentario existente")
-//	todo implementar swagger y cambiar documentación
-//	@ApiResponses({
-//		@ApiResponse(code = 204, message = "Comentario borrado"),
-//		@ApiResponse(code = 404, message = "Comentario no encontrado")
-//	})
+	@ApiResponses({
+		@ApiResponse(code = 204, message = "Comentario borrado"),
+		@ApiResponse(code = 404, message = "Comentario no encontrado")
+	})
 	public void delete(@ApiParam(value = "Identificador del comentario") @PathVariable int id) {
 		srv.deleteById(id);
 	}

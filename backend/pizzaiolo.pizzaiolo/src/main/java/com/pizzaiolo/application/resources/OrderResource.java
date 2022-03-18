@@ -21,13 +21,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.pizzaiolo.application.dtos.CommentDetailsDTO;
-import com.pizzaiolo.application.dtos.CommentEditDTO;
-import com.pizzaiolo.application.dtos.CommentShortDTO;
+
 import com.pizzaiolo.application.dtos.OrderDetailsDTO;
 import com.pizzaiolo.application.dtos.OrderEditDTO;
 import com.pizzaiolo.application.dtos.OrderShortDTO;
-import com.pizzaiolo.domains.contracts.services.CommentService;
 import com.pizzaiolo.domains.contracts.services.OrderService;
 import com.pizzaiolo.exceptions.DuplicateKeyException;
 import com.pizzaiolo.exceptions.InvalidDataException;
@@ -46,7 +43,7 @@ public class OrderResource {
 	private OrderService srv;
 
 	@GetMapping
-	@ApiOperation(value = "Listado de los comentarios")
+	@ApiOperation(value = "Listado de los pedidos")
 	public List<OrderShortDTO> getAll() {
 		return srv.getByProjection(OrderShortDTO.class);
 	}
@@ -58,6 +55,7 @@ public class OrderResource {
 	}
 	
 	@GetMapping(path = "/{id}")
+	@ApiOperation(value = "Detalles de pedido")
 	public OrderDetailsDTO getOneDetails(@PathVariable int id, @RequestParam(required = false, defaultValue = "details") String mode)
 			throws NotFoundException {
 			return OrderDetailsDTO.from(srv.getOne(id));
@@ -65,12 +63,12 @@ public class OrderResource {
 	
 	@PostMapping
 	@Transactional
-	@ApiOperation(value = "Añadir una nuevo comentario")	
+	@ApiOperation(value = "Añadir una nuevo pedido")	
 //	todo implementar swagger
 //	@ApiResponses({
-//		@ApiResponse(code = 201, message = "Comentario añadido"),
+//		@ApiResponse(code = 201, message = "Pedido añadido"),
 //		@ApiResponse(code = 400, message = "Error al validar los datos o clave duplicada"),
-//		@ApiResponse(code = 404, message = "Comentario no encontrado")
+//		@ApiResponse(code = 404, message = "Pedido no encontrado")
 //	})
 	public ResponseEntity<Object> create(@Valid @RequestBody OrderEditDTO item)
 			throws InvalidDataException, DuplicateKeyException, NotFoundException {

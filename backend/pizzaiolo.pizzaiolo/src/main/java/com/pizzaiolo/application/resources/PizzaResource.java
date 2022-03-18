@@ -2,6 +2,7 @@ package com.pizzaiolo.application.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -21,7 +22,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.pizzaiolo.application.dtos.CommentShortDTO;
 import com.pizzaiolo.application.dtos.PizzaDetailsDTO;
+import com.pizzaiolo.application.dtos.PizzaEditDTO;
 import com.pizzaiolo.application.dtos.PizzaShortDTO;
 import com.pizzaiolo.domains.contracts.services.PizzaService;
 import com.pizzaiolo.exceptions.DuplicateKeyException;
@@ -31,11 +34,13 @@ import com.pizzaiolo.exceptions.NotFoundException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("/api/v1/pizzas")
-//Todo: cambiar documentacion
 @Api(value = "/pizzas", description = "Mantenimiento de pizzas", produces = "application/json, application/xml", consumes="application/json, application/xml")
 public class PizzaResource {
 
@@ -59,6 +64,25 @@ public class PizzaResource {
 	public PizzaDetailsDTO getOneDetails(@PathVariable int id, @RequestParam(required = false, defaultValue = "details") String mode)
 			throws NotFoundException {
 			return PizzaDetailsDTO.from(srv.getOne(id));
+	}
+	
+	@GetMapping(path = "/{id}", params = "mode=edit")
+	@ApiOperation(value = "Recupera una pizza")
+	
+	@ApiResponses({
+		@ApiResponse(code = 200, message = "Alquiler encontrado"),
+		@ApiResponse(code = 404, message = "Alquiler no encontrado")
+	})
+	public PizzaEditDTO getOneEdit(@ApiParam(value = "Identificador de la pizza") @PathVariable int id, 
+			@ApiParam(value = "Versión completa o editable", required = true, allowableValues = "details,edit") String mode)
+			throws NotFoundException {
+			return PizzaEditDTO.from(srv.getOne(id));
+	}
+	
+	@GetMapping(path = "/{id}/comentarios")
+	@Transactional
+	public List<CommentShortDTO> getComments(@PathVariable int id) throws NotFoundException {
+		return srv.getOne(id).getComments().stream().map(item -> CommentShortDTO.from(item)).collect(Collectors.toList());
 	}
 	
 	/*

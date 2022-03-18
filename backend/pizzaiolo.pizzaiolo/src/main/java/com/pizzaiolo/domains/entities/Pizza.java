@@ -6,10 +6,12 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
+import javax.validation.Valid;
 
 import com.pizzaiolo.domains.core.entities.EntityBase;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -56,10 +58,6 @@ public class Pizza extends EntityBase<Pizza> implements Serializable {
 	@Digits(integer = 8, fraction = 2)
 	private BigDecimal amount;
 
-	@Column(name = "like")
-	@PositiveOrZero
-	private Integer like = 0;
-
 	@Column(name = "active")
 	@NotNull
 	private boolean active = true;
@@ -74,6 +72,7 @@ public class Pizza extends EntityBase<Pizza> implements Serializable {
 
 	// bi-directional many-to-one association to Ingredientpizza
 	@OneToMany(mappedBy = "pizza")
+	@Valid
 	private List<Ingredientpizza> ingredientpizzas;
 
 	// bi-directional many-to-one association to Pizzaorder
@@ -81,6 +80,8 @@ public class Pizza extends EntityBase<Pizza> implements Serializable {
 	private List<Pizzaorder> pizzaorders;
 
 	public Pizza() {
+		super();
+		ingredientpizzas = new ArrayList<Ingredientpizza>();
 	}
 
 	public Pizza(int idPizza) {
@@ -91,15 +92,14 @@ public class Pizza extends EntityBase<Pizza> implements Serializable {
 	public Pizza(@NotNull int idPizza, Ingredient base, Ingredient sauce, String description,
 			@NotNull @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 8, fraction = 2) @PositiveOrZero BigDecimal netPrice,
 			@NotNull @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 8, fraction = 2) @PositiveOrZero BigDecimal amount,
-			@PositiveOrZero int like, @NotNull boolean active, byte[] image) {
-		super();
+			@NotNull boolean active, byte[] image) {
+		this();
 		this.idPizza = idPizza;
 		this.base = base;
 		this.sauce = sauce;
 		this.description = description;
 		this.netPrice = netPrice;
 		this.amount = amount;
-		this.like = like;
 		this.active = active;
 		this.image = image;
 	}
@@ -142,14 +142,6 @@ public class Pizza extends EntityBase<Pizza> implements Serializable {
 
 	public void setImage(byte[] image) {
 		this.image = image;
-	}
-
-	public int getLike() {
-		return this.like;
-	}
-
-	public void setLike(int like) {
-		this.like = like;
 	}
 
 	public BigDecimal getNetPrice() {
@@ -248,7 +240,7 @@ public class Pizza extends EntityBase<Pizza> implements Serializable {
 	@Override
 	public String toString() {
 		return "Pizza [idPizza=" + idPizza + ", idBase=" + base + ", idSauce=" + sauce + ", description=" + description
-				+ ", netPrice=" + netPrice + ", amount=" + amount + ", like=" + like + ", active=" + active + ", image="
+				+ ", netPrice=" + netPrice + ", amount=" + amount + ", active=" + active + ", image="
 				+ Arrays.toString(image) + "]";
 	}
 
