@@ -1,9 +1,10 @@
 package com.pizzaiolo.application.dtos;
 
 import java.math.BigDecimal;
-import java.util.List;
+
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.pizzaiolo.domains.entities.Ingredient;
 import com.pizzaiolo.domains.entities.Pizza;
 
 import io.swagger.annotations.ApiModel;
@@ -11,8 +12,9 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Value;
 
 @Value
-@ApiModel(value = "Pizzas detalladas", description = "Version detallada de las pizzas.")
-public class PizzaDetailsDTO {
+
+@ApiModel(value = "Pizzas editables", description = "Version editable de las pizzas.")
+public class PizzaEditDTO {
 	
 	@JsonProperty("idPizza")
 	@ApiModelProperty(value = "Identificador de la pizza.")
@@ -20,11 +22,11 @@ public class PizzaDetailsDTO {
 	
 	@JsonProperty("idBase")
 	@ApiModelProperty(value = "Identificador de la base.")
-		private String base;
-
+		private int base;
+	
 	@JsonProperty("idSauce")
 	@ApiModelProperty(value = "Identificador de la salsa.")
-		private String sauce;
+		private int sauce;
 	
 	@JsonProperty("description")
 	@ApiModelProperty(value = "Descripción de la pizza.")
@@ -45,24 +47,32 @@ public class PizzaDetailsDTO {
 	@JsonProperty("image")
 	@ApiModelProperty(value = "Imagen de la pizza.")
 	private byte[] image;
-	
-	@JsonProperty("ingredientPizza")
-	@ApiModelProperty(value = "Ingredientes.")
-	private List<String> ingredientpizzas;
-	
-	
 
-	public static PizzaDetailsDTO from(Pizza source) {
-		return new PizzaDetailsDTO(
-				source.getIdPizza(),
-				source.getBase().getName(), 
-				source.getSauce().getName(), 
+	public static PizzaEditDTO from(Pizza source) {
+		return new PizzaEditDTO(
+				source.getIdPizza(), 
+				source.getBase().getId(), 
+				source.getSauce().getId(), 
 				source.getDescription(), 
 				source.getNetPrice(),
 				source.getAmount(),
 				source.getActive(),
-				source.getImage(),
-				source.getIngredientpizzas().stream().map(item -> item.getIngredient().getName()).sorted().toList()
-				);
+				source.getImage());
+						
 	}
+
+	public static Pizza from(PizzaEditDTO source) {
+		return new Pizza(
+				source.getIdPizza(), 
+				new Ingredient(source.getBase()), 
+				new Ingredient(source.getSauce()), 
+				source.getDescription(), 
+				source.getNetPrice(),
+				source.getAmount(),
+				source.isActive(),
+				source.getImage());
+	}
+	
+	
+	
 }
