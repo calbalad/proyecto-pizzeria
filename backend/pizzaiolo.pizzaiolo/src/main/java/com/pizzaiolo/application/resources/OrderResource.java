@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-
+import com.pizzaiolo.application.dtos.CarritoEditDTO;
 import com.pizzaiolo.application.dtos.OrderDetailsDTO;
 import com.pizzaiolo.application.dtos.OrderEditDTO;
 import com.pizzaiolo.application.dtos.OrderShortDTO;
@@ -64,33 +64,23 @@ public class OrderResource {
 	@PostMapping
 	@Transactional
 	@ApiOperation(value = "Añadir una nuevo pedido")	
-//	todo implementar swagger
-//	@ApiResponses({
-//		@ApiResponse(code = 201, message = "Pedido añadido"),
-//		@ApiResponse(code = 400, message = "Error al validar los datos o clave duplicada"),
-//		@ApiResponse(code = 404, message = "Pedido no encontrado")
-//	})
-	public ResponseEntity<Object> create(@Valid @RequestBody OrderEditDTO item)
+	public ResponseEntity<Object> create(@Valid @RequestBody OrderEditDTO item )
 			throws InvalidDataException, DuplicateKeyException, NotFoundException {
 		var entity = OrderEditDTO.from(item);
 		if (entity.isInvalid())
 			throw new InvalidDataException(entity.getErrorsMessage());
 		entity = srv.add(entity);
-//		item.update(entity);
+		item.update(entity);
 		srv.change(entity);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(entity.getIdOrder()).toUri();
 		return ResponseEntity.created(location).build();
-
 	}
+	
+	
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@ApiOperation(value = "Borrar un pedido existente")
-//	todo implementar swagger y cambiar documentación
-//	@ApiResponses({
-//		@ApiResponse(code = 204, message = "Comentario borrado"),
-//		@ApiResponse(code = 404, message = "Comentario no encontrado")
-//	})
 	public void delete(@ApiParam(value = "Identificador del pedido") @PathVariable int id) {
 		srv.deleteById(id);
 	}

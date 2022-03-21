@@ -54,8 +54,50 @@ public class Pizzaorder extends EntityBase<Pizzaorder> implements Serializable {
 		this.order = order;
 		this.id = new PizzaorderPK(pizza.getIdPizza(), order.getIdOrder());
 	}
+	
+//	public Pizzaorder(Pizza pizza, Order order) {
+//		super();
+//		this.pizza = pizza;
+//		this.order = order;
+//		this.id = new PizzaorderPK(pizza.getIdPizza(), order.getIdOrder());
+//	}
+	
+	
+
 	public PizzaorderPK getId() {
 		return this.id;
+	}
+
+	public Pizzaorder(@NotNull @Min(1) int quantity, Order order, Pizza pizza, int idOrder,String address, String idUser, int idPizza) {
+		super();
+		this.quantity = quantity;
+		this.order = order;
+		this.pizza = pizza;
+		this.amount = this.getPizza().getAmount().multiply(BigDecimal.valueOf(quantity));
+		this.id = new PizzaorderPK(idPizza, idOrder);
+		this.getOrder().setAddress(address);
+	}
+	
+	
+
+	public Pizzaorder(
+			@NotNull @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 8, fraction = 2) BigDecimal amount,
+			@NotNull @Min(1) int quantity, Order order, Pizza pizza) {
+		super();
+		this.amount = amount;
+		this.quantity = quantity;
+		this.order = order;
+		this.pizza = pizza;
+		this.id = new PizzaorderPK(pizza.getIdPizza(), order.getIdOrder());
+	}
+	public Pizzaorder(
+			@NotNull @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 8, fraction = 2) BigDecimal amount,
+			@NotNull @Min(1) int quantity, Order order, int idPizza) {
+		super();
+		this.amount = amount;
+		this.quantity = quantity;
+		this.order = order;
+		this.id = new PizzaorderPK(idPizza, order.getIdOrder());
 	}
 
 	public void setId(PizzaorderPK id) {
