@@ -7,6 +7,8 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pizzaiolo.domains.entities.Order;
 import com.pizzaiolo.domains.entities.Order.Status;
+import com.pizzaiolo.domains.entities.Pizza;
+import com.pizzaiolo.domains.entities.Pizzaorder;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Value;
@@ -19,7 +21,6 @@ public class OrderEditDTO {
 	@JsonProperty("idUser")
 	private String idUser;
 	private String address;
-	private BigDecimal amount;
 	@ApiModelProperty(value = "Estados de pedido.", allowableValues = "solicitado,elaborandose,preparado,enviado,recibido,cancelado")
 	private Status orderStatus;
 	private Date orderDate;
@@ -28,21 +29,22 @@ public class OrderEditDTO {
 	private Date deliveryDate;
 	private String comment;
 	@ApiModelProperty(value = "Lista de identificadores de pizzas.")
-	private List<Integer> pizzas;
+	private List<CarritoEditDTO> pizzas;
+	private BigDecimal amount;
 
 	public static OrderEditDTO from(Order source) {
 		return new OrderEditDTO(
 				source.getIdOrder(),
 				source.getIdUser(),
 				source.getAddress(),
-				source.getAmount(),
 				source.getOrderStatus(),
 				source.getOrderDate(),
 				source.getIdChef() == null ? null : source.getIdChef(),
 				source.getIdCourier() == null ? null : source.getIdCourier(),
 				source.getDeliveryDate() == null ? null : source.getDeliveryDate(),
 				source.getComment() == null ? null : source.getComment(),
-				source.getPizzaorders().stream().map(item -> item.getPizza().getIdPizza()).toList()
+				source.getPizzaorders().stream().map(item -> CarritoEditDTO.from(item)).toList(),
+				source.getAmount()
 						);
 	}
 
@@ -51,15 +53,29 @@ public class OrderEditDTO {
 				source.getIdOrder(),
 				source.getIdUser(),
 				source.getAddress(),
-				source.getAmount(),
 				source.getIdChef(),
 				source.getIdCourier(),
 				source.getDeliveryDate(),
 				source.getComment(),
-				source.getOrderDate()
+				source.getOrderDate(),
+				source.getAmount()
 				);
 	}
 	
-	
-	
+	public Order update(Order target) {
+		target.setIdChef(idChef);
+		target.setIdCourier(idCourier);
+		//target.setOrderStatus(orderStatus);
+		target.setDeliveryDate(deliveryDate);
+		
+		pizzas.stream().forEach(item -> target.addPizzaorder(new Pizzaorder(
+				target.getAmount(),
+				item.getQuantity(),
+				target,
+				item.getIdPizza()				
+				)));
+		
+		return target;
+		
+	}
 }

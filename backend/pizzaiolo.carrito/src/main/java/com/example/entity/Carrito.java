@@ -1,50 +1,73 @@
 package com.example.entity;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 public class Carrito {
-	private String SessionId;
-	private BigDecimal amount;
+	private String session;
+	private ArrayList<String> pizzas;
 	private Integer quantity;
+	private BigDecimal amount;
 	private Integer idPizza;
 	
-	public Carrito(String SessionId,BigDecimal amount,Integer quantity,Integer idPizza) {
-		this.SessionId = SessionId;
-		this.amount = amount;
-		this.quantity = quantity;
-		this.idPizza = quantity;
+	
+	public Carrito(String session, ArrayList<String> carrito) {
+		super();
+		this.session = session;
+		this.pizzas = carrito;
+	}
+	
+
+	public String getSession() {
+		return session;
 	}
 
-	public String getSessionId() {
-		return SessionId;
+
+	public void setSession(String session) {
+		this.session = session;
 	}
 
-	public void setSessionId(String sessionId) {
-		SessionId = sessionId;
+
+	public ArrayList<String> getCarrito() {
+		return pizzas;
 	}
 
-	public BigDecimal getAmount() {
-		return amount;
+
+	public void setCarrito(ArrayList<String> carrito) {
+		this.pizzas = carrito;
 	}
 
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
-	}
 
 	public Integer getQuantity() {
 		return quantity;
 	}
 
+
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
+
+
+	public BigDecimal getAmount() {
+		return amount;
+	}
+
+
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
+
 
 	public Integer getIdPizza() {
 		return idPizza;
 	}
 
+
 	public void setIdPizza(Integer idPizza) {
 		this.idPizza = idPizza;
 	}
+	
+	
+	
 	
 }
