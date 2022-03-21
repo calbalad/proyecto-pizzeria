@@ -15,17 +15,20 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pizzaiolo.application.dtos.CommentShortDTO;
 import com.pizzaiolo.application.dtos.PizzaDetailsDTO;
 import com.pizzaiolo.application.dtos.PizzaEditDTO;
 import com.pizzaiolo.application.dtos.PizzaShortDTO;
+import com.pizzaiolo.domains.contracts.repositories.PizzaRepository;
 import com.pizzaiolo.domains.contracts.services.PizzaService;
 import com.pizzaiolo.exceptions.DuplicateKeyException;
 import com.pizzaiolo.exceptions.InvalidDataException;
@@ -46,6 +49,9 @@ public class PizzaResource {
 
 	@Autowired
 	private PizzaService srv;
+	
+	@Autowired
+	private PizzaRepository dao;
 
 	@GetMapping
 	@ApiOperation(value = "Listado de las pizzas")
@@ -79,11 +85,100 @@ public class PizzaResource {
 			return PizzaEditDTO.from(srv.getOne(id));
 	}
 	
+	@PostMapping
+	@Transactional
+	@ApiOperation(value = "Añadir una nueva pizza")
+	@ApiResponses({
+		@ApiResponse(code = 201, message = "Pizza añadida"),
+		@ApiResponse(code = 400, message = "Error al validar los datos o clave duplicada"),
+		@ApiResponse(code = 404, message = "Pizza no encontrada")
+	})
+	public ResponseEntity<Object> create(@Valid @RequestBody PizzaEditDTO item)
+			throws InvalidDataException, DuplicateKeyException, NotFoundException {
+		var entity = PizzaEditDTO.from(item);
+		if (entity.isInvalid())
+			throw new InvalidDataException(entity.getErrorsMessage());
+		entity = srv.add(entity);
+		entity = srv.getOne(entity.getIdPizza());
+		item.update(entity);
+		srv.change(entity);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(entity.getIdPizza()).toUri();
+		return ResponseEntity.created(location).build();
+	}
+	
+	@PutMapping("/{id}")
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	@Transactional
+	@ApiOperation(value = "Modificar una pizza existente", notes = "Los identificadores deben coincidir")
+	@ApiResponses({
+		@ApiResponse(code = 201, message = "Pizza desactivada"),
+		@ApiResponse(code = 400, message = "Error al validar los datos o discrepancias en los identificadores"),
+		@ApiResponse(code = 404, message = "Pizza no encontrada")
+	})
+	public void update(@PathVariable int id, @Valid @RequestBody PizzaEditDTO item)
+			throws InvalidDataException, NotFoundException {
+		if (id != item.getIdPizza())
+			throw new InvalidDataException("No coinciden los identificadores");
+		var entity = srv.getOne(id);
+		item.update(entity);
+		if (entity.isInvalid())
+			throw new InvalidDataException(entity.getErrorsMessage());
+		srv.change(entity);
+	}
+	
+	
+	
+	
+	
+	
+//	@GetMapping("/{id}/foto")
+//	public ResponseEntity<byte[]> getFoto(@PathVariable int id) throws NotFoundException {
+//		var result = dao.findById(id);
+//		if(result.isEmpty() || result.get().getImage() == null)
+//			throw new NotFoundException();
+//		return ResponseEntity.ok().header("content-type", "image/png").body(result.get().getImage());
+//	}
+//	
+	@GetMapping(path="/{id}/foto", produces = { "image/png" })
+	public byte[] getPhoto(@PathVariable int id) throws NotFoundException {
+		var result = dao.findById(id);
+		if(result.isEmpty() || result.get().getImage() == null)
+			throw new NotFoundException();
+		return result.get().getImage();
+	}
+	
+	@PutMapping(path="/{id}/foto", produces = { "image/png"})
+	public byte[] setPhoto(@PathVariable int id, @RequestBody byte[] file) throws NotFoundException {
+		var item = dao.findById(id);
+		if(item.isEmpty())
+			throw new NotFoundException();
+		item.get().setImage(file);
+		var result = dao.save(item.get());
+		return result.getImage();
+	}
+
+	@DeleteMapping("/{id}/foto")
+	@ResponseStatus(code = HttpStatus.NOT_FOUND)
+	public void deleteFoto(@PathVariable int id) throws NotFoundException {
+		var item = dao.findById(id);
+		if(item.isEmpty())
+			throw new NotFoundException();
+		item.get().setImage(null);
+		dao.save(item.get());
+	}
+	
+	
+	@PostMapping("/upload")
+    public void formUploadFile(@RequestParam("file") MultipartFile file) {
+    }
+	
 	@GetMapping(path = "/{id}/comentarios")
 	@Transactional
 	public List<CommentShortDTO> getComments(@PathVariable int id) throws NotFoundException {
 		return srv.getOne(id).getComments().stream().map(item -> CommentShortDTO.from(item)).collect(Collectors.toList());
 	}
+	
 	
 	/*
 	@PostMapping
