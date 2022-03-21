@@ -139,20 +139,22 @@ public class Order extends EntityBase<Order> implements Serializable {
 	
 	public Order(int idOrder, @NotBlank @Length(min = 2, max = 120) String idUser,
 			@Length(min = 2, max = 500) @NotBlank String address,
-			@NotNull @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 8, fraction = 2) BigDecimal amount,
 			@Length(min = 2, max = 120) String idChef, @Length(min = 2, max = 120) String idCourier,
-			@PastOrPresent Date deliveryDate, String comment, @NotNull @PastOrPresent Date orderDate) {
+			@PastOrPresent Date deliveryDate, String comment, @NotNull @PastOrPresent Date orderDate,
+			@NotNull
+			@DecimalMin(value = "0.0", inclusive = false)
+			@Digits(integer = 8, fraction = 2) BigDecimal amount) {
 		super();
 		this.idOrder = idOrder;
 		this.idUser = idUser;
 		this.address = address;
-		this.amount = amount;
 		this.idChef = idChef;
 		this.idCourier = idCourier;
 		this.deliveryDate = deliveryDate;
 		this.comment = comment;
 		this.orderDate = orderDate;
-		this.setOrderStatus(Status.PEDIDO_SOLICITADO);
+		this.amount = amount;
+		this.setOrderStatus(Status.PEDIDO_SOLICITADO);		
 	}
 
 	public int getIdOrder() {
