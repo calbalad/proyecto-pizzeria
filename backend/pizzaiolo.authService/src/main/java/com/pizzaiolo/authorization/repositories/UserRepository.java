@@ -10,4 +10,6 @@ import com.pizzaiolo.authorization.models.entities.User;
 @Repository(value = "com.pizzaiolo.authorization.repositories.UserRepository")
 public interface UserRepository extends MongoRepository<User, ObjectId> {
     Optional<User> findByEmail(String email);
+    Optional<User> findById(String id);
+    
 }

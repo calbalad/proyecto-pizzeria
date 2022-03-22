@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.springframework.data.mongodb.core.mapping.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -54,6 +55,7 @@ public class User extends BaseModel {
 
     public User() {
         permissions = new HashSet<>();
+        address = new ArrayList<Address>();
     }
 
     public User(String firstName, String lastName, String email, String password, String phone, String gender) {
@@ -66,10 +68,16 @@ public class User extends BaseModel {
         this.enabled = true;
         this.confirmed = false;
         permissions = new HashSet<>();
+        address = new ArrayList<Address>();
+        
     }
 
     public void addPermission(Permission permission) {
         this.permissions.add(permission);
+    }
+    
+    public void addAddress(Address address) {
+        this.address.add(address);
     }
 
     public boolean hasPermission(String permissionName) {
@@ -82,7 +90,6 @@ public class User extends BaseModel {
         Stream<Permission> newPermissions = this.permissions.stream().filter(permission1 -> !permission1.getName().equals(permission.getName()));
 
         this.permissions = newPermissions.collect(Collectors.toSet());
-
     }
 
     public Set<Permission> allPermissions() {
@@ -95,7 +102,4 @@ public class User extends BaseModel {
         return all;
     }
     
-    public void addAddress(Address address) {
-        this.address.add(address);
-    }
 }
