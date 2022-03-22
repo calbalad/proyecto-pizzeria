@@ -55,15 +55,6 @@ public class Pizzaorder extends EntityBase<Pizzaorder> implements Serializable {
 		this.id = new PizzaorderPK(pizza.getIdPizza(), order.getIdOrder());
 	}
 	
-//	public Pizzaorder(Pizza pizza, Order order) {
-//		super();
-//		this.pizza = pizza;
-//		this.order = order;
-//		this.id = new PizzaorderPK(pizza.getIdPizza(), order.getIdOrder());
-//	}
-	
-	
-
 	public PizzaorderPK getId() {
 		return this.id;
 	}
@@ -78,8 +69,6 @@ public class Pizzaorder extends EntityBase<Pizzaorder> implements Serializable {
 		this.getOrder().setAddress(address);
 	}
 	
-	
-
 	public Pizzaorder(
 			@NotNull @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 8, fraction = 2) BigDecimal amount,
 			@NotNull @Min(1) int quantity, Order order, Pizza pizza) {
@@ -90,6 +79,7 @@ public class Pizzaorder extends EntityBase<Pizzaorder> implements Serializable {
 		this.pizza = pizza;
 		this.id = new PizzaorderPK(pizza.getIdPizza(), order.getIdOrder());
 	}
+	
 	public Pizzaorder(
 			@NotNull @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 8, fraction = 2) BigDecimal amount,
 			@NotNull @Min(1) int quantity, Order order, int idPizza) {
