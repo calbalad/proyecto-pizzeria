@@ -42,7 +42,7 @@ public class Order extends EntityBase<Order> implements Serializable {
 	private String address;
 
 	@NotNull
-	@DecimalMin(value = "0.0", inclusive = false)
+//	@DecimalMin(value = "0.0", inclusive = false)
 	@Digits(integer = 8, fraction = 2)
 	private BigDecimal amount;
 
@@ -148,9 +148,9 @@ public class Order extends EntityBase<Order> implements Serializable {
 		this.idOrder = idOrder;
 		this.idUser = idUser;
 		this.address = address;
-		this.idChef = idChef;
-		this.idCourier = idCourier;
-		this.deliveryDate = deliveryDate;
+		this.idChef = null;
+		this.idCourier = null;
+		this.deliveryDate = null;
 		this.comment = comment;
 		this.orderDate = orderDate;
 		this.amount = amount;
