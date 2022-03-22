@@ -127,20 +127,13 @@ public class PizzaResource {
 		srv.change(entity);
 	}
 	
+	@GetMapping(path = "/{id}/comentarios")
+	@Transactional
+	public List<CommentShortDTO> getComments(@PathVariable int id) throws NotFoundException {
+		return srv.getOne(id).getComments().stream().map(item -> CommentShortDTO.from(item)).collect(Collectors.toList());
+	}
 	
-	
-	
-	
-	
-//	@GetMapping("/{id}/foto")
-//	public ResponseEntity<byte[]> getFoto(@PathVariable int id) throws NotFoundException {
-//		var result = dao.findById(id);
-//		if(result.isEmpty() || result.get().getImage() == null)
-//			throw new NotFoundException();
-//		return ResponseEntity.ok().header("content-type", "image/png").body(result.get().getImage());
-//	}
-//	
-	@GetMapping(path="/{id}/foto", produces = { "image/png" })
+	@GetMapping(path="/{id}/foto", produces = {"image/png", "image/jpg", "image/jpeg" })
 	public byte[] getPhoto(@PathVariable int id) throws NotFoundException {
 		var result = dao.findById(id);
 		if(result.isEmpty() || result.get().getImage() == null)
@@ -148,7 +141,7 @@ public class PizzaResource {
 		return result.get().getImage();
 	}
 	
-	@PutMapping(path="/{id}/foto", produces = { "image/png"})
+	@PutMapping(path="/{id}/foto", produces = {"image/png", "image/jpg", "image/jpeg"})
 	public byte[] setPhoto(@PathVariable int id, @RequestBody byte[] file) throws NotFoundException {
 		var item = dao.findById(id);
 		if(item.isEmpty())
@@ -166,17 +159,6 @@ public class PizzaResource {
 			throw new NotFoundException();
 		item.get().setImage(null);
 		dao.save(item.get());
-	}
-	
-	
-	@PostMapping("/upload")
-    public void formUploadFile(@RequestParam("file") MultipartFile file) {
-    }
-	
-	@GetMapping(path = "/{id}/comentarios")
-	@Transactional
-	public List<CommentShortDTO> getComments(@PathVariable int id) throws NotFoundException {
-		return srv.getOne(id).getComments().stream().map(item -> CommentShortDTO.from(item)).collect(Collectors.toList());
 	}
 	
 	
