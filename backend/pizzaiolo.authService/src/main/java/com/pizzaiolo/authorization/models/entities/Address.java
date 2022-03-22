@@ -3,6 +3,7 @@ package com.pizzaiolo.authorization.models.entities;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
@@ -10,8 +11,8 @@ import lombok.experimental.Accessors;
 
 @Accessors(chain = true)
 @Data
-@Document(collection = "users")
-public class Address {
+@Document(collection = "address")
+public class Address extends BaseModel {
 	@NotBlank
 	@Size(max = 255)
 	private String street;
@@ -47,6 +48,5 @@ public class Address {
 	}
 
 	public Address() {
-		// TODO Auto-generated constructor stub
 	}
 }
