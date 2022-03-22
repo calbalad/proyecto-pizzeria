@@ -50,7 +50,7 @@ public class PizzaEditDTO {
 	
 	@JsonProperty("ingredientPizza")
 	@ApiModelProperty(value = "Ingredientes.")
-	private List<String> ingredientpizzas;
+	private List<Integer> ingredientpizzas;
 
 	public static PizzaEditDTO from(Pizza source) {
 		return new PizzaEditDTO(
@@ -62,7 +62,7 @@ public class PizzaEditDTO {
 				source.getAmount(),
 				source.getActive(),
 				source.getImage(),
-				source.getIngredientpizzas().stream().map(item -> item.getIngredient().getName()).sorted().toList());
+				source.getIngredientpizzas().stream().map(item -> item.getIngredient().getId()).sorted().toList());
 						
 	}
 
@@ -81,7 +81,8 @@ public class PizzaEditDTO {
 	
 	public Pizza update(Pizza target) {
 		
-		target.setActive(active);
+		if(target.getActive() != active)
+			target.setActive(active);
 
 		return target;
 	}
