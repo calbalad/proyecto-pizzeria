@@ -24,13 +24,15 @@ public class CarritoEditDTO {
 	private int idPizza;
 	private Pizzaorder source;
 	private Pizza pizza;
+	private BigDecimal amount;
 
 	public static CarritoEditDTO from(Pizzaorder source) {
 		return new CarritoEditDTO(
 				source.getQuantity(),
 				source.getPizza().getIdPizza(),
 				source,
-				source.getPizza()
+				source.getPizza(),
+				source.getAmount()
 				);
 	}
 	
@@ -42,7 +44,8 @@ public class CarritoEditDTO {
 				order.getIdOrder(),
 				order.getAddress(),
 				order.getIdUser(),
-				source.getPizza().getIdPizza()
+				source.getPizza().getIdPizza(),
+				source.getPizza().getAmount().multiply(BigDecimal.valueOf(source.getQuantity()))
 				);
 	}
 	
