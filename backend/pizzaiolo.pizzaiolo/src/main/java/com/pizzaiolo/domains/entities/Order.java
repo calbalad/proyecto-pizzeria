@@ -69,7 +69,7 @@ public class Order extends EntityBase<Order> implements Serializable {
 	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date orderDate;
-
+	
 	@NotNull
 	@Convert(converter = StatusConverter.class)
 	private Status orderStatus;
@@ -154,7 +154,7 @@ public class Order extends EntityBase<Order> implements Serializable {
 		this.comment = comment;
 		this.orderDate = orderDate;
 		this.amount = amount;
-		this.setOrderStatus(Status.PEDIDO_SOLICITADO);		
+		this.setOrderStatus(Status.PEDIDO_SOLICITADO);
 	}
 
 	public int getIdOrder() {
