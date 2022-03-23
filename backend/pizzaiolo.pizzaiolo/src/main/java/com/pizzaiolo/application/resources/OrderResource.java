@@ -45,6 +45,9 @@ public class OrderResource {
 
 	@Autowired
 	private PizzaService srvPizza;
+	
+//	@Autowired
+//	private PizzaorderService srvPizzaorder;
 
 	@GetMapping
 	@ApiOperation(value = "Listado de los pedidos")
@@ -74,12 +77,14 @@ public class OrderResource {
 		if (entity.isInvalid())
 			throw new InvalidDataException(entity.getErrorsMessage());
 		BigDecimal flag = BigDecimal.ZERO;
+		BigDecimal flag2 = BigDecimal.ZERO;
 		for (CarritoEditDTO value : item.getPizzas()) {
 			System.out.println(srvPizza.getOne(value.getIdPizza()));
-			flag = flag.add(srvPizza.getOne(value.getIdPizza()).getAmount());
+			flag = flag.add(srvPizza.getOne(value.getIdPizza()).getAmount().multiply(BigDecimal.valueOf(value.getQuantity())));
 		}
 		entity.setAmount(flag);
 		entity = srv.add(entity);
+		item.update(entity);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(entity.getIdOrder()).toUri();
 		return ResponseEntity.created(location).build();

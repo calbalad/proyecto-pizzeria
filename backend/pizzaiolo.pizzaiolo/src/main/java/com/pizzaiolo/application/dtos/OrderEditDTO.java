@@ -1,5 +1,6 @@
 package com.pizzaiolo.application.dtos;
 
+import java.awt.Point;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -63,13 +64,13 @@ public class OrderEditDTO {
 	}
 	
 	public Order update(Order target) {
-		target.setIdChef(idChef);
-		target.setIdCourier(idCourier);
-		//target.setOrderStatus(orderStatus);
-		target.setDeliveryDate(deliveryDate);
+//		target.setIdChef(idChef);
+//		target.setIdCourier(idCourier);
+//		target.setOrderStatus(orderStatus);
+//		target.setDeliveryDate(deliveryDate);
 		
 		pizzas.stream().forEach(item -> target.addPizzaorder(new Pizzaorder(
-				target.getAmount(),
+				item.getAmount().multiply(BigDecimal.valueOf(item.getQuantity())),
 				item.getQuantity(),
 				target,
 				item.getIdPizza()				
