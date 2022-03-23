@@ -37,7 +37,7 @@ import com.pizzaiolo.authorization.services.interfaces.PermissionService;
 @Api(tags = SWG_PERMISSION_TAG_NAME, description = SWG_PERMISSION_TAG_DESCRIPTION)
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping(value = "/permissions")
+@RequestMapping(value = "/api/v1/permissions")
 public class PermissionController {
 
     private final PermissionService permissionService;

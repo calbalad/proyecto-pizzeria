@@ -31,7 +31,7 @@ import com.pizzaiolo.authorization.services.interfaces.UserService;
 @Api(tags = SWG_RESPWD_TAG_NAME, description = SWG_RESPWD_TAG_DESCRIPTION)
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/v1/auth")
 public class ResetPasswordController {
 
     private final UserService userService;

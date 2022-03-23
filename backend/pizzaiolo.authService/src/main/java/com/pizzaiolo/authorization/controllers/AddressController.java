@@ -46,7 +46,7 @@ import io.swagger.annotations.ApiResponses;
 @Api(tags = SWG_ADDRESS_TAG_NAME, description = SWG_ADDRESS_TAG_DESCRIPTION)
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/address")
+@RequestMapping("/api/v1/address")
 @Validated
 public class AddressController {
 	private final AddressService addressService;

@@ -1,4 +1,4 @@
-package com.example;
+package com.pizzaiolo;
 
 import java.util.Date;
 

@@ -27,7 +27,7 @@ import com.pizzaiolo.authorization.services.interfaces.PermissionService;
 @Api(tags = SWG_ROLE_TAG_NAME, description = SWG_ROLE_TAG_DESCRIPTION)
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping(value = "/roles")
+@RequestMapping(value = "/api/v1/roles")
 public class RoleController {
     private final RoleService roleService;
 

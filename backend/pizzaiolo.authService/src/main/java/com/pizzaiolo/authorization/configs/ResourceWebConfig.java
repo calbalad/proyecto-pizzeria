@@ -16,7 +16,7 @@ public class ResourceWebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
         // For windows user;
-         registry.addResourceHandler("/uploads/**").addResourceLocations("file:///C://Eclipse//test//spring-user-management/uploads");
+         registry.addResourceHandler("/api/v1/uploads/**").addResourceLocations("file:///C://Eclipse//test//spring-user-management/uploads");
 //        String location = environment.getProperty("app.file.storage.mapping");
 
         //registry.addResourceHandler("/uploads/**").addResourceLocations(location);
