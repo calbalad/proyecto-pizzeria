@@ -144,7 +144,7 @@ public class AuthController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        final String token = jwtTokenUtil.createTokenFromAuth(authentication);
+        final String token = jwtTokenUtil.createTokenFromAuth(authentication, user.getRole().getName());
         Date expirationDate = jwtTokenUtil.getExpirationDateFromToken(token);
         String refreshToken = Helpers.generateRandomString(25);
 
