@@ -34,7 +34,7 @@ import com.pizzaiolo.authorization.services.interfaces.UserService;
 @Api(tags = SWG_TOKEN_TAG_NAME, description = SWG_TOKEN_TAG_DESCRIPTION)
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/token")
+@RequestMapping("/api/v1/token")
 public class TokenController {
 
   private final Log logger = LogFactory.getLog(this.getClass());

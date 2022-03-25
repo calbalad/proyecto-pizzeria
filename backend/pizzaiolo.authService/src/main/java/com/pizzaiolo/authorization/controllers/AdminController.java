@@ -43,7 +43,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = SWG_ADMIN_TAG_NAME, description = SWG_ADMIN_TAG_DESCRIPTION)
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/admins")
+@RequestMapping("/api/v1/admins")
 public class AdminController {
   private final RoleService roleService;
 
