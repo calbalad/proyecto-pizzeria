@@ -63,12 +63,8 @@ public class OrderEditDTO {
 				);
 	}
 	
-	public Order update(Order target) {
-//		target.setIdChef(idChef);
-//		target.setIdCourier(idCourier);
-//		target.setOrderStatus(orderStatus);
-//		target.setDeliveryDate(deliveryDate);
-		
+	public Order updateAmount(Order target) {
+	
 		pizzas.stream().forEach(item -> target.addPizzaorder(new Pizzaorder(
 				item.getAmount().multiply(BigDecimal.valueOf(item.getQuantity())),
 				item.getQuantity(),
@@ -79,4 +75,5 @@ public class OrderEditDTO {
 		return target;
 		
 	}
+	
 }

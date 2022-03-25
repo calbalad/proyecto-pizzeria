@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pizzaiolo.domains.entities.Order;
 import com.pizzaiolo.domains.entities.Order.Status;
@@ -14,6 +17,7 @@ import com.pizzaiolo.domains.entities.Pizzaorder;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Value;
+import springfox.documentation.annotations.ApiIgnore;
 
 @Value
 public class CarritoEditDTO {

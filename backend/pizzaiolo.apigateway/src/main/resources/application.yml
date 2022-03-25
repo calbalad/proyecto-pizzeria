@@ -70,7 +70,13 @@ spring:
           - Path=/api/v1/uploads/**
         uri: lb://authService
         filters:
-          - RewriteLocationResponseHeader=AS_IN_REQUEST, Location, ,      
+          - RewriteLocationResponseHeader=AS_IN_REQUEST, Location, ,
+      - id: megusta
+        predicates:
+          - Path=/api/v1/me-gusta/**
+        uri: lb://megusta
+        filters:
+          - RewriteLocationResponseHeader=AS_IN_REQUEST, Location, ,   
 logging:
   level:
     org.springframework.cloud.gateway: DEBUG

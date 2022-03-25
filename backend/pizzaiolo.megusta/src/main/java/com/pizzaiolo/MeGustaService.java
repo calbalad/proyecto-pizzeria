@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/me-gusta")
+@RequestMapping(path = "api/v1/me-gusta")
 public class MeGustaService {
 	public final String ME_GUSTA_CONT = "megusta";
 	@Autowired
