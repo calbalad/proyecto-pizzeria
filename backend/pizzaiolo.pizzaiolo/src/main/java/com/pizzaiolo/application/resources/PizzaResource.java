@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pizzaiolo.application.dtos.CommentShortDTO;
@@ -74,10 +73,9 @@ public class PizzaResource {
 	
 	@GetMapping(path = "/{id}", params = "mode=edit")
 	@ApiOperation(value = "Recupera una pizza")
-	
 	@ApiResponses({
-		@ApiResponse(code = 200, message = "Alquiler encontrado"),
-		@ApiResponse(code = 404, message = "Alquiler no encontrado")
+		@ApiResponse(code = 200, message = "Pizza encontrada"),
+		@ApiResponse(code = 404, message = "Pizza no encontrada")
 	})
 	public PizzaEditDTO getOneEdit(@ApiParam(value = "Identificador de la pizza") @PathVariable int id, 
 			@ApiParam(value = "Versión completa o editable", required = true, allowableValues = "details,edit") String mode)
@@ -160,42 +158,4 @@ public class PizzaResource {
 		item.get().setImage(null);
 		dao.save(item.get());
 	}
-	
-	
-	/*
-	@PostMapping
-	@Transactional
-	@ApiOperation(value = "Añadir una nueva pizza")
-	
-//	todo implementar swagger
-//	@ApiResponses({
-//		@ApiResponse(code = 201, message = "Pizza añadida"),
-//		@ApiResponse(code = 400, message = "Error al validar los datos o clave duplicada"),
-//		@ApiResponse(code = 404, message = "Pizza no encontrada")
-//	})
-	public ResponseEntity<Object> create(@Valid @RequestBody PizzaEditDTO item)
-			throws InvalidDataException, DuplicateKeyException, NotFoundException {
-		var entity = PizzaEditDTO.from(item);
-		if (entity.isInvalid())
-			throw new InvalidDataException(entity.getErrorsMessage());
-		entity = srv.add(entity);
-//		item.update(entity);
-		srv.change(entity);
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(entity.getIdPizza()).toUri();
-		return ResponseEntity.created(location).build();
-
-	}
-	@DeleteMapping("/{id}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@ApiOperation(value = "Borrar una pizza existente")
-//	todo implementar swagger y cambiar documentación
-//	@ApiResponses({
-//		@ApiResponse(code = 204, message = "Pizza borrada"),
-//		@ApiResponse(code = 404, message = "Pizza no encontrada")
-//	})
-	public void delete(@ApiParam(value = "Identificador de la pizza") @PathVariable int id) {
-		srv.deleteById(id);
-	}*/
-	
 }

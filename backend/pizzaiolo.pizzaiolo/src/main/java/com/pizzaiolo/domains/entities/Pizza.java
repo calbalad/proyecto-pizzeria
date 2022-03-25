@@ -71,7 +71,7 @@ public class Pizza extends EntityBase<Pizza> implements Serializable {
 	private List<Comment> comments;
 
 	// bi-directional many-to-one association to Ingredientpizza
-	@OneToMany(mappedBy = "pizza")
+	@OneToMany(mappedBy = "pizza", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Valid
 	private List<Ingredientpizza> ingredientpizzas;
 
@@ -188,12 +188,26 @@ public class Pizza extends EntityBase<Pizza> implements Serializable {
 
 		return ingredientpizza;
 	}
+	
+	public Ingredientpizza addIngredientpizza(int idIngredient, int quantity) {
+		var ingredientPizza = new Ingredientpizza(this, new Ingredient(idIngredient), quantity);
+		getIngredientpizzas().add(ingredientPizza);
+
+		return ingredientPizza;
+	}
 
 	public Ingredientpizza removeIngredientpizza(Ingredientpizza ingredientpizza) {
 		getIngredientpizzas().remove(ingredientpizza);
 		ingredientpizza.setPizza(null);
 
 		return ingredientpizza;
+	}
+	
+	public Ingredientpizza removeIngredientpizza(Ingredient ingredient) {
+		var ingredientPizza = new Ingredientpizza(this, ingredient, 0);
+		getIngredientpizzas().remove(ingredientPizza);
+
+		return ingredientPizza;
 	}
 
 	public List<Pizzaorder> getPizzaorders() {

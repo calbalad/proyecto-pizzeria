@@ -72,8 +72,8 @@ public class Ingredient extends EntityBase<Ingredient> implements Serializable {
 	@Id
 	@NotNull
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
-	private int id;
+	@Column(name="idIngredient")
+	private int idIngredient;
 	
 	@NotBlank
 	@Length(min = 1, max = 45)
@@ -107,25 +107,25 @@ public class Ingredient extends EntityBase<Ingredient> implements Serializable {
 	
 	public Ingredient(@NotNull int id) {
 		super();
-		this.id = id;
+		this.idIngredient = id;
 	}
 
 	public Ingredient(@NotNull int id, @NotBlank @Length(min = 1, max = 45) String name,
 			@NotNull @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 8, fraction = 2) BigDecimal price,
 			Type type) {
 		super();
-		this.id = id;
+		this.idIngredient = id;
 		this.name = name;
 		this.price = price;
 		this.type = type;
 	}
 	
-	public int getId() {
-		return this.id;
+	public int getIdIngredient() {
+		return this.idIngredient;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setIdIngredient(int id) {
+		this.idIngredient = id;
 	}
 
 	public String getName() {
@@ -220,7 +220,7 @@ public class Ingredient extends EntityBase<Ingredient> implements Serializable {
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(idIngredient);
 	}
 
 	@Override
@@ -232,12 +232,12 @@ public class Ingredient extends EntityBase<Ingredient> implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Ingredient other = (Ingredient) obj;
-		return id == other.id;
+		return idIngredient == other.idIngredient;
 	}
 
 	@Override
 	public String toString() {
-		return "Ingredient [id=" + id + ", name=" + name + ", price=" + price + ", type=" + type + "]";
+		return "Ingredient [id=" + idIngredient + ", name=" + name + ", price=" + price + ", type=" + type + "]";
 	}
 
 }
