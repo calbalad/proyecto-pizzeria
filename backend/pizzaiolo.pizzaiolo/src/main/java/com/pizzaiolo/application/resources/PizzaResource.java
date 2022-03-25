@@ -74,12 +74,7 @@ public class PizzaResource {
 	
 	@GetMapping(path = "/{id}", params = "mode=active")
 	@ApiOperation(value = "Recupera el estado de una pizza")
-	@ApiResponses({
-		@ApiResponse(code = 200, message = "Pizza encontrada"),
-		@ApiResponse(code = 404, message = "Pizza no encontrada")
-	})
-	public PizzaActiveDetailsDTO getOne(@ApiParam(value = "Identificador de la pizza") @PathVariable int id, 
-			@ApiParam(value = "Versión activa", required = true, defaultValue = "active") String mode)
+	public PizzaActiveDetailsDTO getOne(@PathVariable int id, @RequestParam(required = false) String mode)
 			throws NotFoundException {
 			return PizzaActiveDetailsDTO.from(srv.getOne(id));
 	}
@@ -91,7 +86,7 @@ public class PizzaResource {
 		@ApiResponse(code = 404, message = "Pizza no encontrada")
 	})
 	public PizzaEditDTO getOneEdit(@ApiParam(value = "Identificador de la pizza") @PathVariable int id, 
-			@ApiParam(value = "Versión completa o editable", required = true, allowableValues = "details,edit") String mode)
+			@ApiParam(value = "Versión completa, editable o activa", required = true, allowableValues = "details,edit,active") String mode)
 			throws NotFoundException {
 			return PizzaEditDTO.from(srv.getOne(id));
 	}
