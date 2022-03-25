@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pizzaiolo.application.dtos.CommentShortDTO;
+import com.pizzaiolo.application.dtos.PizzaActiveDetailsDTO;
 import com.pizzaiolo.application.dtos.PizzaDetailsDTO;
 import com.pizzaiolo.application.dtos.PizzaEditDTO;
 import com.pizzaiolo.application.dtos.PizzaShortDTO;
@@ -69,6 +70,18 @@ public class PizzaResource {
 	public PizzaDetailsDTO getOneDetails(@PathVariable int id, @RequestParam(required = false, defaultValue = "details") String mode)
 			throws NotFoundException {
 			return PizzaDetailsDTO.from(srv.getOne(id));
+	}
+	
+	@GetMapping(path = "/{id}", params = "mode=active")
+	@ApiOperation(value = "Recupera el estado de una pizza")
+	@ApiResponses({
+		@ApiResponse(code = 200, message = "Pizza encontrada"),
+		@ApiResponse(code = 404, message = "Pizza no encontrada")
+	})
+	public PizzaActiveDetailsDTO getOne(@ApiParam(value = "Identificador de la pizza") @PathVariable int id, 
+			@ApiParam(value = "Versión activa", required = true, defaultValue = "active") String mode)
+			throws NotFoundException {
+			return PizzaActiveDetailsDTO.from(srv.getOne(id));
 	}
 	
 	@GetMapping(path = "/{id}", params = "mode=edit")
