@@ -142,5 +142,11 @@ class OrderServiceImplTest {
 		srv.deleteById(1);
 		verify(dao).deleteById(1);
 	}
+	
+	@Test
+	void testDeleteNull() {
+		var srv = new OrderServiceImpl(dao);
+		assertThrows(IllegalArgumentException.class, () -> srv.delete(null));
+	}
 
 }
