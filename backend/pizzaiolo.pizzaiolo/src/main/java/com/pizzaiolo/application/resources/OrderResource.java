@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pizzaiolo.application.dtos.CarritoEditDTO;
+import com.pizzaiolo.application.dtos.CestaEditDTO;
 import com.pizzaiolo.application.dtos.OrderDetailsDTO;
 import com.pizzaiolo.application.dtos.OrderEditDTO;
 import com.pizzaiolo.application.dtos.OrderShortDTO;
@@ -66,7 +67,7 @@ public class OrderResource {
 	@GetMapping(path = "/{id}")
 	@ApiOperation(value = "Detalles de pedido")
 	public OrderDetailsDTO getOneDetails(@PathVariable int id,
-			@RequestParam(required = false, defaultValue = "details") String mode) throws NotFoundException {
+			@RequestParam(required = true, defaultValue = "details") String mode) throws NotFoundException {
 		return OrderDetailsDTO.from(srv.getOne(id));
 	}
 
@@ -79,7 +80,7 @@ public class OrderResource {
 		if (entity.isInvalid())
 			throw new InvalidDataException(entity.getErrorsMessage());
 		BigDecimal flag = BigDecimal.ZERO;
-		for (CarritoEditDTO value : item.getPizzas()) {
+		for (CestaEditDTO value : item.getPizzas()) {
 			System.out.println(srvPizza.getOne(value.getIdPizza()));
 			flag = flag.add(srvPizza.getOne(value.getIdPizza()).getAmount().multiply(BigDecimal.valueOf(value.getQuantity())));
 		}

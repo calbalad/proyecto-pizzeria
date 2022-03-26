@@ -22,15 +22,11 @@ public class OrderEditDTO {
 	@JsonProperty("idUser")
 	private String idUser;
 	private String address;
-	@ApiModelProperty(value = "Estados de pedido.", allowableValues = "solicitado,elaborandose,preparado,enviado,recibido,cancelado")
-	private Status orderStatus;
 	private Date orderDate;
-	private String idChef;
-	private String idCourier;
-	private Date deliveryDate;
 	private String comment;
 	@ApiModelProperty(value = "Lista de identificadores de pizzas.")
-	private List<CarritoEditDTO> pizzas;
+	//private List<CarritoEditDTO> pizzas;
+	private List<CestaEditDTO> pizzas;
 	private BigDecimal amount;
 
 	public static OrderEditDTO from(Order source) {
@@ -38,13 +34,9 @@ public class OrderEditDTO {
 				source.getIdOrder(),
 				source.getIdUser(),
 				source.getAddress(),
-				source.getOrderStatus(),
 				source.getOrderDate(),
-				source.getIdChef() == null ? null : source.getIdChef(),
-				source.getIdCourier() == null ? null : source.getIdCourier(),
-				source.getDeliveryDate() == null ? null : source.getDeliveryDate(),
 				source.getComment() == null ? null : source.getComment(),
-				source.getPizzaorders().stream().map(item -> CarritoEditDTO.from(item)).toList(),
+				source.getPizzaorders().stream().map(item -> CestaEditDTO.from(item)).toList(),
 				source.getAmount()
 						);
 	}
@@ -54,9 +46,6 @@ public class OrderEditDTO {
 				source.getIdOrder(),
 				source.getIdUser(),
 				source.getAddress(),
-				source.getIdChef(),
-				source.getIdCourier(),
-				source.getDeliveryDate(),
 				source.getComment(),
 				source.getOrderDate(),
 				source.getAmount()
