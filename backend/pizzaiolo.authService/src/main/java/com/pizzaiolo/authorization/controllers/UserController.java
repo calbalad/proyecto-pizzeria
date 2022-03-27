@@ -13,17 +13,14 @@ import java.util.Arrays;
 import java.util.Optional;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.util.StreamUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,9 +33,6 @@ import javax.validation.constraints.Size;
 import static com.pizzaiolo.authorization.utils.Constants.*;
 
 import java.io.IOException;
-import java.io.InputStream;
-import org.apache.commons.io.IOUtils;
-
 import com.pizzaiolo.authorization.models.response.*;
 import com.pizzaiolo.authorization.exceptions.PasswordNotMatchException;
 import com.pizzaiolo.authorization.exceptions.ResourceNotFoundException;
@@ -51,7 +45,7 @@ import com.pizzaiolo.authorization.services.interfaces.UserService;
 
 @Api(tags = SWG_USER_TAG_NAME, description = SWG_USER_TAG_DESCRIPTION)
 @RestController
-@RequestMapping(value = "/users")
+@RequestMapping(value = "/api/v1/users")
 @Validated
 public class UserController {
 	private final Log logger = LogFactory.getLog(this.getClass());

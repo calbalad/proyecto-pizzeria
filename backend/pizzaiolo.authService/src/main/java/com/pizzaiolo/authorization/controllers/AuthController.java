@@ -40,7 +40,7 @@ import com.pizzaiolo.authorization.services.interfaces.UserAccountService;
 @Api(tags = SWG_AUTH_TAG_NAME, description = SWG_AUTH_TAG_DESCRIPTION)
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/v1/auth")
 public class AuthController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -144,7 +144,7 @@ public class AuthController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        final String token = jwtTokenUtil.createTokenFromAuth(authentication);
+        final String token = jwtTokenUtil.createTokenFromAuth(authentication, user.getRole().getName());
         Date expirationDate = jwtTokenUtil.getExpirationDateFromToken(token);
         String refreshToken = Helpers.generateRandomString(25);
 

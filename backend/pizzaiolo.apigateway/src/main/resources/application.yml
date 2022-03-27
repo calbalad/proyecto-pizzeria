@@ -1,0 +1,82 @@
+server:
+  port: ${PORT:8080}
+eureka:
+  client:
+    fetchRegistry: true
+    registerWithEureka: false
+    serviceUrl:
+      defaultZone: ${DISCOVERY_URL:http://localhost:8761}/eureka/
+  instance:
+    appname: apigateway-server
+spring:
+  application:
+    name: apigateway-server
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+      routes:
+      - id: authService
+          #lb:// cuando se va a acceder a través de Eureka
+        predicates:
+          - Path=/api/v1/auth/*
+        uri: lb://authService
+        filters:
+          - RewriteLocationResponseHeader=AS_IN_REQUEST, Location, ,
+      - id: authService
+        predicates:
+          - Path=/api/v1/users/**
+        uri: lb://authService
+        filters:
+          - RewriteLocationResponseHeader=AS_IN_REQUEST, Location, ,
+      - id: authService
+        predicates:
+          - Path=/api/v1/address/**
+        uri: lb://authService
+        filters:
+          - RewriteLocationResponseHeader=AS_IN_REQUEST, Location, ,
+      - id: authService
+        predicates:
+          - Path=/api/v1/admins/**
+        uri: lb://authService
+        filters:
+          - RewriteLocationResponseHeader=AS_IN_REQUEST, Location, ,
+      - id: authService
+        predicates:
+          - Path=/api/v1/permissions/**
+        uri: lb://authService
+        filters:
+          - RewriteLocationResponseHeader=AS_IN_REQUEST, Location, ,
+      - id: authService
+        predicates:
+          - Path=/api/v1/roles/**
+        uri: lb://authService
+        filters:
+          - RewriteLocationResponseHeader=AS_IN_REQUEST, Location, ,    
+      - id: authService
+        predicates:
+          - Path=/api/v1/token/**
+        uri: lb://authService
+        filters:
+          - RewriteLocationResponseHeader=AS_IN_REQUEST, Location, ,
+      - id: authService
+        predicates:
+          - Path=/api/v1/uploads/**
+        uri: lb://authService
+        filters:
+          - RewriteLocationResponseHeader=AS_IN_REQUEST, Location, ,
+      - id: megusta
+        predicates:
+          - Path=/api/v1/me-gusta/**
+        uri: lb://megusta
+        filters:
+          - RewriteLocationResponseHeader=AS_IN_REQUEST, Location, ,   
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG

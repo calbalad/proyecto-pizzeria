@@ -50,20 +50,20 @@ public class PizzaEditDTO {
 	
 	@JsonProperty("ingredientPizza")
 	@ApiModelProperty(value = "Ingredientes.")
-	private List<Integer> ingredientpizzas;
+	private List<IngredientPizzaEditDTO> ingredientpizzas;
 
 	public static PizzaEditDTO from(Pizza source) {
 		return new PizzaEditDTO(
 				source.getIdPizza(), 
-				source.getBase().getId(), 
-				source.getSauce().getId(), 
+				source.getBase().getIdIngredient(), 
+				source.getSauce().getIdIngredient(), 
 				source.getDescription(), 
 				source.getNetPrice(),
 				source.getAmount(),
 				source.getActive(),
 				source.getImage(),
-				source.getIngredientpizzas().stream().map(item -> item.getIngredient().getId()).sorted().toList());
-						
+				source.getIngredientpizzas().stream().map(item -> IngredientPizzaEditDTO.from(item)).toList()
+				);
 	}
 
 	public static Pizza from(PizzaEditDTO source) {
@@ -83,7 +83,16 @@ public class PizzaEditDTO {
 		
 		if(target.getActive() != active)
 			target.setActive(active);
-
+		
+			var delIngredientPizzas = target.getIngredientpizzas().stream()
+					.filter(item -> !ingredientpizzas.contains(item.getIngredient().getIdIngredient()))
+					.toList();
+			delIngredientPizzas.forEach(item -> target.removeIngredientpizza(item));
+				
+			ingredientpizzas.stream()
+			.filter(ingredientpizzaeditDTO -> !target.getIngredientpizzas().stream().anyMatch(ingredientpizza -> ingredientpizza.getId().getIdIngredient() == ingredientpizzaeditDTO.getIdIngredient()))
+			.forEach(ingredientpizzaeditDTO -> target.addIngredientpizza(ingredientpizzaeditDTO.getIdIngredient(),ingredientpizzaeditDTO.getQuantity()));
+				
 		return target;
 	}
 	

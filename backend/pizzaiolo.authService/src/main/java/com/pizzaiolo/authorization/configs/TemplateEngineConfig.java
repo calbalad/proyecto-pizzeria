@@ -85,6 +85,6 @@ public class TemplateEngineConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("index");
+        registry.addViewController("/api/v1/").setViewName("index");
     }
 }

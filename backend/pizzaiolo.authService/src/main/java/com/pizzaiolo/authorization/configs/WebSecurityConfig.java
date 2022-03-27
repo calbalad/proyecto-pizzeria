@@ -59,16 +59,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .disable()
             .authorizeRequests()
             .antMatchers(
-                    "/auth/*",
-                    "/users/files/*",
-                    "/token/*",
+                    "/api/v1/auth/*",
+                    "/api/v1/users/files/*",
+                    "/api/v1/token/*",
                     "/v2/api-docs",
                     "/swagger-resources/**",
                     "/swagger-ui.html**",
                     "/webjars/**",
-                    "/",
-                    "/uploads/**",
-                    "favicon.ico"
+                    "/api/v1/",
+                    "/api/v1/uploads/**",
+                    "/api/v1/favicon.ico"
             ).permitAll()
             .anyRequest().authenticated()
             .and()

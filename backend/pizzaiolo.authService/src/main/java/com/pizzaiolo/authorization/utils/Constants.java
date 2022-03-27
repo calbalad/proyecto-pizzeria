@@ -4,7 +4,7 @@ public class Constants {
     static final long TOKEN_LIFETIME_SECONDS = 24 * 60 * 60;
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String HEADER_STRING = "Authorization";
-    static final String AUTHORITIES_KEY = "scopes";
+    static final String AUTHORITIES_KEY = "authorities";
     public static final String ROLE_USER = "ROLE_USER";
     public static final String ROLE_ADMIN = "ROLE_ADMIN";
     public static final String ROLE_CHEF = "ROLE_CHEF";

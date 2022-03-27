@@ -25,7 +25,7 @@ public class SwaggerConfiguration {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.pizzaiolo.authorization.controllers"))
-                .paths(PathSelectors.regex("/.*"))
+                .paths(PathSelectors.regex(".*"))
                 .build()
                 .apiInfo(apiEndPointsInfo())
                 .produces(DEFAULT_PRODUCES_AND_CONSUMES)
