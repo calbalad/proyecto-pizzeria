@@ -31,6 +31,7 @@ import com.pizzaiolo.application.dtos.OrderShortDTO;
 import com.pizzaiolo.application.dtos.OrderStatusEditDTO;
 import com.pizzaiolo.domains.contracts.services.OrderService;
 import com.pizzaiolo.domains.contracts.services.PizzaService;
+import com.pizzaiolo.domains.entities.Order;
 import com.pizzaiolo.exceptions.DuplicateKeyException;
 import com.pizzaiolo.exceptions.InvalidDataException;
 import com.pizzaiolo.exceptions.NotFoundException;
@@ -57,6 +58,12 @@ public class OrderResource {
 	public List<OrderShortDTO> getAll() {
 		return srv.getByProjection(OrderShortDTO.class);
 	}
+	
+//	@GetMapping(params = "status")
+//	@ApiOperation(value = "Listado de pedidos en un estado concreto")
+//	public List<Order> getAll(@ApiParam(required = false) String status) {
+//		return srv.findByStatus(status);
+//	}
 
 	@GetMapping(params = "page")
 	@ApiOperation(value = "Listado paginable de los pedidos")
@@ -67,7 +74,7 @@ public class OrderResource {
 	@GetMapping(path = "/{id}")
 	@ApiOperation(value = "Detalles de pedido")
 	public OrderDetailsDTO getOneDetails(@PathVariable int id,
-			@RequestParam(required = true, defaultValue = "details") String mode) throws NotFoundException {
+			@RequestParam(required = false, defaultValue = "details") String mode) throws NotFoundException {
 		return OrderDetailsDTO.from(srv.getOne(id));
 	}
 

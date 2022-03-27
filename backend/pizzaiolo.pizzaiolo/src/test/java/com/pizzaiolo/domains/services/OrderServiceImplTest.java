@@ -31,8 +31,8 @@ class OrderServiceImplTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		listado = new ArrayList<Order>();
-		listado.add(new Order(1, "uno", "auno", "", "", new Date(2022-03-22), "", new Date(2022-03-22), new BigDecimal(10.00)));
-		listado.add(new Order(2, "uno", "auno", "", "", new Date(2022-03-22), "", new Date(2022-03-22), new BigDecimal(10.00)));
+		listado.add(new Order(1, "uno", "auno", "", new Date(2022-03-22), new BigDecimal(10.00)));
+		listado.add(new Order(2, "uno", "auno", "", new Date(2022-03-22), new BigDecimal(10.00)));
 		dao = mock(OrderRepository.class);
 	} 
 

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.pizzaiolo.domains.contracts.repositories.OrderRepository;
 import com.pizzaiolo.domains.contracts.services.OrderService;
 import com.pizzaiolo.domains.entities.Order;
+import com.pizzaiolo.domains.entities.Order.Status;
 import com.pizzaiolo.exceptions.DuplicateKeyException;
 import com.pizzaiolo.exceptions.InvalidDataException;
 import com.pizzaiolo.exceptions.NotFoundException;
@@ -90,4 +91,9 @@ public class OrderServiceImpl implements OrderService{
 	public void deleteById(Integer id) {
 		dao.deleteById(id);
 	}
+
+//	@Override
+//	public List<Order> findByStatus(Status status) {
+//		return dao.findByStatus(status);
+//	}
 }
