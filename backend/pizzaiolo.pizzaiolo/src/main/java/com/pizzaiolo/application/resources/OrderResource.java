@@ -24,12 +24,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pizzaiolo.application.dtos.CarritoEditDTO;
+import com.pizzaiolo.application.dtos.CestaEditDTO;
 import com.pizzaiolo.application.dtos.OrderDetailsDTO;
 import com.pizzaiolo.application.dtos.OrderEditDTO;
 import com.pizzaiolo.application.dtos.OrderShortDTO;
 import com.pizzaiolo.application.dtos.OrderStatusEditDTO;
 import com.pizzaiolo.domains.contracts.services.OrderService;
 import com.pizzaiolo.domains.contracts.services.PizzaService;
+import com.pizzaiolo.domains.entities.Order;
 import com.pizzaiolo.exceptions.DuplicateKeyException;
 import com.pizzaiolo.exceptions.InvalidDataException;
 import com.pizzaiolo.exceptions.NotFoundException;
@@ -56,6 +58,12 @@ public class OrderResource {
 	public List<OrderShortDTO> getAll() {
 		return srv.getByProjection(OrderShortDTO.class);
 	}
+	
+//	@GetMapping(params = "status")
+//	@ApiOperation(value = "Listado de pedidos en un estado concreto")
+//	public List<Order> getAll(@ApiParam(required = false) String status) {
+//		return srv.findByStatus(status);
+//	}
 
 	@GetMapping(params = "page")
 	@ApiOperation(value = "Listado paginable de los pedidos")
@@ -79,7 +87,7 @@ public class OrderResource {
 		if (entity.isInvalid())
 			throw new InvalidDataException(entity.getErrorsMessage());
 		BigDecimal flag = BigDecimal.ZERO;
-		for (CarritoEditDTO value : item.getPizzas()) {
+		for (CestaEditDTO value : item.getPizzas()) {
 			System.out.println(srvPizza.getOne(value.getIdPizza()));
 			flag = flag.add(srvPizza.getOne(value.getIdPizza()).getAmount().multiply(BigDecimal.valueOf(value.getQuantity())));
 		}

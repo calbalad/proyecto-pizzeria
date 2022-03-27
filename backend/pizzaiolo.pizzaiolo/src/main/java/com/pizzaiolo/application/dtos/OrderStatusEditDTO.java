@@ -43,10 +43,29 @@ public class OrderStatusEditDTO {
 	
 	public Order updateStatus(Order target) {
 		
-		target.setIdChef(idChef == null ? null : target.getIdChef());
-		target.setIdCourier(idCourier == null ? null : target.getIdCourier());
-		target.setDeliveryDate(deliveryDate == null ? null : new Date());		
-		target.setOrderStatus(Order.Status.getEnum(orderStatus));
+		
+		if(target.getOrderStatus() == Status.PEDIDO_SOLICITADO
+				&& Order.Status.getEnum(orderStatus) == Status.PEDIDO_ELABORANDOSE 
+				&& (target.getIdChef() == null)) {
+			target.setIdChef(idChef);
+			target.setOrderStatus(Order.Status.getEnum(orderStatus));
+		}
+		if(target.getOrderStatus() == Status.PEDIDO_ELABORANDOSE 
+				&& Order.Status.getEnum(orderStatus) == Status.PEDIDO_PREPARADO) {
+			target.setOrderStatus(Order.Status.getEnum(orderStatus));
+		}
+		if(target.getOrderStatus() == Status.PEDIDO_PREPARADO 
+				&& Order.Status.getEnum(orderStatus) == Status.PEDIDO_ENVIADO 
+				&& (target.getIdCourier() == null)) {
+			target.setIdCourier(idCourier);
+			target.setOrderStatus(Order.Status.getEnum(orderStatus));
+		}
+		if(target.getOrderStatus() == Status.PEDIDO_ENVIADO 
+				&& Order.Status.getEnum(orderStatus) == Status.PEDIDO_RECIBIDO
+				&& (target.getDeliveryDate() == null)) {
+			target.setDeliveryDate(deliveryDate);
+			target.setOrderStatus(Order.Status.getEnum(orderStatus));
+		}
 		
 		return target;
 		
