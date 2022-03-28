@@ -147,5 +147,11 @@ class PizzaServiceImplTest {
 		srv.deleteById(1);
 		verify(dao).deleteById(1);
 	}
+	
+	@Test
+	void testDeleteNull() {
+		var srv = new PizzaServiceImpl(dao);
+		assertThrows(IllegalArgumentException.class, () -> srv.delete(null));
+	}
 
 }

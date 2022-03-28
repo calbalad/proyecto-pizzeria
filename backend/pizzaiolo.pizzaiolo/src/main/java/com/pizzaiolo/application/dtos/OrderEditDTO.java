@@ -22,15 +22,11 @@ public class OrderEditDTO {
 	@JsonProperty("idUser")
 	private String idUser;
 	private String address;
-	@ApiModelProperty(value = "Estados de pedido.", allowableValues = "solicitado,elaborandose,preparado,enviado,recibido,cancelado")
-	private Status orderStatus;
 	private Date orderDate;
-	private String idChef;
-	private String idCourier;
-	private Date deliveryDate;
 	private String comment;
 	@ApiModelProperty(value = "Lista de identificadores de pizzas.")
-	private List<CarritoEditDTO> pizzas;
+	//private List<CarritoEditDTO> pizzas;
+	private List<CestaEditDTO> pizzas;
 	private BigDecimal amount;
 
 	public static OrderEditDTO from(Order source) {
@@ -38,13 +34,9 @@ public class OrderEditDTO {
 				source.getIdOrder(),
 				source.getIdUser(),
 				source.getAddress(),
-				source.getOrderStatus(),
 				source.getOrderDate(),
-				source.getIdChef() == null ? null : source.getIdChef(),
-				source.getIdCourier() == null ? null : source.getIdCourier(),
-				source.getDeliveryDate() == null ? null : source.getDeliveryDate(),
 				source.getComment() == null ? null : source.getComment(),
-				source.getPizzaorders().stream().map(item -> CarritoEditDTO.from(item)).toList(),
+				source.getPizzaorders().stream().map(item -> CestaEditDTO.from(item)).toList(),
 				source.getAmount()
 						);
 	}
@@ -54,21 +46,14 @@ public class OrderEditDTO {
 				source.getIdOrder(),
 				source.getIdUser(),
 				source.getAddress(),
-				source.getIdChef(),
-				source.getIdCourier(),
-				source.getDeliveryDate(),
 				source.getComment(),
 				source.getOrderDate(),
 				source.getAmount()
 				);
 	}
 	
-	public Order update(Order target) {
-//		target.setIdChef(idChef);
-//		target.setIdCourier(idCourier);
-//		target.setOrderStatus(orderStatus);
-//		target.setDeliveryDate(deliveryDate);
-		
+	public Order updateAmount(Order target) {
+	
 		pizzas.stream().forEach(item -> target.addPizzaorder(new Pizzaorder(
 				item.getAmount().multiply(BigDecimal.valueOf(item.getQuantity())),
 				item.getQuantity(),
@@ -79,4 +64,5 @@ public class OrderEditDTO {
 		return target;
 		
 	}
+	
 }

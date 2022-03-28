@@ -7,53 +7,52 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.pizzaiolo.domains.contracts.repositories.OrderRepository;
-import com.pizzaiolo.domains.contracts.services.OrderService;
-import com.pizzaiolo.domains.entities.Order;
-import com.pizzaiolo.domains.entities.Order.Status;
+import com.pizzaiolo.domains.contracts.repositories.IngredientRepository;
+import com.pizzaiolo.domains.contracts.services.IngredientService;
+import com.pizzaiolo.domains.entities.Ingredient;
 import com.pizzaiolo.exceptions.DuplicateKeyException;
 import com.pizzaiolo.exceptions.InvalidDataException;
 import com.pizzaiolo.exceptions.NotFoundException;
 
 @Service
-public class OrderServiceImpl implements OrderService{
-	private OrderRepository dao;
+public class IngredientServiceImpl implements IngredientService{
+	private IngredientRepository dao;
 
-	public OrderServiceImpl(OrderRepository dao) {
+	public IngredientServiceImpl(IngredientRepository dao) {
 		this.dao = dao;
 	}
 	
 	@Override
-	public List<Order> getAll() {
+	public List<Ingredient> getAll() {
 		return dao.findAll();
 	}
 	
 	@Override
-	public Iterable<Order> getAll(Sort sort) {
+	public Iterable<Ingredient> getAll(Sort sort) {
 		return dao.findAll(sort);
 	}
 	@Override
-	public Page<Order> getAll(Pageable pageable) {
+	public Page<Ingredient> getAll(Pageable pageable) {
 		return dao.findAll(pageable);
 	}
 	
 	@Override
 	public <T> List<T> getByProjection(Class<T> type) {
-		return dao.findByIdOrderIsNotNull(type);
+		return dao.findByIdIngredientIsNotNull(type);
 	}
 
 	@Override
 	public <T> Iterable<T> getByProjection(Sort sort, Class<T> type) {
-		return dao.findByIdOrderIsNotNull(sort, type);
+		return dao.findByIdIngredientIsNotNull(sort, type);
 	}
 
 	@Override
 	public <T> Page<T> getByProjection(Pageable pageable, Class<T> type) {
-		return dao.findByIdOrderIsNotNull(pageable, type);
+		return dao.findByIdIngredientIsNotNull(pageable, type);
 	}
 
 	@Override
-	public Order getOne(Integer id) throws NotFoundException {
+	public Ingredient getOne(Integer id) throws NotFoundException {
 		var item = dao.findById(id);
 		if(item.isEmpty())
 			throw new NotFoundException();
@@ -61,39 +60,34 @@ public class OrderServiceImpl implements OrderService{
 	}
 	
 	@Override
-	public Order add(Order item) throws DuplicateKeyException, InvalidDataException {
+	public Ingredient add(Ingredient item) throws DuplicateKeyException, InvalidDataException {
 		if(item == null)
 			throw new IllegalArgumentException();
-		if(dao.findById(item.getIdOrder()).isPresent())
+		if(dao.findById(item.getIdIngredient()).isPresent())
 			throw new DuplicateKeyException();
 		if(item.isInvalid())
 			throw new InvalidDataException(item.getErrorsMessage());
 		return dao.save(item);
 	}
 	@Override
-	public Order change(Order item) throws NotFoundException, InvalidDataException  {
+	public Ingredient change(Ingredient item) throws NotFoundException, InvalidDataException  {
 		if(item == null)
 			throw new IllegalArgumentException();
-		if(dao.findById(item.getIdOrder()).isEmpty())
+		if(dao.findById(item.getIdIngredient()).isEmpty())
 			throw new NotFoundException();
 		if(item.isInvalid())
 			throw new InvalidDataException(item.getErrorsMessage());
 		return dao.save(item);
 	}
 	@Override
-	public void delete(Order item) {
+	public void delete(Ingredient item) {
 		if(item == null)
 			throw new IllegalArgumentException();
-		deleteById(item.getIdOrder());
+		deleteById(item.getIdIngredient());
 		
 	}
 	@Override
 	public void deleteById(Integer id) {
 		dao.deleteById(id);
 	}
-
-//	@Override
-//	public List<Order> findByStatus(Status status) {
-//		return dao.findByStatus(status);
-//	}
 }

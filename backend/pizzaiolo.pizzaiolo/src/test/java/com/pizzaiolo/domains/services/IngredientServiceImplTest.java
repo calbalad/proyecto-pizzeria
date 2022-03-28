@@ -9,37 +9,37 @@ import static org.mockito.Mockito.verify;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.pizzaiolo.domains.contracts.repositories.OrderRepository;
-import com.pizzaiolo.domains.entities.Order;
+import com.pizzaiolo.domains.contracts.repositories.IngredientRepository;
+import com.pizzaiolo.domains.entities.Ingredient;
+import com.pizzaiolo.domains.entities.Ingredient.Type;
 import com.pizzaiolo.exceptions.DuplicateKeyException;
 import com.pizzaiolo.exceptions.InvalidDataException;
 import com.pizzaiolo.exceptions.NotFoundException;
 
 
-class OrderServiceImplTest {
+class IngredientServiceImplTest {
 
-	List<Order> listado;
-	OrderRepository dao;
+	List<Ingredient> listado;
+	IngredientRepository dao;
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		listado = new ArrayList<Order>();
-		listado.add(new Order(1, "uno", "auno", "", new Date(2022-03-22), new BigDecimal(10.00)));
-		listado.add(new Order(2, "uno", "auno", "", new Date(2022-03-22), new BigDecimal(10.00)));
-		dao = mock(OrderRepository.class);
+		listado = new ArrayList<Ingredient>();
+		listado.add(new Ingredient(1, "Clasica", new BigDecimal(10.00), Type.INGREDIENTE_BASE));
+		listado.add(new Ingredient(2, "Clasica", new BigDecimal(10.00), Type.INGREDIENTE_BASE));
+		dao = mock(IngredientRepository.class);
 	} 
 
 	@Test
 	void testGetAll() {
 		when(dao.findAll()).thenReturn(listado);
-		var srv = new OrderServiceImpl(dao);
+		var srv = new IngredientServiceImpl(dao);
 		
 		var rslt = srv.getAll();
 		
@@ -50,16 +50,16 @@ class OrderServiceImplTest {
 	@Test
 	void testGetOne() throws NotFoundException {
 		when(dao.findById(1)).thenReturn(Optional.of(listado.get(0)));
-		var srv = new OrderServiceImpl(dao);
+		var srv = new IngredientServiceImpl(dao);
 		
 		var rslt = srv.getOne(1);
 		assertNotNull(rslt);
-		assertEquals(1, rslt.getIdOrder());
+		assertEquals(1, rslt.getIdIngredient());
 	}
 	@Test
 	void testGetOneNotFound() throws NotFoundException {
 		when(dao.findById(1)).thenReturn(Optional.empty());
-		var srv = new OrderServiceImpl(dao);
+		var srv = new IngredientServiceImpl(dao);
 		
 		assertThrows(NotFoundException.class, () -> srv.getOne(1));
 	}
@@ -68,85 +68,83 @@ class OrderServiceImplTest {
 	void testAdd() throws NotFoundException, DuplicateKeyException, InvalidDataException {
 		when(dao.findById(1)).thenReturn(Optional.empty());
 		when(dao.save(any())).thenReturn(listado.get(0));
-		var srv = new OrderServiceImpl(dao);
+		var srv = new IngredientServiceImpl(dao);
 		
 		var rslt = srv.add(listado.get(0));
 		assertNotNull(rslt);
-		assertEquals(1, rslt.getIdOrder());
+		assertEquals(1, rslt.getIdIngredient());
 	}
 	@Test
 	void testAddNull() {
-		var srv = new OrderServiceImpl(dao);
+		var srv = new IngredientServiceImpl(dao);
 		
 		assertThrows(IllegalArgumentException.class, () -> srv.add(null));
 	}
 	@Test
 	void testAddDuplicateKey() throws NotFoundException, DuplicateKeyException, InvalidDataException {
 		when(dao.findById(1)).thenReturn(Optional.of(listado.get(0)));
-		var srv = new OrderServiceImpl(dao);
+		var srv = new IngredientServiceImpl(dao);
 		
 		assertThrows(DuplicateKeyException.class, () -> srv.add(listado.get(0)));
 	}
 	@Test
 	void testAddInvalidData() throws NotFoundException, DuplicateKeyException, InvalidDataException {
 		when(dao.findById(1)).thenReturn(Optional.empty());
-		var srv = new OrderServiceImpl(dao);
+		var srv = new IngredientServiceImpl(dao);
 		
-		assertThrows(InvalidDataException.class, () -> srv.add(new Order(1)));
+		assertThrows(InvalidDataException.class, () -> srv.add(new Ingredient(1)));
 	}
 
 	@Test
 	void testChange() throws NotFoundException, DuplicateKeyException, InvalidDataException {
 		when(dao.findById(1)).thenReturn(Optional.of(listado.get(0)));
 		when(dao.save(any())).thenReturn(listado.get(0));
-		var srv = new OrderServiceImpl(dao);
+		var srv = new IngredientServiceImpl(dao);
 		
 		var rslt = srv.change(listado.get(0));
 		assertNotNull(rslt);
-		assertEquals(1, rslt.getIdOrder());
+		assertEquals(1, rslt.getIdIngredient());
 	}
 
 	@Test
 	void testChangeNull() {
-		var srv = new OrderServiceImpl(dao);
+		var srv = new IngredientServiceImpl(dao);
 		
 		assertThrows(IllegalArgumentException.class, () -> srv.change(null));
 	}
 	@Test
 	void testChangeNotFound() throws NotFoundException, DuplicateKeyException, InvalidDataException {
 		when(dao.findById(1)).thenReturn(Optional.empty());
-		var srv = new OrderServiceImpl(dao);
+		var srv = new IngredientServiceImpl(dao);
 		
 		assertThrows(NotFoundException.class, () -> srv.change(listado.get(0)));
 	}
 	@Test
 	void testChangeInvalidData() throws NotFoundException, DuplicateKeyException, InvalidDataException {
 		when(dao.findById(1)).thenReturn(Optional.of(listado.get(0)));
-		var srv = new OrderServiceImpl(dao);
+		var srv = new IngredientServiceImpl(dao);
 		
-		assertThrows(InvalidDataException.class, () -> srv.change(new Order(1)));
+		assertThrows(InvalidDataException.class, () -> srv.change(new Ingredient(1)));
 	}
 
 	@Test
 	void testDelete() {
 		doNothing().when(dao).deleteById(1);
-		var srv = new OrderServiceImpl(dao);
-		srv.delete(new Order(1));
+		var srv = new IngredientServiceImpl(dao);
+		srv.delete(new Ingredient(1));
 		verify(dao).deleteById(1);
 	}
 
 	@Test
 	void testDeleteById() {
 		doNothing().when(dao).deleteById(1);
-		var srv = new OrderServiceImpl(dao);
+		var srv = new IngredientServiceImpl(dao);
 		srv.deleteById(1);
 		verify(dao).deleteById(1);
 	}
-	
 	@Test
 	void testDeleteNull() {
-		var srv = new OrderServiceImpl(dao);
+		var srv = new IngredientServiceImpl(dao);
 		assertThrows(IllegalArgumentException.class, () -> srv.delete(null));
 	}
-
 }

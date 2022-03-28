@@ -20,22 +20,22 @@ import lombok.Value;
 import springfox.documentation.annotations.ApiIgnore;
 
 @Value
-public class CarritoEditDTO {
+public class CestaEditDTO {
 
+	@JsonProperty("idPizza")
+	private int idPizza;	
+	@JsonProperty("idOrder")
+	private int idOrder;
 	@JsonProperty("quantity")
 	private int quantity;
-	@JsonProperty("idPizza")
-	private int idPizza;
-	private Pizzaorder source;
-	private Pizza pizza;
+	@JsonProperty("amount")
 	private BigDecimal amount;
 
-	public static CarritoEditDTO from(Pizzaorder source) {
-		return new CarritoEditDTO(
-				source.getQuantity(),
+	public static CestaEditDTO from(Pizzaorder source) {
+		return new CestaEditDTO(
 				source.getPizza().getIdPizza(),
-				source,
-				source.getPizza(),
+				source.getOrder().getIdOrder(),
+				source.getQuantity(),
 				source.getAmount()
 				);
 	}

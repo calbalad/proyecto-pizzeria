@@ -140,5 +140,11 @@ class CommentServiceImplTest {
 		srv.deleteById(1);
 		verify(dao).deleteById(1);
 	}
-
+	
+	@Test
+	void testDeleteNull() {
+		var srv = new CommentServiceImpl(dao);
+		assertThrows(IllegalArgumentException.class, () -> srv.delete(null));
+	}
 }
+

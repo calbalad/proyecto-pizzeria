@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,11 +24,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pizzaiolo.application.dtos.CarritoEditDTO;
+import com.pizzaiolo.application.dtos.CestaEditDTO;
 import com.pizzaiolo.application.dtos.OrderDetailsDTO;
 import com.pizzaiolo.application.dtos.OrderEditDTO;
 import com.pizzaiolo.application.dtos.OrderShortDTO;
+import com.pizzaiolo.application.dtos.OrderStatusEditDTO;
 import com.pizzaiolo.domains.contracts.services.OrderService;
 import com.pizzaiolo.domains.contracts.services.PizzaService;
+import com.pizzaiolo.domains.entities.Order;
 import com.pizzaiolo.exceptions.DuplicateKeyException;
 import com.pizzaiolo.exceptions.InvalidDataException;
 import com.pizzaiolo.exceptions.NotFoundException;
@@ -54,6 +58,12 @@ public class OrderResource {
 	public List<OrderShortDTO> getAll() {
 		return srv.getByProjection(OrderShortDTO.class);
 	}
+	
+//	@GetMapping(params = "status")
+//	@ApiOperation(value = "Listado de pedidos en un estado concreto")
+//	public List<Order> getAll(@ApiParam(required = false) String status) {
+//		return srv.findByStatus(status);
+//	}
 
 	@GetMapping(params = "page")
 	@ApiOperation(value = "Listado paginable de los pedidos")
@@ -77,23 +87,44 @@ public class OrderResource {
 		if (entity.isInvalid())
 			throw new InvalidDataException(entity.getErrorsMessage());
 		BigDecimal flag = BigDecimal.ZERO;
-		BigDecimal flag2 = BigDecimal.ZERO;
-		for (CarritoEditDTO value : item.getPizzas()) {
+		for (CestaEditDTO value : item.getPizzas()) {
 			System.out.println(srvPizza.getOne(value.getIdPizza()));
 			flag = flag.add(srvPizza.getOne(value.getIdPizza()).getAmount().multiply(BigDecimal.valueOf(value.getQuantity())));
 		}
 		entity.setAmount(flag);
 		entity = srv.add(entity);
-		item.update(entity);
+		item.updateAmount(entity);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(entity.getIdOrder()).toUri();
 		return ResponseEntity.created(location).build();
 	}
+	
+	@PutMapping("/{id}")
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	@Transactional
+	@ApiOperation(value = "Actualizar estado de pedido")
+	public void update(@PathVariable int id, @Valid @RequestBody OrderStatusEditDTO item)
+			throws InvalidDataException, NotFoundException {
+		if (id != item.getIdOrder())
+			throw new InvalidDataException("No coinciden los identificadores");
+		var entity = srv.getOne(id);
+		item.updateStatus(entity);
+		if (entity.isInvalid())
+			throw new InvalidDataException(entity.getErrorsMessage());
+		srv.change(entity);
+	}
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@ApiOperation(value = "Borrar un pedido existente")
-	public void delete(@ApiParam(value = "Identificador del pedido") @PathVariable int id) {
-		srv.deleteById(id);
+	@ApiOperation(value = "Borrar un pedido existente (Pasa a estado cancelado)")
+	public void cancelOrder(@PathVariable int id, @Valid @RequestBody OrderStatusEditDTO item)
+			throws InvalidDataException, NotFoundException {
+		if (id != item.getIdOrder())
+			throw new InvalidDataException("No coinciden los identificadores");
+		var entity = srv.getOne(id);
+		item.cancelOrder(entity);
+		if (entity.isInvalid())
+			throw new InvalidDataException(entity.getErrorsMessage());
+		srv.change(entity);
 	}
 }

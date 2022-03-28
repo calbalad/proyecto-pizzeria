@@ -38,12 +38,12 @@ public class Ingredientpizza extends EntityBase<Ingredientpizza> implements Seri
 	public Ingredientpizza() {
 	}
 
-	public Ingredientpizza(IngredientpizzaPK id, Pizza pizza, Ingredient ingredient, @Positive int quantity) {
+	public Ingredientpizza(Pizza pizza, Ingredient ingredient, @Positive int quantity) {
 		super();
-		this.id = new IngredientpizzaPK(pizza.getIdPizza(), ingredient.getId());
 		this.pizza = pizza;
 		this.ingredient = ingredient;
 		this.quantity = quantity;
+		this.id = new IngredientpizzaPK(pizza.getIdPizza(), ingredient.getIdIngredient());
 	}
 
 	public IngredientpizzaPK getId() {
