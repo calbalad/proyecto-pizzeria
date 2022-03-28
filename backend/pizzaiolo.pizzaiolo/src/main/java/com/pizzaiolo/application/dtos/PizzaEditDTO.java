@@ -44,10 +44,6 @@ public class PizzaEditDTO {
 	@ApiModelProperty(value = "Pizza activa.")
 	private boolean active;
 	
-	@JsonProperty("image")
-	@ApiModelProperty(value = "Imagen de la pizza.")
-	private byte[] image;
-	
 	@JsonProperty("ingredientPizza")
 	@ApiModelProperty(value = "Ingredientes.")
 	private List<IngredientPizzaEditDTO> ingredientpizzas;
@@ -61,7 +57,6 @@ public class PizzaEditDTO {
 				source.getNetPrice(),
 				source.getAmount(),
 				source.getActive(),
-				source.getImage(),
 				source.getIngredientpizzas().stream().map(item -> IngredientPizzaEditDTO.from(item)).toList()
 				);
 	}
@@ -74,8 +69,8 @@ public class PizzaEditDTO {
 				source.getDescription(), 
 				source.getNetPrice(),
 				source.getAmount(),
-				source.isActive(),
-				source.getImage());
+				source.isActive()
+				);
 	}
 	
 	
