@@ -21,10 +21,6 @@ public class PizzaShortDTO {
 	@ApiModelProperty(value = "Descripción de la pizza.")
 	private String description;
 	
-	@JsonProperty("image")
-	@ApiModelProperty(value = "Imagen de la pizza.")
-	private byte[] image;
-	
 	@JsonProperty("amount")
 	@ApiModelProperty(value = "Coste total de la pizza.")
 	private BigDecimal amount;
@@ -33,7 +29,6 @@ public class PizzaShortDTO {
 		return new PizzaShortDTO(
 				source.getIdPizza(), 
 				source.getDescription(),
-				source.getImage(),
 				source.getAmount());
 	}
 }
