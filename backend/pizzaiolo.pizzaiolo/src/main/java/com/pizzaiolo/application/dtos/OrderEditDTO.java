@@ -25,7 +25,6 @@ public class OrderEditDTO {
 	private Date orderDate;
 	private String comment;
 	@ApiModelProperty(value = "Lista de identificadores de pizzas.")
-	//private List<CarritoEditDTO> pizzas;
 	private List<CestaEditDTO> pizzas;
 	private BigDecimal amount;
 
