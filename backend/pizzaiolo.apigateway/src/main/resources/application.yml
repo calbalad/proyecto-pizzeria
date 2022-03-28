@@ -73,7 +73,7 @@ spring:
           - RewriteLocationResponseHeader=AS_IN_REQUEST, Location, ,
       - id: megusta
         predicates:
-          - Path=/api/v1/me-gusta/**
+          - Path=/api/v1/likes/**
         uri: lb://megusta
         filters:
           - RewriteLocationResponseHeader=AS_IN_REQUEST, Location, ,   

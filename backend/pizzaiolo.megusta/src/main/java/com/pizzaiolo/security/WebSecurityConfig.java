@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -39,10 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.csrf().disable()			
 			.addFilterAfter(new JWTAuthorizationFilter(SECRET), UsernamePasswordAuthenticationFilter.class)
 			.authorizeRequests()
-			.antMatchers("/me-gusta/**").hasRole("USER")
+			.antMatchers(HttpMethod.POST, "/api/v1/like/**").hasAnyRole("USER", "SUPER_ADMIN", "ADMIN", "DELIVERY")
 			.anyRequest().permitAll();
-//		http.and().antMatchers(HttpMethod.GET, "/menu").permitAll().antMatchers("/menu").hasRole("ADMIN");
-//		http.and().antMatchers("/tienda").hasRole("EMPLOYER");
-//		http.and().antMatchers("/entregas").hasRole("DELIVERY");
 	}
 }
