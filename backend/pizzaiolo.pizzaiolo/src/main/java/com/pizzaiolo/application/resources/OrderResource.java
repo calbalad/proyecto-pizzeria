@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.pizzaiolo.application.dtos.CarritoEditDTO;
 import com.pizzaiolo.application.dtos.CestaEditDTO;
 import com.pizzaiolo.application.dtos.OrderDetailsDTO;
 import com.pizzaiolo.application.dtos.OrderEditDTO;
@@ -32,6 +31,7 @@ import com.pizzaiolo.application.dtos.OrderStatusEditDTO;
 import com.pizzaiolo.domains.contracts.services.OrderService;
 import com.pizzaiolo.domains.contracts.services.PizzaService;
 import com.pizzaiolo.domains.entities.Order;
+import com.pizzaiolo.domains.entities.Order.Status;
 import com.pizzaiolo.exceptions.DuplicateKeyException;
 import com.pizzaiolo.exceptions.InvalidDataException;
 import com.pizzaiolo.exceptions.NotFoundException;
@@ -49,9 +49,6 @@ public class OrderResource {
 
 	@Autowired
 	private PizzaService srvPizza;
-	
-//	@Autowired
-//	private PizzaorderService srvPizzaorder;
 
 	@GetMapping
 	@ApiOperation(value = "Listado de los pedidos")
@@ -59,11 +56,41 @@ public class OrderResource {
 		return srv.getByProjection(OrderShortDTO.class);
 	}
 	
-//	@GetMapping(params = "status")
-//	@ApiOperation(value = "Listado de pedidos en un estado concreto")
-//	public List<Order> getAll(@ApiParam(required = false) String status) {
-//		return srv.findByStatus(status);
-//	}
+	@GetMapping(path = "/solicitado")
+	@ApiOperation(value = "Listado de pedidos solicitados")
+	public List<OrderDetailsDTO> getSolcitados() {
+		return srv.getSolicitado(Order.class).stream().map(OrderDetailsDTO::from).toList();
+	}
+	
+	@GetMapping(path = "/elaborandose")
+	@ApiOperation(value = "Listado de pedidos elaborandose")
+	public List<OrderDetailsDTO> getElaborandose() {
+		return srv.getElaborandose(Order.class).stream().map(OrderDetailsDTO::from).toList();
+	}
+	
+	@GetMapping(path = "/preparado")
+	@ApiOperation(value = "Listado de pedidos preparado")
+	public List<OrderDetailsDTO> getPreparados() {
+		return srv.getPreparado(Order.class).stream().map(OrderDetailsDTO::from).toList();
+	}
+	
+	@GetMapping(path = "/enviado")
+	@ApiOperation(value = "Listado de pedidos enviado")
+	public List<OrderDetailsDTO> getEnviados() {
+		return srv.getEnviado(Order.class).stream().map(OrderDetailsDTO::from).toList();
+	}
+	
+	@GetMapping(path = "/recibido")
+	@ApiOperation(value = "Listado de pedidos recibido")
+	public List<OrderDetailsDTO> getRecibidos() {
+		return srv.getRecibido(Order.class).stream().map(OrderDetailsDTO::from).toList();
+	}
+	
+	@GetMapping(path = "/cancelado")
+	@ApiOperation(value = "Listado de pedidos cancelados")
+	public List<OrderDetailsDTO> getCancelados() {
+		return srv.getCancelado(Order.class).stream().map(OrderDetailsDTO::from).toList();
+	}
 
 	@GetMapping(params = "page")
 	@ApiOperation(value = "Listado paginable de los pedidos")
