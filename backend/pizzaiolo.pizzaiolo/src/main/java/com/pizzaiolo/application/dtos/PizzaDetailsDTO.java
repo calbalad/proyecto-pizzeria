@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.pizzaiolo.application.proxies.LikesProxy;
 import com.pizzaiolo.domains.entities.Pizza;
 
 import io.swagger.annotations.ApiModel;
@@ -42,9 +43,9 @@ public class PizzaDetailsDTO {
 	@ApiModelProperty(value = "Pizza activa.")
 	private boolean active;
 	
-	@JsonProperty("image")
-	@ApiModelProperty(value = "Imagen de la pizza.")
-	private byte[] image;
+	@JsonProperty("likes")
+	@ApiModelProperty(value = "Cantidad de likes.")
+	private String like;
 	
 	@JsonProperty("ingredientPizza")
 	@ApiModelProperty(value = "Ingredientes.")
@@ -52,7 +53,7 @@ public class PizzaDetailsDTO {
 	
 	
 
-	public static PizzaDetailsDTO from(Pizza source) {
+	public static PizzaDetailsDTO from(Pizza source, LikesProxy proxy) {
 		return new PizzaDetailsDTO(
 				source.getIdPizza(),
 				source.getBase().getName(), 
@@ -61,7 +62,7 @@ public class PizzaDetailsDTO {
 				source.getNetPrice(),
 				source.getAmount(),
 				source.getActive(),
-				source.getImage(),
+				proxy.getLikes(source.getIdPizza()),
 				source.getIngredientpizzas().stream().map(item -> item.getIngredient().getName()).sorted().toList()
 				);
 	}

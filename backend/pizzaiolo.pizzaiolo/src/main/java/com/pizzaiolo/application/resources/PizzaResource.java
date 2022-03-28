@@ -28,6 +28,7 @@ import com.pizzaiolo.application.dtos.PizzaActiveDetailsDTO;
 import com.pizzaiolo.application.dtos.PizzaDetailsDTO;
 import com.pizzaiolo.application.dtos.PizzaEditDTO;
 import com.pizzaiolo.application.dtos.PizzaShortDTO;
+import com.pizzaiolo.application.proxies.LikesProxy;
 import com.pizzaiolo.domains.contracts.repositories.PizzaRepository;
 import com.pizzaiolo.domains.contracts.services.PizzaService;
 import com.pizzaiolo.exceptions.DuplicateKeyException;
@@ -52,6 +53,9 @@ public class PizzaResource {
 	
 	@Autowired
 	private PizzaRepository dao;
+	
+	@Autowired
+	private LikesProxy proxy;
 
 	@GetMapping
 	@ApiOperation(value = "Listado de las pizzas")
@@ -65,16 +69,16 @@ public class PizzaResource {
 		return srv.getByProjection(page, PizzaShortDTO.class);
 	}
 	
-	@GetMapping(path = "/{id}")
+	@GetMapping(path = "/{id}", params = "mode=details")
 	@ApiOperation(value = "Recupera una pizza")
-	public PizzaDetailsDTO getOneDetails(@PathVariable int id, @RequestParam(required = false, defaultValue = "details") String mode)
+	public PizzaDetailsDTO getOneDetails(@PathVariable int id, @RequestParam(required = false, defaultValue = "details") @ApiParam(allowableValues = "details,edit,active") String mode)
 			throws NotFoundException {
-			return PizzaDetailsDTO.from(srv.getOne(id));
+			return PizzaDetailsDTO.from(srv.getOne(id), proxy);
 	}
 	
 	@GetMapping(path = "/{id}", params = "mode=active")
 	@ApiOperation(value = "Recupera el estado de una pizza")
-	public PizzaActiveDetailsDTO getOne(@PathVariable int id, @RequestParam(required = false) String mode)
+	public PizzaActiveDetailsDTO getOne(@PathVariable int id, @RequestParam(required = false) @ApiParam(allowableValues = "details,edit,active") String mode)
 			throws NotFoundException {
 			return PizzaActiveDetailsDTO.from(srv.getOne(id));
 	}
