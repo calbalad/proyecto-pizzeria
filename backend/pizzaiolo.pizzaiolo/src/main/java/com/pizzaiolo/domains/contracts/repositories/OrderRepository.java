@@ -13,9 +13,9 @@ import com.pizzaiolo.domains.entities.Order.Status;
 
 @RepositoryRestResource(exported = false)
 public interface OrderRepository extends JpaRepository<Order, Integer>{
-//	List<Order> findByStatus(Status status);
 	<T> List<T> findByIdOrderIsNotNull(Class<T> type);
 	<T> Iterable<T> findByIdOrderIsNotNull(Sort sort, Class<T> type);
 	<T> Page<T> findByIdOrderIsNotNull(Pageable pageable, Class<T> type);
+	<T> List<T> findByOrderStatus(Status status, Class<T> type);
 
 }

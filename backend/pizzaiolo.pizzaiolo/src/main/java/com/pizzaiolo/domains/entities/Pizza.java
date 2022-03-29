@@ -92,7 +92,7 @@ public class Pizza extends EntityBase<Pizza> implements Serializable {
 	public Pizza(@NotNull int idPizza, Ingredient base, Ingredient sauce, String description,
 			@NotNull @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 8, fraction = 2) @PositiveOrZero BigDecimal netPrice,
 			@NotNull @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 8, fraction = 2) @PositiveOrZero BigDecimal amount,
-			@NotNull boolean active, byte[] image) {
+			@NotNull boolean active) {
 		this();
 		this.idPizza = idPizza;
 		this.base = base;
@@ -101,7 +101,6 @@ public class Pizza extends EntityBase<Pizza> implements Serializable {
 		this.netPrice = netPrice;
 		this.amount = amount;
 		this.active = active;
-		this.image = image;
 	}
 
 	public int getIdPizza() {
