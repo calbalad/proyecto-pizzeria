@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -145,7 +144,8 @@ class IngredientResourceTest {
 		
 		@Test
 		void testUpdateInvalidData() throws NotFoundException, InvalidDataException {
-			assertThrows(InvalidDataException.class, () -> rest.update(1, new IngredientEditDTO()));
+			when(srv.getOne(any())).thenReturn(IngredientEditDTO.from(listado.get(0)));
+			assertThrows(InvalidDataException.class, () -> rest.update(1, new IngredientEditDTO(1, "", new BigDecimal(5), "otros")));
 		}
 		
 		
