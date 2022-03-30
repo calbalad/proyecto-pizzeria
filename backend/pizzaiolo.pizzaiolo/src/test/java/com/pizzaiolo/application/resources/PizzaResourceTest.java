@@ -5,16 +5,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -28,7 +24,6 @@ import org.springframework.http.HttpStatus;
 import com.pizzaiolo.application.dtos.IngredientPizzaEditDTO;
 import com.pizzaiolo.application.dtos.PizzaEditDTO;
 import com.pizzaiolo.domains.contracts.services.PizzaService;
-import com.pizzaiolo.domains.entities.Ingredient;
 import com.pizzaiolo.exceptions.DuplicateKeyException;
 import com.pizzaiolo.exceptions.InvalidDataException;
 import com.pizzaiolo.exceptions.NotFoundException;
@@ -162,8 +157,8 @@ class PizzaResourceTest {
 	
 		@Test
 		void testUpdateInvalidData() throws NotFoundException, InvalidDataException {
-			
-			assertThrows(InvalidDataException.class, () -> rest.update(1, new PizzaEditDTO()));
+			when(srv.getOne(any())).thenReturn(PizzaEditDTO.from(listado.get(0)));
+			assertThrows(InvalidDataException.class, () -> rest.update(1, new PizzaEditDTO(1, 1, 5, "Margarita Clasica", new BigDecimal(-8), new BigDecimal(-10), true, ingredientes1)));
 		}
 		
 	}
