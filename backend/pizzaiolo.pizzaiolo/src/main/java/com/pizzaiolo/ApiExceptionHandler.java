@@ -50,7 +50,7 @@ public class ApiExceptionHandler {
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ResponseBody
 	public ErrorMessage notFoundRequest(HttpServletRequest request, Exception exception) {
-		return new ErrorMessage(exception.getMessage(), request.getRequestURI());
+		return new ErrorMessage(exception.getMessage(), "");
 	}
 
 	@ExceptionHandler({ InvalidDataException.class, MethodArgumentNotValidException.class })

@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pizzaiolo.application.dtos.IngredientEditDTO;
-import com.pizzaiolo.application.dtos.IngredientShortDTO;
 import com.pizzaiolo.domains.contracts.services.IngredientService;
 import com.pizzaiolo.exceptions.DuplicateKeyException;
 import com.pizzaiolo.exceptions.InvalidDataException;
@@ -45,14 +45,16 @@ public class IngredientResource {
 
 	@GetMapping
 	@ApiOperation(value = "Listado de los ingredientes")
-	public List<IngredientShortDTO> getAll() {
-		return srv.getByProjection(IngredientShortDTO.class);
+	public List<IngredientEditDTO> getAll() {
+		return srv.getAll().stream().map(IngredientEditDTO::from).toList();
 	}
 	
 	@GetMapping(params = "page")
 	@ApiOperation(value = "Listado paginable de los ingredientes")
-	public Page<IngredientShortDTO> getAll(@ApiParam(required = false) Pageable page) {
-		return srv.getByProjection(page, IngredientShortDTO.class);
+	public Page<IngredientEditDTO> getAll(@ApiParam(required = false) Pageable page) {
+		var content = srv.getAll(page);
+		return new PageImpl<IngredientEditDTO>(content.getContent().stream().map(item -> IngredientEditDTO.from(item)).toList(), 
+				page, content.getTotalElements());
 	}
 	
 	@GetMapping(path = "/{id}")

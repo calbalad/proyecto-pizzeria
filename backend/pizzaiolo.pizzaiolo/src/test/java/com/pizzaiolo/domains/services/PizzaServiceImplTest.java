@@ -32,14 +32,10 @@ class PizzaServiceImplTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		listado = new ArrayList<Pizza>();
-		listado.add(new Pizza(1, new Ingredient(1, "Clasica", new BigDecimal(10.00), Type.INGREDIENTE_BASE ), new Ingredient(5, "Tomate", new BigDecimal(10.00), Type.INGREDIENTE_SALSA ), "blabla", new BigDecimal(10.00), new BigDecimal(10.00), true, null));
-		listado.add(new Pizza(1, new Ingredient(2, "Clasica", new BigDecimal(10.00), Type.INGREDIENTE_BASE ), new Ingredient(5, "Tomate", new BigDecimal(10.00), Type.INGREDIENTE_SALSA ), "blabla", new BigDecimal(10.00), new BigDecimal(10.00), true, null));
+		listado.add(new Pizza(1, new Ingredient(1, "Clasica", new BigDecimal(10.00), Type.INGREDIENTE_BASE ), new Ingredient(5, "Tomate", new BigDecimal(10.00), Type.INGREDIENTE_SALSA ), "blabla", new BigDecimal(10.00), new BigDecimal(10.00), true));
+		listado.add(new Pizza(2, new Ingredient(2, "Clasica", new BigDecimal(10.00), Type.INGREDIENTE_BASE ), new Ingredient(5, "Tomate", new BigDecimal(10.00), Type.INGREDIENTE_SALSA ), "blabla", new BigDecimal(10.00), new BigDecimal(10.00), true));
 		dao = mock(PizzaRepository.class);
 	} 
-
-	
-	
-	
 	
 	@Test
 	void testGetAll() {
