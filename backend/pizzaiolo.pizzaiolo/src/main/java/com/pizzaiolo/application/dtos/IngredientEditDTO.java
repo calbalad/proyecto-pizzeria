@@ -12,6 +12,7 @@ import lombok.Value;
 @Value
 
 @ApiModel(value = "Ingredientes editables", description = "Version editable de los ingredientes.")
+
 public class IngredientEditDTO {
 	
 	@JsonProperty("idIngredient")
@@ -51,9 +52,13 @@ public class IngredientEditDTO {
 	
 	public Ingredient update(Ingredient target) {
 		
-		target.setName(name);
-		target.setPrice(price);
-		target.setType(type == null ? null : Ingredient.Type.getEnum(type));	
+		if(target.getName() != name)
+				target.setName(name);
+		if(target.getPrice() != price)
+			target.setPrice(price);
+		
+		if(target.getType().getValue() != type)
+			target.setType(type == null ? null : Ingredient.Type.getEnum(type));	
 	
 		return target;
 	}

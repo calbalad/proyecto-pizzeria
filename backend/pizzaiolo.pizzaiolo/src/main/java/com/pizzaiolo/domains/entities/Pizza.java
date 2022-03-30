@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.Valid;
@@ -43,6 +44,7 @@ public class Pizza extends EntityBase<Pizza> implements Serializable {
 	private Ingredient sauce;
 
 	@Lob
+	@NotBlank
 	@Column(name = "description")
 	private String description;
 

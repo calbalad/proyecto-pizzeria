@@ -75,20 +75,43 @@ public class PizzaEditDTO {
 	
 	
 	public Pizza update(Pizza target) {
+		actualizarPropiedadesEntidad(target);
+		borrarIngredientesSobrantes(target);
+		incorporarNuevosIngredientes(target);
+		return target;
+		
+	}
+		
+	private void actualizarPropiedadesEntidad(Pizza target) {
+		if (target.getBase().getIdIngredient() != base)
+			target.setBase(new Ingredient(base));
+		
+		if(target.getSauce().getIdIngredient() != sauce)
+			target.setSauce(new Ingredient(sauce));
+		
+		if(target.getDescription() != description)
+			target.setDescription(description);
+		
+		if(target.getNetPrice() != netPrice)
+			target.setNetPrice(netPrice);
+		
+		if(target.getAmount() != amount)
+			target.setAmount(amount);
 		
 		if(target.getActive() != active)
 			target.setActive(active);
-		
-			var delIngredientPizzas = target.getIngredientpizzas().stream()
-					.filter(item -> !ingredientpizzas.contains(item.getIngredient().getIdIngredient()))
-					.toList();
-			delIngredientPizzas.forEach(item -> target.removeIngredientpizza(item));
-				
-			ingredientpizzas.stream()
-			.filter(ingredientpizzaeditDTO -> !target.getIngredientpizzas().stream().anyMatch(ingredientpizza -> ingredientpizza.getId().getIdIngredient() == ingredientpizzaeditDTO.getIdIngredient()))
-			.forEach(ingredientpizzaeditDTO -> target.addIngredientpizza(ingredientpizzaeditDTO.getIdIngredient(),ingredientpizzaeditDTO.getQuantity()));
-				
-		return target;
 	}
-	
+		
+	private void borrarIngredientesSobrantes(Pizza target) {
+		var delIngredientPizzas = target.getIngredientpizzas().stream()
+				.filter(item -> !ingredientpizzas.contains(item.getIngredient().getIdIngredient()))
+				.toList();
+		delIngredientPizzas.forEach(item -> target.removeIngredientpizza(item));
+	}
+		
+	private void incorporarNuevosIngredientes(Pizza target) {	
+		ingredientpizzas.stream()
+		.filter(ingredientpizzaeditDTO -> !target.getIngredientpizzas().stream().anyMatch(ingredientpizza -> ingredientpizza.getId().getIdIngredient() == ingredientpizzaeditDTO.getIdIngredient()))
+		.forEach(ingredientpizzaeditDTO -> target.addIngredientpizza(ingredientpizzaeditDTO.getIdIngredient(),ingredientpizzaeditDTO.getQuantity()));
+	}
 }
