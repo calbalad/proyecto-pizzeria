@@ -71,13 +71,21 @@ public class PizzaResource {
 	
 	@GetMapping(path = "/{id}", params = "mode=details")
 	@ApiOperation(value = "Recupera una pizza")
+	@ApiResponses({
+		@ApiResponse(code = 200, message = "Pizza encontrada"),
+		@ApiResponse(code = 404, message = "Pizza no encontrada")
+	})
 	public PizzaDetailsDTO getOneDetails(@PathVariable int id, @RequestParam(required = false, defaultValue = "details") @ApiParam(allowableValues = "details,edit,active") String mode)
 			throws NotFoundException {
 			return PizzaDetailsDTO.from(srv.getOne(id), proxy);
 	}
 	
 	@GetMapping(path = "/{id}", params = "mode=active")
-	@ApiOperation(value = "Recupera el estado de una pizza")
+	@ApiOperation(value = "Recupera una pizza")
+	@ApiResponses({
+		@ApiResponse(code = 200, message = "Pizza encontrada"),
+		@ApiResponse(code = 404, message = "Pizza no encontrada")
+	})
 	public PizzaActiveDetailsDTO getOne(@PathVariable int id, @RequestParam(required = false) @ApiParam(allowableValues = "details,edit,active") String mode)
 			throws NotFoundException {
 			return PizzaActiveDetailsDTO.from(srv.getOne(id));
@@ -97,7 +105,7 @@ public class PizzaResource {
 	
 	@PostMapping
 	@Transactional
-	@ApiOperation(value = "Añadir una nueva pizza")
+	@ApiOperation(value = "Añade una nueva pizza")
 	@ApiResponses({
 		@ApiResponse(code = 201, message = "Pizza añadida"),
 		@ApiResponse(code = 400, message = "Error al validar los datos o clave duplicada"),
@@ -120,7 +128,7 @@ public class PizzaResource {
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	@Transactional
-	@ApiOperation(value = "Modificar una pizza existente", notes = "Los identificadores deben coincidir")
+	@ApiOperation(value = "Modifica una pizza existente", notes = "Los identificadores deben coincidir")
 	@ApiResponses({
 		@ApiResponse(code = 201, message = "Pizza desactivada"),
 		@ApiResponse(code = 400, message = "Error al validar los datos o discrepancias en los identificadores"),
@@ -138,12 +146,13 @@ public class PizzaResource {
 	}
 	
 	@GetMapping(path = "/{id}/comentarios")
-	@Transactional
+	@ApiOperation(value = "Recupera los comentarios de una pizza")
 	public List<CommentShortDTO> getComments(@PathVariable int id) throws NotFoundException {
 		return srv.getOne(id).getComments().stream().map(item -> CommentShortDTO.from(item)).collect(Collectors.toList());
 	}
 	
 	@GetMapping(path="/{id}/foto", produces = {"image/png", "image/jpg", "image/jpeg" })
+	@ApiOperation(value = "Recupera la foto de una pizza")
 	public byte[] getPhoto(@PathVariable int id) throws NotFoundException {
 		var result = dao.findById(id);
 		if(result.isEmpty() || result.get().getImage() == null)
@@ -152,6 +161,7 @@ public class PizzaResource {
 	}
 	
 	@PutMapping(path="/{id}/foto", produces = {"image/png", "image/jpg", "image/jpeg"})
+	@ApiOperation(value = "Modifica la foto de una pizza")
 	public byte[] setPhoto(@PathVariable int id, @RequestBody byte[] file) throws NotFoundException {
 		var item = dao.findById(id);
 		if(item.isEmpty())
@@ -163,6 +173,7 @@ public class PizzaResource {
 
 	@DeleteMapping("/{id}/foto")
 	@ResponseStatus(code = HttpStatus.NOT_FOUND)
+	@ApiOperation(value = "Borra la foto de una pizza")
 	public void deleteFoto(@PathVariable int id) throws NotFoundException {
 		var item = dao.findById(id);
 		if(item.isEmpty())

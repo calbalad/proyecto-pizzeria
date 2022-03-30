@@ -11,7 +11,10 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -22,44 +25,61 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 
-import com.pizzaiolo.application.dtos.IngredientEditDTO;
-import com.pizzaiolo.domains.contracts.services.IngredientService;
+import com.pizzaiolo.application.dtos.IngredientPizzaEditDTO;
+import com.pizzaiolo.application.dtos.PizzaEditDTO;
+import com.pizzaiolo.domains.contracts.services.PizzaService;
+import com.pizzaiolo.domains.entities.Ingredient;
 import com.pizzaiolo.exceptions.DuplicateKeyException;
 import com.pizzaiolo.exceptions.InvalidDataException;
 import com.pizzaiolo.exceptions.NotFoundException;
 
 @SpringBootTest
-class IngredientResourceTest {
-	List<IngredientEditDTO> listado;
+class PizzaResourceTest {
+	List<PizzaEditDTO> listado;
+	List<IngredientPizzaEditDTO> ingredientes1, ingredientes2, ingredientes3;
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		listado = new ArrayList<IngredientEditDTO>();
-		listado.add(new IngredientEditDTO(1, "peperoni", new BigDecimal(5), "otros"));
-		listado.add(new IngredientEditDTO(2, "pimiento", new BigDecimal(4), "otros"));
+		
+		ingredientes1 = new ArrayList<IngredientPizzaEditDTO>();
+		ingredientes1.add(new IngredientPizzaEditDTO(11, 1));
+		
+		ingredientes2 = new ArrayList<IngredientPizzaEditDTO>();
+		ingredientes2.add(new IngredientPizzaEditDTO(5, 1));
+		ingredientes2.add(new IngredientPizzaEditDTO(11, 1));
+		ingredientes2.add(new IngredientPizzaEditDTO(13, 1));
+		ingredientes2.add(new IngredientPizzaEditDTO(20, 1));
+		ingredientes2.add(new IngredientPizzaEditDTO(23, 1));
+
+		
+		
+		
+		listado = new ArrayList<PizzaEditDTO>();
+		listado.add(new PizzaEditDTO(1, 1, 5, "Margarita Clasica", new BigDecimal(8), new BigDecimal(10), true, ingredientes1));
+		listado.add(new PizzaEditDTO(6, 1, 8, "Carbonara Clasica", new BigDecimal(9), new BigDecimal(12), true, ingredientes2));
 
 	}
 
 	public static class IoCTestConfig {
 		@Bean
-		IngredientService getServicio() {
-			return mock(IngredientService.class);
+		PizzaService getServicio() {
+			return mock(PizzaService.class);
 		}
 		@Bean
-		IngredientResource getRest() {
-			return new IngredientResource();
+		PizzaResource getRest() {
+			return new PizzaResource();
 		}
 	}
 
 	@Nested
 	//@ContextConfiguration(classes = IoCTestConfig.class)
-	@MockBean(IngredientService.class)
+	@MockBean(PizzaService.class)
 	class PruebasUnitarias {
 		@Autowired
-		IngredientService srv;
+		PizzaService srv;
 		
 		@Autowired
-		IngredientResource rest;
+		PizzaResource rest;
 		
 		@Test
 		void testMock() {
@@ -70,7 +90,7 @@ class IngredientResourceTest {
 		@Test
 		void testGetAll() {
 			
-			when(srv.getByProjection(IngredientEditDTO.class)).thenReturn(listado);
+			when(srv.getByProjection(PizzaEditDTO.class)).thenReturn(listado);
             var rslt = rest.getAll();
             assertNotNull(rslt);
             System.out.println(rslt);
@@ -80,27 +100,26 @@ class IngredientResourceTest {
 		void testGetOne() throws NotFoundException {
 
 			
-			when(srv.getOne(1)).thenReturn(IngredientEditDTO.from(listado.get(0)));
+			when(srv.getOne(1)).thenReturn(PizzaEditDTO.from(listado.get(0)));
 
-			var rslt = rest.getOneEdit(1); 
+			var rslt = rest.getOneEdit(1, "edit"); 
 			assertNotNull(rslt);
-			assertEquals(1, rslt.getIdIngredient());
+			assertEquals(1, rslt.getIdPizza());
 		}
 
 		@Test
 		void testGetOneNotFound() throws NotFoundException {
 			when(srv.getOne(1)).thenThrow(NotFoundException.class);
 			
-			assertThrows(NotFoundException.class, () -> rest.getOneEdit(1));
+			assertThrows(NotFoundException.class, () -> rest.getOneEdit(1, "edit"));
 		}
 
 		@Test
 		void testCreate() throws NotFoundException, DuplicateKeyException, InvalidDataException {
-			when(srv.add(any())).thenReturn(IngredientEditDTO.from(listado.get(0)));
-			when(srv.getOne(any())).thenReturn(IngredientEditDTO.from(listado.get(0)));
-			when(srv.change(any())).thenReturn(IngredientEditDTO.from(listado.get(0)));
+			when(srv.add(any())).thenReturn(PizzaEditDTO.from(listado.get(0)));
+			when(srv.getOne(any())).thenReturn(PizzaEditDTO.from(listado.get(0)));
+			when(srv.change(any())).thenReturn(PizzaEditDTO.from(listado.get(0)));
 
-			
 			var rslt = rest.create(listado.get(0));
 			assertNotNull(rslt);
 			assertEquals(HttpStatus.CREATED, rslt.getStatusCode());
@@ -122,13 +141,11 @@ class IngredientResourceTest {
 
 		@Test
 		void testUpdate() throws NotFoundException, InvalidDataException {
-			when(srv.getOne(any())).thenReturn(IngredientEditDTO.from(listado.get(0)));
-			when(srv.change(any())).thenReturn(IngredientEditDTO.from(listado.get(0)));
+			when(srv.getOne(any())).thenReturn(PizzaEditDTO.from(listado.get(0)));
+			when(srv.change(any())).thenReturn(PizzaEditDTO.from(listado.get(0)));
 
-			
 			rest.update(1, listado.get(0));
-			verify(srv).change(IngredientEditDTO.from(listado.get(0)));
-			
+			verify(srv).change(PizzaEditDTO.from(listado.get(0)));
 		}
 
 		@Test
@@ -137,19 +154,17 @@ class IngredientResourceTest {
 		}
 		@Test
 		void testUpdateNotFound() throws NotFoundException, InvalidDataException {
-			when(srv.getOne(any())).thenReturn(IngredientEditDTO.from(listado.get(0)));
+			when(srv.getOne(any())).thenReturn(PizzaEditDTO.from(listado.get(0)));
 			when(srv.change(any())).thenThrow(NotFoundException.class);
 
 			assertThrows(NotFoundException.class, () -> rest.update(1, listado.get(0)));
 		}
-		
+	
 		@Test
 		void testUpdateInvalidData() throws NotFoundException, InvalidDataException {
-			assertThrows(InvalidDataException.class, () -> rest.update(1, new IngredientEditDTO()));
+			
+			assertThrows(InvalidDataException.class, () -> rest.update(1, new PizzaEditDTO()));
 		}
 		
-		
-		
 	}
-
 }

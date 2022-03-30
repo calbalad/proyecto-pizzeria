@@ -13,9 +13,9 @@ import lombok.Value;
 @ApiModel(value = "Ingredientes cortos", description = "Version corta de los ingredientes.")
 public class IngredientShortDTO {
 	
-//	@JsonProperty("idIngredient")
-//	@ApiModelProperty(value = "Identificador del ingrediente.")
-//	private int idPizza;
+	@JsonProperty("idIngredient")
+	@ApiModelProperty(value = "Identificador del ingrediente.")
+	private int idIngredient;
 	
 	@JsonProperty("name")
 	@ApiModelProperty(value = "Nombre del ingrediente.")
@@ -24,11 +24,17 @@ public class IngredientShortDTO {
 	@JsonProperty("price")
 	@ApiModelProperty(value = "Precio del ingrediente por unidad.")
 	private BigDecimal price;
+	
+	@JsonProperty("type")
+	@ApiModelProperty(value = "Clasificación por tipo de ingrediente.", allowableValues = "base,salsa,otros")
+	private String type;
 
 	public static IngredientShortDTO from(Ingredient source) {
 		return new IngredientShortDTO(
-//				source.getIdIngredient(), 
+				source.getIdIngredient(),
 				source.getName(), 
-				source.getPrice());
+				source.getPrice(),
+				source.getType() == null ? null : source.getType().getValue());						
+
 	}
 }
