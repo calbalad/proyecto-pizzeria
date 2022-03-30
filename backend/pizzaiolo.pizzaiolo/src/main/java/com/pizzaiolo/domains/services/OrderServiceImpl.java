@@ -2,6 +2,7 @@ package com.pizzaiolo.domains.services;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -18,6 +19,9 @@ import com.pizzaiolo.exceptions.NotFoundException;
 @Service
 public class OrderServiceImpl implements OrderService{
 	private OrderRepository dao;
+	
+	@Autowired
+	private OrderService srv;
 
 	public OrderServiceImpl(OrderRepository dao) {
 		this.dao = dao;
@@ -92,8 +96,28 @@ public class OrderServiceImpl implements OrderService{
 		dao.deleteById(id);
 	}
 
-//	@Override
-//	public List<Order> findByStatus(Status status) {
-//		return dao.findByStatus(status);
-//	}
+	@Override
+	public <T> List<T> getSolicitado(Class<T> type) {
+		return dao.findByOrderStatus(Status.PEDIDO_SOLICITADO, type);
+	}
+	
+	public <T> List<T> getElaborandose(Class<T> type) {
+		return dao.findByOrderStatus(Status.PEDIDO_ELABORANDOSE, type);
+	}
+	
+	public <T> List<T> getPreparado(Class<T> type) {
+		return dao.findByOrderStatus(Status.PEDIDO_PREPARADO, type);
+	}
+	
+	public <T> List<T> getEnviado(Class<T> type) {
+		return dao.findByOrderStatus(Status.PEDIDO_ENVIADO, type);
+	}
+	
+	public <T> List<T> getRecibido(Class<T> type) {
+		return dao.findByOrderStatus(Status.PEDIDO_RECIBIDO, type);
+	}
+	
+	public <T> List<T> getCancelado(Class<T> type) {
+		return dao.findByOrderStatus(Status.PEDIDO_CANCELADO, type);
+	}
 }
