@@ -37,7 +37,7 @@ import io.swagger.annotations.ApiResponse;
 import org.springframework.http.HttpStatus;
 
 @RestController
-@RequestMapping("/api/v1/comments")
+@RequestMapping("/api/v1/comentarios")
 @Api(value = "/comments", description = "Mantenimiento de comentarios", produces = "application/json, application/xml", consumes = "application/json, application/xml")
 
 public class CommentResource {
