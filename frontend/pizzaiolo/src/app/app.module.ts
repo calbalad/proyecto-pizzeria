@@ -23,7 +23,8 @@ import { PizzaDetailComponent } from './pizza-detail/pizza-detail.component';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {PasswordModule} from 'primeng/password';
 import {DividerModule} from 'primeng/divider';
-import {Card, CardModule} from 'primeng/card';
+import {CardModule} from 'primeng/card';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -31,7 +32,7 @@ import {Card, CardModule} from 'primeng/card';
 
 @NgModule({
 
-  declarations: [AppComponent, PizzasComponent, RegistroComponent, PizzaDetailComponent,],
+  declarations: [AppComponent, PizzasComponent, RegistroComponent, PizzaDetailComponent, LoginComponent,],
 
   imports: [
     BrowserModule,
