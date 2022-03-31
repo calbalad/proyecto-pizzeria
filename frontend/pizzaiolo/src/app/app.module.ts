@@ -6,23 +6,37 @@ import { AppComponent } from './app.component';
 
 import { PizzasComponent } from './pizzas/pizzas.component';
 import { AccordionModule } from 'primeng/accordion';
-import { ButtonModule } from 'primeng/button';
+
+import { MainModule } from './main';
+import { MenuModule } from 'primeng/menu';
 import { DataViewModule } from 'primeng/dataview';
-import {DropdownModule} from 'primeng/dropdown';
-
-
+import { ButtonModule } from 'primeng/button';
+import { PanelModule } from 'primeng/panel';
+import { DropdownModule } from 'primeng/dropdown';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { RatingModule } from 'primeng/rating';
+import { RippleModule } from 'primeng/ripple';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    PizzasComponent,
-  ],
+  declarations: [AppComponent, PizzasComponent,],
   imports: [
-    BrowserModule, AppRoutingModule, AccordionModule,
-    ButtonModule, DataViewModule, DropdownModule,
+    BrowserModule,
+    AppRoutingModule,
+    AccordionModule,
+    ButtonModule,
+    DataViewModule,
+    DropdownModule,
+    MainModule,
+    MenuModule,
+    RippleModule,
+    RatingModule,
+    InputTextModule,
+    DialogModule,
+    PanelModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

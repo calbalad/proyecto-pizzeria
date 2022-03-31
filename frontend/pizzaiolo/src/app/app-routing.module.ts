@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HeaderComponent } from './main/header/header.component';
+import { PizzasComponent } from './pizzas/pizzas.component';
 
 const routes: Routes = [
-
+  { path: '', pathMatch: 'full', component: PizzasComponent, data: { pageTitle: 'Pizzas' } },
   // { path: '', pathMatch: 'full', component: PizzasComponent, data: { pageTitle: 'Pizzas' } },
   // { path: 'inicio', component: PizzasComponent, data: { pageTitle: 'Pizzas' } },
   // { path: 'registro', component: RegistroComponent, data: { pageTitle: 'Registro' } },
