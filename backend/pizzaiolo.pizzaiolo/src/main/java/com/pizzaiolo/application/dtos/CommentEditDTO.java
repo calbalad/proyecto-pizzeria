@@ -2,6 +2,7 @@ package com.pizzaiolo.application.dtos;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pizzaiolo.domains.entities.Comment;
 import com.pizzaiolo.domains.entities.Pizza;
@@ -19,7 +20,8 @@ public class CommentEditDTO {
 	@JsonProperty("idComentario")
 	private int idComment;
 	@ApiModelProperty(value = "Fecha de creación del comentario.")
-	@JsonProperty("fecha")
+	@JsonProperty("date")
+	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	private Date date;
 	@ApiModelProperty(value = "Identificador del usuario que genera el comentario.")
 	@JsonProperty("idUsuario")
@@ -30,6 +32,10 @@ public class CommentEditDTO {
 	@ApiModelProperty(value = "Texto del comentario.")
 	@JsonProperty("comentario")
 	private String text;
+	@ApiModelProperty(value = "Identificador de la pizza.")
+	@JsonProperty("idPizza")
+	private int idPizza;
+	
 	
 
 	public static CommentEditDTO from(Comment source) {
@@ -38,7 +44,8 @@ public class CommentEditDTO {
 				source.getDate(), 
 				source.getIdUser(), 
 				source.getRating(), 
-				source.getText());
+				source.getText(),
+				source.getPizza().getIdPizza());
 			
 	}
 
@@ -48,7 +55,8 @@ public class CommentEditDTO {
 				source.getDate(), 
 				source.getIdUser(), 
 				source.getRating(), 
-				source.getText()				
+				source.getText(),
+				new Pizza (source.getIdPizza())
 				);
 	}
 	
