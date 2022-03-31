@@ -69,7 +69,7 @@ public class PizzaResource {
 		return srv.getByProjection(page, PizzaShortDTO.class);
 	}
 	
-	@GetMapping(path = "/{id}", params = "mode=details")
+	@GetMapping(path = "/{id}")
 	@ApiOperation(value = "Recupera una pizza")
 	@ApiResponses({
 		@ApiResponse(code = 200, message = "Pizza encontrada"),
@@ -155,9 +155,12 @@ public class PizzaResource {
 	@ApiOperation(value = "Recupera la foto de una pizza")
 	public ResponseEntity<byte[]> getPhoto(@PathVariable int id) throws NotFoundException {
 		var result = dao.findById(id);
+		var img = result.get().getImage();
+		
 		if(result.isEmpty() || result.get().getImage() == null)
 			return ResponseEntity.notFound().build();
-		return ResponseEntity.ok().header("content-type", "image/*").body(result.get().getImage());
+	
+		return ResponseEntity.ok().header("content-type", mimeTypeImage(img)).body(result.get().getImage());
 	}
 	
 	@PutMapping(path="/{id}/foto")
@@ -168,7 +171,8 @@ public class PizzaResource {
 			return ResponseEntity.notFound().build();
 		item.get().setImage(file);
 		var result = dao.save(item.get());
-		return ResponseEntity.ok().header("content-type", "image/*").body(result.getImage());
+		var img = result.getImage();
+		return ResponseEntity.ok().header("content-type", mimeTypeImage(img)).body(result.getImage());
 	}
 
 	@DeleteMapping("/{id}/foto")
@@ -180,5 +184,35 @@ public class PizzaResource {
 			throw new NotFoundException();
 		item.get().setImage(null);
 		dao.save(item.get());
+	}
+	
+	
+	public String mimeTypeImage(byte[] img) {
+		
+		int[] array = new int[4];
+		String toHex = "";
+		String imgType = "";
+		
+		for (int i = 0; i < 3; i++) {
+			array[i] = img[i];
+			if (array[i] < 0) array[i] = array[i] + 256;
+			toHex += (Integer.toHexString(array[i])).toUpperCase();
+		}
+		
+		switch(toHex) {
+			case "FFD8FF": 
+				imgType = "image/jpg";
+				break;
+			case "89504E":
+				imgType = "image/png";
+				break;
+			case "001":
+				imgType = "image/x-icon";
+				break;
+			default:
+				imgType = "image/*";
+		}
+		
+		return imgType;
 	}
 }
