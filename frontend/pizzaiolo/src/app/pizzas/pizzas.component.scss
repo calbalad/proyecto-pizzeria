@@ -1,5 +1,8 @@
 
 :host ::ng-deep {
+  .button_center {
+    text-align: center;
+  }
   .p-dropdown {
       width: 14rem;
       font-weight: normal;
@@ -61,7 +64,7 @@
           margin-bottom: .5rem;
       }
   }
-  
+
 
   .product-grid-item {
       margin: .5em;

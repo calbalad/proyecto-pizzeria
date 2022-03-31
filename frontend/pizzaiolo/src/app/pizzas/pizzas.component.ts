@@ -164,7 +164,8 @@ export class PizzasComponent implements OnInit {
         code: 'zz21cz3c1',
         name: 'Blue Band',
         description: 'Product Description',
-        image: 'https://picsum.photos/id/1/200/200',
+
+        image: 'https://picsum.photos/200/200',
         price: 79,
         category: 'Pizzas',
         quantity: 2,
@@ -176,6 +177,7 @@ export class PizzasComponent implements OnInit {
         name: 'Blue Band',
         description: 'Product Description',
         image: 'https://picsum.photos/id/1/200/200',
+
         price: 79,
         category: 'Pizzas',
         quantity: 2,
