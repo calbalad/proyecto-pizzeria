@@ -1,1 +1,18 @@
-<p>carrito works!</p>
+<p-orderList [value]="product.data" [listStyle]="{'max-height':'30rem'}" [dragdrop]="true">
+    <ng-template let-product pTemplate="item">
+        <div class="product-item">
+            <div class="image-container">
+                    <img src={{product.image}} [alt]="product.name" class="product-image" />
+            </div>
+            <div class="product-list-detail">
+                <h5 class="mb-2">{{product.name}}</h5>
+                <i class="pi pi-tag product-category-icon"></i>
+                <span class="product-category">{{product.category}}</span>
+            </div>
+            <div class="product-list-action">
+                <h6 class="mb-2">${{product.price}}</h6>
+                <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
+            </div>
+        </div>
+    </ng-template>
+  </p-orderList>
