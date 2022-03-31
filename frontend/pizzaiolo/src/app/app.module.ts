@@ -26,6 +26,7 @@ import {DividerModule} from 'primeng/divider';
 import {CardModule} from 'primeng/card';
 import { LoginComponent } from './login/login.component';
 import { CarritoComponent } from './carrito/carrito.component';
+import {OrderListModule} from 'primeng/orderlist';
 
 
 
@@ -55,6 +56,7 @@ import { CarritoComponent } from './carrito/carrito.component';
     PasswordModule,
     DividerModule,
     CardModule,
+    OrderListModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
