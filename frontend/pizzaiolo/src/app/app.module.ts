@@ -21,6 +21,9 @@ import {CarouselModule} from 'primeng/carousel';
 import {GalleriaModule} from 'primeng/galleria';
 import { PizzaDetailComponent } from './pizza-detail/pizza-detail.component';
 import {InputNumberModule} from 'primeng/inputnumber';
+import {PasswordModule} from 'primeng/password';
+import {DividerModule} from 'primeng/divider';
+import {Card, CardModule} from 'primeng/card';
 
 
 
@@ -29,7 +32,7 @@ import {InputNumberModule} from 'primeng/inputnumber';
 @NgModule({
 
   declarations: [AppComponent, PizzasComponent, RegistroComponent, PizzaDetailComponent,],
-  
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -47,6 +50,9 @@ import {InputNumberModule} from 'primeng/inputnumber';
     CarouselModule,
     GalleriaModule,
     InputNumberModule,
+    PasswordModule,
+    DividerModule,
+    CardModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
