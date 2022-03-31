@@ -17,10 +17,16 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { RatingModule } from 'primeng/rating';
 import { RippleModule } from 'primeng/ripple';
+import {CarouselModule} from 'primeng/carousel';
+import {GalleriaModule} from 'primeng/galleria';
+import { PizzaDetailComponent } from './pizza-detail/pizza-detail.component';
+import {InputNumberModule} from 'primeng/inputnumber';
+
+
 
 
 @NgModule({
-  declarations: [AppComponent, PizzasComponent,],
+  declarations: [AppComponent, PizzasComponent, PizzaDetailComponent,],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -35,6 +41,9 @@ import { RippleModule } from 'primeng/ripple';
     InputTextModule,
     DialogModule,
     PanelModule,
+    CarouselModule,
+    GalleriaModule,
+    InputNumberModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

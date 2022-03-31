@@ -1,4 +1,8 @@
+
 :host ::ng-deep {
+  .button_center {
+    text-align: center;
+  }
   .p-dropdown {
       width: 14rem;
       font-weight: normal;
@@ -28,6 +32,7 @@
       align-items: center;
       padding: 1rem;
       width: 100%;
+
 
       img {
           width: 150px;
@@ -59,6 +64,7 @@
           margin-bottom: .5rem;
       }
   }
+
 
   .product-grid-item {
       margin: .5em;
@@ -93,6 +99,7 @@
   box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
   border-radius: 4px;
   margin-bottom: 2rem;
+
 }
 
 @media screen and (max-width: 576px) {
@@ -126,4 +133,19 @@
     width: 100%;
   }
 }
+}
+
+.product-item {
+  .product-item-content {
+      border: 1px solid var(--surface-d);
+      border-radius: 3px;
+      margin: .3rem;
+      text-align: center;
+      padding: 2rem 0;
+  }
+
+  .product-image {
+      width: 50%;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+  }
 }
