@@ -19,12 +19,13 @@ import { RatingModule } from 'primeng/rating';
 import { RippleModule } from 'primeng/ripple';
 import {CarouselModule} from 'primeng/carousel';
 import {GalleriaModule} from 'primeng/galleria';
+import { PizzaDetailComponent } from './pizza-detail/pizza-detail.component';
 
 
 
 
 @NgModule({
-  declarations: [AppComponent, PizzasComponent,],
+  declarations: [AppComponent, PizzasComponent, PizzaDetailComponent,],
   imports: [
     BrowserModule,
     AppRoutingModule,
