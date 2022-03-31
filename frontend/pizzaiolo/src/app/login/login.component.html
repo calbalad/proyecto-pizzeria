@@ -1,1 +1,25 @@
-<p>login works!</p>
+<p-card>
+  <h1>Iniciar sesión</h1>
+  <form>
+    <div class="p-fluid grid">
+      <div class="field col-12 md:col-4">
+          <span class="p-float-label">
+              <input type="email" name="email" id="email" pInputText ="value1" required maxlength="50">
+              <label for="inputtext">Correo electrónico</label>
+          </span>
+      </div>
+    </div>
+    <div class="field col-12 md:col-4">
+      <span class="p-float-label">
+          <p-password inputId="password" ></p-password>
+          <label for="password">Password</label>
+      </span>
+  </div>
+
+
+  <button pButton type="button" label="Enviar" class="p-button"></button>
+  <button pButton type="button" label="Cancelar" class="p-button"></button>
+  </form>
+  </p-card>
+
+
