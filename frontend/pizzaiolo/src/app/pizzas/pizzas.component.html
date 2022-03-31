@@ -1,14 +1,6 @@
 <div class="card">
-  <p-dataView
-    #dv
-    [value]="products.data"
-    [paginator]="true"
-    [rows]="9"
-    filterBy="name"
-    [sortField]="sortField"
-    [sortOrder]="sortOrder"
-    layout="grid"
-  >
+  <p-dataView #dv [value]="products.data" [paginator]="true" [rows]="9" filterBy="name" [sortField]="sortField"
+    [sortOrder]="sortOrder" layout="grid">
     <ng-template pTemplate="header">
       <div class="flex flex-column md:flex-row md:justify-content-between">
         <span class="p-input-icon-left mb-2 md:mb-0">
@@ -26,16 +18,12 @@
             <div class="product-name">{{ product.name }}</div>
             <div class="product-description">{{ product.description }}</div>
 
-            <i class="pi pi-tag product-category-icon"></i
-            ><span class="product-category">{{ product.category }}</span>
+            <i class="pi pi-tag product-category-icon"></i><span class="product-category">{{ product.category }}</span>
           </div>
           <div class="product-list-action">
             <span class="product-price">${{ product.price }}</span>
-            <p-button
-              icon="pi pi-shopping-cart"
-              label="Add to Cart"
-              [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"
-            ></p-button>
+            <p-button icon="pi pi-shopping-cart" label="Add to Cart"
+              [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></p-button>
           </div>
         </div>
       </div>
@@ -56,10 +44,7 @@
           </div>
           <div class="product-grid-item-bottom">
             <span class="product-price">${{ product.price }}</span>
-            <p-button
-              icon="pi pi-shopping-cart"
-              [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"
-            ></p-button>
+            <p-button icon="pi pi-shopping-cart" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></p-button>
           </div>
         </div>
       </div>

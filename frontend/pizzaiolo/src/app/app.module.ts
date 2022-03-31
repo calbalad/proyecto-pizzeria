@@ -17,6 +17,10 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { RatingModule } from 'primeng/rating';
 import { RippleModule } from 'primeng/ripple';
+import {CarouselModule} from 'primeng/carousel';
+import {GalleriaModule} from 'primeng/galleria';
+
+
 
 
 @NgModule({
@@ -35,6 +39,8 @@ import { RippleModule } from 'primeng/ripple';
     InputTextModule,
     DialogModule,
     PanelModule,
+    CarouselModule,
+    GalleriaModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
