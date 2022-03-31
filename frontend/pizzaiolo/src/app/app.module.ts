@@ -25,6 +25,7 @@ import {PasswordModule} from 'primeng/password';
 import {DividerModule} from 'primeng/divider';
 import {CardModule} from 'primeng/card';
 import { LoginComponent } from './login/login.component';
+import { CarritoComponent } from './carrito/carrito.component';
 
 
 
@@ -32,7 +33,7 @@ import { LoginComponent } from './login/login.component';
 
 @NgModule({
 
-  declarations: [AppComponent, PizzasComponent, RegistroComponent, PizzaDetailComponent, LoginComponent,],
+  declarations: [AppComponent, PizzasComponent, RegistroComponent, PizzaDetailComponent, LoginComponent, CarritoComponent,],
 
   imports: [
     BrowserModule,
