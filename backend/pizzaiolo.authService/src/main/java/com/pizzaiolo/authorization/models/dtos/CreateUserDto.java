@@ -71,7 +71,9 @@ public class CreateUserDto {
 
     @ApiModelProperty(notes = "Geographic location of the user")
     private Coordinates coordinates;
-
+    
+    private String phone;
+    
     private Role role;
     
 	private List<Address> address;

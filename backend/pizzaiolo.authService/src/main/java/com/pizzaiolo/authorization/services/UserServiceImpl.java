@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 		newUser.setEmail(createUserDto.getEmail()).setFirstName(createUserDto.getFirstName())
 				.setLastName(createUserDto.getLastName()).setPassword(bCryptEncoder.encode(createUserDto.getPassword()))
 				.setGender(createUserDto.getGender()).setConfirmed(createUserDto.isConfirmed())
-				.setEnabled(createUserDto.isEnabled()).setAvatar(null).setTimezone(createUserDto.getTimezone())
+				.setEnabled(createUserDto.isEnabled()).setPhone(createUserDto.getPhone()).setAvatar(null).setTimezone(createUserDto.getTimezone())
 				.setCoordinates(createUserDto.getCoordinates()).setRole(createUserDto.getRole());
 
 		return userRepository.save(newUser);
