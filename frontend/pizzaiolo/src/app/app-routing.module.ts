@@ -5,6 +5,7 @@ import { PizzaDetailComponent } from './pizza-detail/pizza-detail.component';
 import { PizzasComponent } from './pizzas/pizzas.component';
 import { RegistroComponent } from './registro/registro.component';
 import { LoginComponent } from './login/login.component';
+import { CarritoComponent } from './carrito/carrito.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: PizzasComponent, data: { pageTitle: 'Pizzas' } },
@@ -16,7 +17,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, data: { pageTitle: 'Login' } },
   // { path: 'pizzas', component: PizzasComponent, data: { pageTitle: 'Pizzas' } },
   // { path: 'pizzas/:id', component: PizzasViewComponent, data: { pageTitle: 'Detalle Pizzas' } },
-  // { path: 'carrito', component: CarritoComponent, data: { pageTitle: 'Carrito' } },
+  { path: 'carrito', component: CarritoComponent, data: { pageTitle: 'Carrito' } },
 
   // { path: 'user', children: [
   //   { path: '', component: UserComponent },
