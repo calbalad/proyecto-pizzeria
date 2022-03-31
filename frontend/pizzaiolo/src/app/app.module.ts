@@ -20,6 +20,7 @@ import { RippleModule } from 'primeng/ripple';
 import {CarouselModule} from 'primeng/carousel';
 import {GalleriaModule} from 'primeng/galleria';
 import { PizzaDetailComponent } from './pizza-detail/pizza-detail.component';
+import {InputNumberModule} from 'primeng/inputnumber';
 
 
 
@@ -42,6 +43,7 @@ import { PizzaDetailComponent } from './pizza-detail/pizza-detail.component';
     PanelModule,
     CarouselModule,
     GalleriaModule,
+    InputNumberModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
