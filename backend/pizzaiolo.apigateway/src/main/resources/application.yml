@@ -76,7 +76,31 @@ spring:
           - Path=/api/v1/likes/**
         uri: lb://megusta
         filters:
-          - RewriteLocationResponseHeader=AS_IN_REQUEST, Location, ,   
+          - RewriteLocationResponseHeader=AS_IN_REQUEST, Location, ,
+      - id: pizzaiolo
+        predicates:
+          - Path=/api/v1/comments/**
+        uri: lb://pizzaiolo
+        filters:
+          - RewriteLocationResponseHeader=AS_IN_REQUEST, Location, ,
+      - id: pizzaiolo
+        predicates:
+          - Path=/api/v1/ingredientes/**
+        uri: lb://pizzaiolo
+        filters:
+          - RewriteLocationResponseHeader=AS_IN_REQUEST, Location, ,
+      - id: pizzaiolo
+        predicates:
+          - Path=/api/v1/pedidos/**
+        uri: lb://pizzaiolo
+        filters:
+          - RewriteLocationResponseHeader=AS_IN_REQUEST, Location, ,
+      - id: pizzaiolo
+        predicates:
+          - Path=/api/v1/pizzas/**
+        uri: lb://pizzaiolo
+        filters:
+          - RewriteLocationResponseHeader=AS_IN_REQUEST, Location, ,
 logging:
   level:
     org.springframework.cloud.gateway: DEBUG
