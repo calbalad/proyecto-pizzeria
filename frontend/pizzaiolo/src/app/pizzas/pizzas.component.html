@@ -5,7 +5,7 @@
       <div class="flex flex-column md:flex-row md:justify-content-between">
         <span class="p-input-icon-left mb-2 md:mb-0">
           <i class="pi pi-search"></i>
-          <input type="search" pInputText placeholder="Search by Name" />
+          <input type="search" pInputText placeholder="Buscar..." />
         </span>
         <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
       </div>
@@ -17,6 +17,7 @@
           <div class="product-list-detail">
             <div class="product-name">{{ product.name }}</div>
             <div class="product-description">{{ product.description }}</div>
+<<<<<<< HEAD
 
             <i class="pi pi-tag product-category-icon"></i><span class="product-category">{{ product.category }}</span>
           </div>
@@ -24,6 +25,18 @@
             <span class="product-price">${{ product.price }}</span>
             <p-button icon="pi pi-shopping-cart" label="Add to Cart"
               [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></p-button>
+=======
+            <i class="pi pi-tag product-category-icon"></i
+            ><span class="product-category">{{ product.category }}</span>
+          </div>
+          <div class="product-list-action">
+            <span class="product-price">€{{ product.price }}</span>
+            <p-button
+              icon="pi pi-shopping-cart"
+              label="Añadir"
+              [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"
+            ></p-button>
+>>>>>>> 1345154f7bf5624c3242ab0f413f51cc0aeca6bd
           </div>
         </div>
       </div>
@@ -43,8 +56,16 @@
             <div class="product-description">{{ product.description }}</div>
           </div>
           <div class="product-grid-item-bottom">
+<<<<<<< HEAD
             <span class="product-price">${{ product.price }}</span>
             <p-button icon="pi pi-shopping-cart" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></p-button>
+=======
+            <span class="product-price">€{{ product.price }}</span>
+            <p-button
+              icon="pi pi-shopping-cart"
+              [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"
+            ></p-button>
+>>>>>>> 1345154f7bf5624c3242ab0f413f51cc0aeca6bd
           </div>
         </div>
       </div>

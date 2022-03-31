@@ -48,8 +48,12 @@ public class PizzaDetailsDTO {
 	private String like;
 	
 	@JsonProperty("ingredientPizza")
-	@ApiModelProperty(value = "Ingredientes.")
+	@ApiModelProperty(value = "Ingredientes de la pizza.")
 	private List<String> ingredientpizzas;
+	
+	@JsonProperty("comments")
+	@ApiModelProperty(value = "Comentarios de la pizza.")
+	private List<CommentShortDTO> comments;
 	
 	
 
@@ -63,7 +67,8 @@ public class PizzaDetailsDTO {
 				source.getAmount(),
 				source.getActive(),
 				proxy.getLikes(source.getIdPizza()),
-				source.getIngredientpizzas().stream().map(item -> item.getIngredient().getName()).sorted().toList()
+				source.getIngredientpizzas().stream().map(item -> item.getIngredient().getName()).sorted().toList(),
+				source.getComments().stream().map(item -> CommentShortDTO.from(item)).toList()
 				);
 	}
 }

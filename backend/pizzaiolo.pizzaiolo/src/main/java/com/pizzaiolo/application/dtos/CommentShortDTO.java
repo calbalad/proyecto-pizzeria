@@ -1,5 +1,8 @@
 package com.pizzaiolo.application.dtos;
 
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pizzaiolo.domains.entities.Comment;
 
@@ -20,9 +23,12 @@ public class CommentShortDTO {
 	@ApiModelProperty(value = "Texto del comentario.")
 	@JsonProperty("comentario")
 	private String text;
+	@ApiModelProperty(value = "Fecha de publicación del comentario")
+	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+	private Date date;
 
 	public static CommentShortDTO from(Comment source) {
-		return new CommentShortDTO(source.getIdComment(), source.getIdUser(), source.getText());
+		return new CommentShortDTO(source.getIdComment(), source.getIdUser(), source.getText(), source.getDate());
 	}
 
 	

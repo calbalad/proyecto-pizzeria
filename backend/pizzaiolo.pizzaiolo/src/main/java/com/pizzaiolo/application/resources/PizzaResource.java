@@ -151,28 +151,28 @@ public class PizzaResource {
 		return srv.getOne(id).getComments().stream().map(item -> CommentShortDTO.from(item)).collect(Collectors.toList());
 	}
 	
-	@GetMapping(path="/{id}/foto", produces = {"image/png", "image/jpg", "image/jpeg" })
+	@GetMapping(path="/{id}/foto")
 	@ApiOperation(value = "Recupera la foto de una pizza")
-	public byte[] getPhoto(@PathVariable int id) throws NotFoundException {
+	public ResponseEntity<byte[]> getPhoto(@PathVariable int id) throws NotFoundException {
 		var result = dao.findById(id);
 		if(result.isEmpty() || result.get().getImage() == null)
-			throw new NotFoundException();
-		return result.get().getImage();
+			return ResponseEntity.notFound().build();
+		return ResponseEntity.ok().header("content-type", "image/*").body(result.get().getImage());
 	}
 	
-	@PutMapping(path="/{id}/foto", produces = {"image/png", "image/jpg", "image/jpeg"})
+	@PutMapping(path="/{id}/foto")
 	@ApiOperation(value = "Modifica la foto de una pizza")
-	public byte[] setPhoto(@PathVariable int id, @RequestBody byte[] file) throws NotFoundException {
+	public ResponseEntity<byte[]> setPhoto(@PathVariable int id, @RequestBody byte[] file) throws NotFoundException {
 		var item = dao.findById(id);
 		if(item.isEmpty())
-			throw new NotFoundException();
+			return ResponseEntity.notFound().build();
 		item.get().setImage(file);
 		var result = dao.save(item.get());
-		return result.getImage();
+		return ResponseEntity.ok().header("content-type", "image/*").body(result.getImage());
 	}
 
 	@DeleteMapping("/{id}/foto")
-	@ResponseStatus(code = HttpStatus.NOT_FOUND)
+	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	@ApiOperation(value = "Borra la foto de una pizza")
 	public void deleteFoto(@PathVariable int id) throws NotFoundException {
 		var item = dao.findById(id);
