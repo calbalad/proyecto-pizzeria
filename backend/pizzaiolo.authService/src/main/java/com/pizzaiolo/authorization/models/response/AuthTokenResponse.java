@@ -13,6 +13,8 @@ public class AuthTokenResponse {
     private String accessToken;
 
     private String refreshToken;
+    
+    private String role;
 
     private long expiresIn;
 }

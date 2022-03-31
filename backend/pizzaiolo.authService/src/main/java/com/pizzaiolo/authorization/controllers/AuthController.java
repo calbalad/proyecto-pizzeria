@@ -150,7 +150,7 @@ public class AuthController {
 
         refreshTokenRepository.save(new RefreshToken(user.getId(), refreshToken));
 
-        return ResponseEntity.ok(new AuthTokenResponse(token, refreshToken, expirationDate.getTime()));
+        return ResponseEntity.ok(new AuthTokenResponse(token, refreshToken, user.getRole().getName(),expirationDate.getTime()));
     }
 
     @ApiOperation(value = SWG_AUTH_CONFIRM_ACCOUNT_OPERATION, response = SuccessResponse.class)

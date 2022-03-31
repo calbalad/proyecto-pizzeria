@@ -62,9 +62,7 @@ public class AddressController {
 			@ApiResponse(code = 422, message = INVALID_DATA_MESSAGE, response = InvalidDataResponse.class), })
 	@PreAuthorize("hasAuthority('update:user')")
 	@PostMapping(value = "/{idUser}")
-	public ResponseEntity<Object> create(@PathVariable String idUser, @RequestBody CreateAddressDto createAddressDto,
-			Principal principal) throws ResourceNotFoundException {
-		User user = (User) principal;
+	public ResponseEntity<Object> create(@PathVariable String idUser, @RequestBody CreateAddressDto createAddressDto) throws ResourceNotFoundException {
 		return ResponseEntity.ok().body(addressService.save(idUser, createAddressDto));
 
 	}

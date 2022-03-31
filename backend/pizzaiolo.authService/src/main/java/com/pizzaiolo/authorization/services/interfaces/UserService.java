@@ -10,6 +10,9 @@ import com.pizzaiolo.authorization.models.dtos.UpdateUserDto;
 import com.pizzaiolo.authorization.models.dtos.CreateUserDto;
 import com.pizzaiolo.authorization.models.entities.Role;
 import com.pizzaiolo.authorization.models.entities.User;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UserService extends UserDetailsService {

@@ -144,15 +144,6 @@ public class UserServiceImpl implements UserService {
 
 		return userRepository.save(user);
 	}
-
-//	@Override
-//	public void updateRol(String id, Role newRole) throws ResourceNotFoundException {
-//		User user = findById(id);
-//
-//		user.setRole(newRole);
-//
-//		userRepository.save(user);
-//	}
 	
 
 	public void confirm(String id) throws ResourceNotFoundException {

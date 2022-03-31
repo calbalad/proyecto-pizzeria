@@ -113,6 +113,6 @@ public class TokenController {
     String token = jwtTokenUtil.createTokenFromUser(user);
     Date expirationDate = jwtTokenUtil.getExpirationDateFromToken(token);
 
-    return ResponseEntity.ok(new AuthTokenResponse(token, refreshToken.getValue(), expirationDate.getTime()));
+    return ResponseEntity.ok(new AuthTokenResponse(token, refreshToken.getValue(), user.getRole().getName(), expirationDate.getTime()));
   }
 }
