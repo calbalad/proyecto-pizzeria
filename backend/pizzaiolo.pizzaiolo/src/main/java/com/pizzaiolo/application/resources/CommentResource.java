@@ -38,7 +38,7 @@ import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("/api/v1/comentarios")
-@Api(value = "/comments", description = "Mantenimiento de comentarios", produces = "application/json, application/xml", consumes = "application/json, application/xml")
+@Api(value = "/comentarios", description = "Mantenimiento de comentarios", produces = "application/json, application/xml", consumes = "application/json, application/xml")
 
 public class CommentResource {
 
@@ -66,7 +66,7 @@ public class CommentResource {
 	
 	@PostMapping
 	@Transactional
-	@ApiOperation(value = "Añadir una nuevo comentario")
+	@ApiOperation(value = "Añadir un nuevo comentario")
 	
 
 	@ApiResponses({

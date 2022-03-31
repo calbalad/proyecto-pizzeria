@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
+import { RegistroComponent } from './registro/registro.component';
 import { PizzasComponent } from './pizzas/pizzas.component';
 import { AccordionModule } from 'primeng/accordion';
 
@@ -25,8 +25,11 @@ import {InputNumberModule} from 'primeng/inputnumber';
 
 
 
+
 @NgModule({
-  declarations: [AppComponent, PizzasComponent, PizzaDetailComponent,],
+
+  declarations: [AppComponent, PizzasComponent, RegistroComponent, PizzaDetailComponent,],
+  
   imports: [
     BrowserModule,
     AppRoutingModule,

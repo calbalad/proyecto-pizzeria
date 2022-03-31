@@ -34,7 +34,7 @@ public class Comment extends EntityBase<Comment> implements Serializable {
 	private int idComment;
 
 	@Column(name="date")
-	@Generated(value = GenerationTime.ALWAYS)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	private Date date;
 	
