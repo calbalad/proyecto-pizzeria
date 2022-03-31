@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
+import { RegistroComponent } from './registro/registro.component';
 import { PizzasComponent } from './pizzas/pizzas.component';
 import { AccordionModule } from 'primeng/accordion';
 
@@ -23,8 +23,9 @@ import {GalleriaModule} from 'primeng/galleria';
 
 
 
+
 @NgModule({
-  declarations: [AppComponent, PizzasComponent,],
+  declarations: [AppComponent, PizzasComponent, RegistroComponent,],
   imports: [
     BrowserModule,
     AppRoutingModule,

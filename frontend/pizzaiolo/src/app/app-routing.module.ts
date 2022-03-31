@@ -2,12 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from './main/header/header.component';
 import { PizzasComponent } from './pizzas/pizzas.component';
+import { RegistroComponent } from './registro/registro.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: PizzasComponent, data: { pageTitle: 'Pizzas' } },
   // { path: '', pathMatch: 'full', component: PizzasComponent, data: { pageTitle: 'Pizzas' } },
   // { path: 'inicio', component: PizzasComponent, data: { pageTitle: 'Pizzas' } },
-  // { path: 'registro', component: RegistroComponent, data: { pageTitle: 'Registro' } },
+  { path: 'registro', component: RegistroComponent, data: { pageTitle: 'Registro' } },
   // { path: 'login', component: LoginComponent, data: { pageTitle: 'Login' } },
   // { path: 'pizzas', component: PizzasComponent, data: { pageTitle: 'Pizzas' } },
   // { path: 'pizzas/:id', component: PizzasViewComponent, data: { pageTitle: 'Detalle Pizzas' } },
