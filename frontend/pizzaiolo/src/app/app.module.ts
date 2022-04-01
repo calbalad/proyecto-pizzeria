@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RegistroComponent } from './security/registro/registro.component';
 import { CartaComponent } from './carta/carta.component';
 import { MainModule } from './main';
 import { CartaProductComponent } from './cartaProduct/cartaProduct.component';
@@ -28,8 +27,11 @@ import {CardModule} from 'primeng/card';
 import { LoginComponent } from './login/login.component';
 import {OrderListModule} from 'primeng/orderlist';
 import {ImageModule} from 'primeng/image';
-import {FieldsetModule} from 'primeng/fieldset';
 
+import { PedidosComponent } from './pedidos/pedidos.component';
+import {FieldsetModule} from 'primeng/fieldset';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations'
 
 
 
@@ -37,7 +39,7 @@ import {FieldsetModule} from 'primeng/fieldset';
 
 @NgModule({
 
-  declarations: [AppComponent, CartaProductComponent, LoginComponent, CarritoComponent, CartaComponent,],
+  declarations: [AppComponent, CartaProductComponent, LoginComponent, CarritoComponent, CartaComponent, PedidosComponent,],
 
   imports: [
     BrowserModule,
@@ -62,6 +64,8 @@ import {FieldsetModule} from 'primeng/fieldset';
     OrderListModule,
     ImageModule,
     FieldsetModule,
+    BrowserAnimationsModule,
+    NoopAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
