@@ -28,13 +28,21 @@ import {CardModule} from 'primeng/card';
 import { LoginComponent } from './login/login.component';
 import {OrderListModule} from 'primeng/orderlist';
 import {ImageModule} from 'primeng/image';
+<<<<<<< HEAD
+=======
+
+>>>>>>> b3e0203d02fe69240422b7338e7a5eac6e03197f
 
 
 
 
 @NgModule({
 
+<<<<<<< HEAD
   declarations: [AppComponent, PizzasComponent, RegistroComponent, PizzaDetailComponent, LoginComponent, CarritoComponent,],
+=======
+  declarations: [AppComponent, PizzaDetailComponent, LoginComponent, CarritoComponent, CartaComponent,],
+>>>>>>> b3e0203d02fe69240422b7338e7a5eac6e03197f
 
   imports: [
     BrowserModule,
