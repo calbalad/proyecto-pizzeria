@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { RegistroComponent } from './registro/registro.component';
 
-import {CardModule} from '../../../node_modules/primeng/card';
-import {PasswordModule} from '../../../node_modules/primeng/password/password';
+import {CardModule} from 'primeng/card';
+import {PasswordModule} from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
