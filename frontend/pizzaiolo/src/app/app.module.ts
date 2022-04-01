@@ -27,7 +27,7 @@ import {DividerModule} from 'primeng/divider';
 import {CardModule} from 'primeng/card';
 import { LoginComponent } from './login/login.component';
 import {OrderListModule} from 'primeng/orderlist';
-
+import {ImageModule} from 'primeng/image';
 
 
 
@@ -57,6 +57,7 @@ import {OrderListModule} from 'primeng/orderlist';
     DividerModule,
     CardModule,
     OrderListModule,
+    ImageModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
