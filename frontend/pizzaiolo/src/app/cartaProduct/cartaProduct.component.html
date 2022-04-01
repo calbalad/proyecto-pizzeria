@@ -1,16 +1,14 @@
+<p-card *ngIf="product">
+  <p-card>
+    <img [src]="'http://localhost:8001/api/v1/pizzas/' + product.idPizza + '/foto'" [alt]="product.description"/>
+  </p-card>
+    <p-panel header="{{product.description}}">
+      <b>Masa: </b>{{product.idBase}}
+     <br/>
+     <b>Salsa: </b> {{product.idSauce}}
+     <br/>
+    <b>Ingredientes: </b>{{product.ingredientPizza}}
+    <div><i class="pi pi-heart"></i>{{product.likes}}</div>
+  </p-panel>
 
-
-<p-card *ngIf="producto">
-<h5>{{producto.description}}</h5>
-<p-image src="https://picsum.photos/200/200" alt="Image" width="250"></p-image>
-<p-fieldset legend="Header">
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-</p-fieldset>
-
-<p-button label="Click" (click)="addToCart()"></p-button>
-</p-card>
-
-
+  </p-card>
