@@ -28,13 +28,14 @@ import {CardModule} from 'primeng/card';
 import { LoginComponent } from './login/login.component';
 import {OrderListModule} from 'primeng/orderlist';
 import {ImageModule} from 'primeng/image';
+import { PizzasComponent } from './pizzas/pizzas/pizzas.component';
 
 
 
 
 @NgModule({
 
-  declarations: [AppComponent, PizzaDetailComponent, LoginComponent, CarritoComponent, CartaComponent],
+  declarations: [AppComponent, PizzaDetailComponent, LoginComponent, CarritoComponent, CartaComponent, PizzasComponent],
 
   imports: [
     BrowserModule,
