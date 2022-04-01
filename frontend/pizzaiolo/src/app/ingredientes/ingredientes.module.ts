@@ -6,13 +6,16 @@ import { ButtonModule } from 'primeng/button';
 import { IngredientesAddComponent } from './ingredientes-add.component';
 
 
+
+
+
 @NgModule({
   declarations: [
     IngredientesComponent,
     IngredientesAddComponent
   ],
   exports: [
-    IngredientesComponent, OrderListModule, ButtonModule, IngredientesAddComponent
+    IngredientesComponent, OrderListModule, ButtonModule, IngredientesAddComponent,
 
   ],
   imports: [
