@@ -28,6 +28,8 @@ import {CardModule} from 'primeng/card';
 import { LoginComponent } from './login/login.component';
 import {OrderListModule} from 'primeng/orderlist';
 import {ImageModule} from 'primeng/image';
+import {FieldsetModule} from 'primeng/fieldset';
+
 
 
 
@@ -59,6 +61,7 @@ import {ImageModule} from 'primeng/image';
     CardModule,
     OrderListModule,
     ImageModule,
+    FieldsetModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
