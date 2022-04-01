@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { RegistroComponent } from './security/registro/registro.component';
 import { CartaComponent } from './carta/carta.component';
 import { MainModule } from './main';
-import { PizzaDetailComponent } from './pizza-detail/pizza-detail.component';
+import { CartaProductComponent } from './cartaProduct/cartaProduct.component';
 import { CarritoComponent } from './carrito/carrito.component';
 
 import { AccordionModule } from 'primeng/accordion';
@@ -35,7 +35,7 @@ import {ImageModule} from 'primeng/image';
 
 @NgModule({
 
-  declarations: [AppComponent, PizzaDetailComponent, LoginComponent, CarritoComponent, CartaComponent,],
+  declarations: [AppComponent, CartaProductComponent, LoginComponent, CarritoComponent, CartaComponent,],
 
   imports: [
     BrowserModule,
