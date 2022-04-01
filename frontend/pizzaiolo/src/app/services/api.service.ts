@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { PizzasCortas } from '../model/pizzaiolo/models';
+import { PizzasCortas, OrderEditDTO } from '../model/pizzaiolo/models';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 @Injectable({
@@ -37,6 +37,15 @@ export class RestApiService {
       .post<PizzasCortas>(
         this.apiURL + '/PizzasCortass',
         JSON.stringify(PizzasCortas),
+        this.httpOptions
+      )
+      .pipe(retry(1), catchError(this.handleError));
+  }
+  createOrder(OrderEditDTO: any): Observable<OrderEditDTO> {
+    return this.http
+      .post<OrderEditDTO>(
+        this.apiURL + '/api/v1/pedidos',
+        JSON.stringify(OrderEditDTO),
         this.httpOptions
       )
       .pipe(retry(1), catchError(this.handleError));
