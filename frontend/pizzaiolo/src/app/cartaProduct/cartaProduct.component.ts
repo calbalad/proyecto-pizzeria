@@ -16,7 +16,7 @@ export class CartaProductComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.restApi.getPizzasCortas(this.route.snapshot.paramMap.get('id')).subscribe((data: {}) => {
+    this.restApi.getPizzasDetalladas(this.route.snapshot.paramMap.get('id')).subscribe((data: {}) => {
       this.producto = data;
       console.log(this.producto)
     });

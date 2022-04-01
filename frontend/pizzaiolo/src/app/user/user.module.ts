@@ -7,6 +7,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { CardModule } from 'primeng/card';
 import { PasswordModule } from 'primeng/password';
+import { AppRoutingModule } from '../app-routing.module';
+
 
 
 @NgModule({
@@ -15,11 +17,7 @@ import { PasswordModule } from 'primeng/password';
   ],
   imports: [
     CommonModule, InputTextModule, DropdownModule, ButtonModule, PasswordModule,
-    CardModule
-  ],
-  exports: [
-    CardModule, PasswordModule, ButtonModule, DropdownModule, InputTextModule,
-    UserEditComponent, UserResetComponent,
+    CardModule,ButtonModule, AppRoutingModule
   ]
 })
 export class UserModule { }
