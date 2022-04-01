@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IngredientesModule } from '../ingredientes/ingredientes.module';
 import { Routes } from '@angular/router';
-import { IngredientesComponent } from '../ingredientes/ingredientes/ingredientes.component';
-import { PizzasComponent } from '../pizzas/pizzas/pizzas.component';
+import { IngredientesComponent } from '../ingredientes/ingredientes.component';
+import { PizzasComponent } from '../pizzas/pizzas.component';
 
 const routes: Routes = [
   { path: 'ingredientes', children: [

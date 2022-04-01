@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IngredientesComponent } from './ingredientes/ingredientes.component';
+import { IngredientesComponent } from './ingredientes.component';
 
 
 
