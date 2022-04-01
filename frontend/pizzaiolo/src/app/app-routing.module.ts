@@ -11,8 +11,8 @@ import { UserEditComponent, UserResetComponent } from './user/user.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: CartaComponent, data: { pageTitle: 'Pizzas' } },
-  { path: 'pizza', pathMatch: 'full', component: CartaComponent, data: { pageTitle: 'Pizzas' } },
   { path: 'pizza/:id', pathMatch: 'full', component: CartaProductComponent, data: { pageTitle: 'Pizza' } },
+  { path: 'pizza', pathMatch: 'full', component: CartaComponent, data: { pageTitle: 'Pizzas' } },
   // { path: '', pathMatch: 'full', component: PizzasComponent, data: { pageTitle: 'Pizzas' } },
   // { path: 'inicio', component: PizzasComponent, data: { pageTitle: 'Pizzas' } },
   { path: 'registro', component: RegistroComponent, data: { pageTitle: 'Registro' } },

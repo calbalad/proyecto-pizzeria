@@ -1,7 +1,7 @@
 
 
-<p-card>
-<h5>Nombre Pizza</h5>
+<p-card *ngIf="producto">
+<h5>{{producto.description}}</h5>
 <p-image src="https://picsum.photos/200/200" alt="Image" width="250"></p-image>
 <p-fieldset legend="Header">
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.

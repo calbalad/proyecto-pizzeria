@@ -44,18 +44,16 @@
             <div class="product-name">{{ product.name }}</div>
             <div class="product-description">{{ product.description }}</div>
           </div>
-          <!-- <div class="product-grid-item-bottom">
-            <span class="product-price">${{ product.idPizza }}</span>
-            <p-inputNumber [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal"
+<div class="product-grid-item-bottom">
+            <span class="product-price">${{ product.amount }}</span>
+<!--             <p-inputNumber [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal"
               [step]="1" [min]="1" [max]="24" decrementButtonClass="p-button-danger"
               incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus"
               decrementButtonIcon="pi pi-minus" [allowEmpty]="false">
-            </p-inputNumber>
-          </div> -->
-          <br>
-          <div class="button_center">
-            <p-button icon="pi pi-shopping-cart" [routerLink]="['/pizza/', product.id]" label="Añadir"></p-button>
+            </p-inputNumber> -->
+            <p-button icon="pi pi-shopping-cart" [routerLink]="['/pizza/', product.idPizza]" label="Añadir"></p-button>
           </div>
+
         </div>
       </div>
     </ng-template>

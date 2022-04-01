@@ -26,9 +26,9 @@ export class RestApiService {
       .pipe(retry(1), catchError(this.handleError));
   }
   // HttpClient API get() method => Fetch PizzasCortas
-  getPizzasCortas(id: any): Observable<PizzasCortas> {
+  getPizzasCortas(id: any): Observable<any> {
     return this.http
-      .get<PizzasCortas>(this.apiURL + '/PizzasCortass/' + id)
+      .get<any>(this.apiURL + '/api/v1/pizzas/'+id+'?mode=details')
       .pipe(retry(1), catchError(this.handleError));
   }
   // HttpClient API post() method => Create PizzasCortas

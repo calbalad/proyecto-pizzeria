@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {} from 'primeng';
-import { MenuItem } from 'primeng/api';
 import { SelectItem } from 'primeng/api';
 import { PrimeNGConfig } from 'primeng/api';
 import { RestApiService } from '../services/api.service';
@@ -246,6 +245,8 @@ export class CartaComponent implements OnInit {
       this.pizzas = data
       console.log(this.pizzas)
     });
+
+  
 
     this.primengConfig.ripple = true;
   }
