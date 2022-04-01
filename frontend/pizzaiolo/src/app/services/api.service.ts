@@ -20,13 +20,13 @@ export class RestApiService {
     }),
   };
   // HttpClient API get() method => Fetch PizzasCortass list
-  getPizzasCortass(): Observable<PizzasCortas> {
+  getPizzasCortas(): Observable<PizzasCortas> {
     return this.http
       .get<PizzasCortas>(this.apiURL + '/api/v1/pizzas')
       .pipe(retry(1), catchError(this.handleError));
   }
   // HttpClient API get() method => Fetch PizzasCortas
-  getPizzasCortas(id: any): Observable<any> {
+  getPizzasDetalladas(id: any): Observable<any> {
     return this.http
       .get<any>(this.apiURL + '/api/v1/pizzas/'+id+'?mode=details')
       .pipe(retry(1), catchError(this.handleError));
