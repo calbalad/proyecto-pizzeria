@@ -6,6 +6,7 @@ import { CartaComponent } from './carta/carta.component';
 import { RegistroComponent } from './security/registro/registro.component';
 import { LoginComponent } from './login/login.component';
 import { CarritoComponent } from './carrito/carrito.component';
+import { PedidosComponent } from './pedidos/pedidos.component';
 import { UserEditComponent, UserResetComponent } from './user/user.component';
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
   // { path: 'pizzas', component: PizzasComponent, data: { pageTitle: 'Pizzas' } },
   // { path: 'pizzas/:id', component: PizzasViewComponent, data: { pageTitle: 'Detalle Pizzas' } },
   { path: 'carrito', component: CarritoComponent, data: { pageTitle: 'Carrito' } },
+  { path: 'pedidos', component: PedidosComponent, data: { pageTitle: 'Pedidos' } },
   { path: 'manager', loadChildren: () => import('./manager/manager.module').then(mod => mod.ManagerModule)},
 
   { path: 'user', children: [

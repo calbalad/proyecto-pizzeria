@@ -27,14 +27,17 @@ import {CardModule} from 'primeng/card';
 import { LoginComponent } from './login/login.component';
 import {OrderListModule} from 'primeng/orderlist';
 import {ImageModule} from 'primeng/image';
-
+import { PedidosComponent } from './pedidos/pedidos.component';
+import {FieldsetModule} from 'primeng/fieldset';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations'
 
 
 
 
 @NgModule({
 
-  declarations: [AppComponent, PizzaDetailComponent, LoginComponent, CarritoComponent, CartaComponent,],
+  declarations: [AppComponent, PizzaDetailComponent, LoginComponent, CarritoComponent, CartaComponent, PedidosComponent,],
 
   imports: [
     BrowserModule,
@@ -58,6 +61,9 @@ import {ImageModule} from 'primeng/image';
     CardModule,
     OrderListModule,
     ImageModule,
+    FieldsetModule,
+    BrowserAnimationsModule,
+    NoopAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
