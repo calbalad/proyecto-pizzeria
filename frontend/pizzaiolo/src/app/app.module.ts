@@ -3,8 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RegistroComponent } from './registro/registro.component';
-import { PizzasComponent } from './pizzas/pizzas.component';
+import { RegistroComponent } from './security/registro/registro.component';
+import { CartaComponent } from './carta/carta.component';
 import { MainModule } from './main';
 import { PizzaDetailComponent } from './pizza-detail/pizza-detail.component';
 import { CarritoComponent } from './carrito/carrito.component';
@@ -34,7 +34,7 @@ import {ImageModule} from 'primeng/image';
 
 @NgModule({
 
-  declarations: [AppComponent, PizzasComponent, RegistroComponent, PizzaDetailComponent, LoginComponent, CarritoComponent,],
+  declarations: [AppComponent, PizzaDetailComponent, LoginComponent, CarritoComponent, CartaComponent],
 
   imports: [
     BrowserModule,
