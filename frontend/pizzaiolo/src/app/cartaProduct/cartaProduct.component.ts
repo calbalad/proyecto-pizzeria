@@ -10,7 +10,7 @@ import { CestaEditDTO } from '../model/pizzaiolo/models';
 })
 export class CartaProductComponent implements OnInit {
   public id: any;
-  producto!: any;
+  product!: any;
   cart: CestaEditDTO[] = [];
   constructor(private route: ActivatedRoute, public restApi: RestApiService) {}
 
@@ -18,8 +18,8 @@ export class CartaProductComponent implements OnInit {
     this.restApi
       .getPizzasDetalladas(this.route.snapshot.paramMap.get('id'))
       .subscribe((data: {}) => {
-        this.producto = data;
-        console.log(this.producto);
+        this.product = data;
+        console.log(this.product);
       });
     this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
     console.log(this.cart);
