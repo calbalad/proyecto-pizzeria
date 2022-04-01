@@ -5,6 +5,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { IngredientesComponent } from '../ingredientes/ingredientes.component';
 import { PizzasComponent } from '../pizzas/pizzas.component';
 import { PizzasModule } from '../pizzas';
+import { IngredientesAddComponent } from '../ingredientes/ingredientes-add.component';
+
 import {OrderListModule} from 'primeng/orderlist';
 
 
