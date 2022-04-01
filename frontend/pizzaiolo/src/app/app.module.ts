@@ -29,13 +29,18 @@ import {OrderListModule} from 'primeng/orderlist';
 import {ImageModule} from 'primeng/image';
 import { HttpClientModule } from '@angular/common/http';
 
+import { PedidosComponent } from './pedidos/pedidos.component';
+import {FieldsetModule} from 'primeng/fieldset';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations'
+
 
 
 
 
 @NgModule({
 
-  declarations: [AppComponent, CartaProductComponent, LoginComponent, CarritoComponent, CartaComponent,],
+  declarations: [AppComponent, CartaProductComponent, LoginComponent, CarritoComponent, CartaComponent, PedidosComponent,],
 
   imports: [
     BrowserModule,
@@ -60,6 +65,10 @@ import { HttpClientModule } from '@angular/common/http';
     OrderListModule,
     ImageModule,
     HttpClientModule,
+    FieldsetModule,
+    BrowserAnimationsModule,
+    NoopAnimationsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent],

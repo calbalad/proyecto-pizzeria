@@ -16,7 +16,7 @@ const routes: Routes = [
   ]},
   { path: 'pizzas', children: [
      { path: '', component: PizzasComponent },
-    // { path: 'add', component: BlogAddComponent },
+     { path: 'ingredientes', component: IngredientesComponent },
     // { path: ':id/edit', component: BlogEditComponent },
     // { path: ':id', component: BlogViewComponent },
     // { path: ':id/:kk', component: BlogViewComponent },
