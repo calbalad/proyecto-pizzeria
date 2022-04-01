@@ -33,7 +33,7 @@ const routes: Routes = [
   declarations: [],
   exports: [OrderListModule,],
   imports: [
-    CommonModule, IngredientesModule, PizzasModule, RouterModule.forChild(routes), OrderListModule
+    CommonModule, IngredientesModule, PizzasModule, RouterModule.forChild(routes), OrderListModule,
   ]
 })
 export class ManagerModule { }
