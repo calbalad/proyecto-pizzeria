@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RegistroComponent } from './security/registro/registro.component';
 import { CartaComponent } from './carta/carta.component';
 import { MainModule } from './main';
 import { PizzaDetailComponent } from './pizza-detail/pizza-detail.component';
