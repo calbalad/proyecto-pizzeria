@@ -28,7 +28,7 @@ import {CardModule} from 'primeng/card';
 import { LoginComponent } from './login/login.component';
 import {OrderListModule} from 'primeng/orderlist';
 import {ImageModule} from 'primeng/image';
-import { HttpClientModule } from '@angular/common/http';
+
 
 
 
@@ -58,7 +58,6 @@ import { HttpClientModule } from '@angular/common/http';
     CardModule,
     OrderListModule,
     ImageModule,
-    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
