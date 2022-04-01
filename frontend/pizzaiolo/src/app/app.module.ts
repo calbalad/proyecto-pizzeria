@@ -32,9 +32,10 @@ import {ImageModule} from 'primeng/image';
 
 
 
+
 @NgModule({
 
-  declarations: [AppComponent, PizzaDetailComponent, LoginComponent, CarritoComponent, CartaComponent],
+  declarations: [AppComponent, PizzaDetailComponent, LoginComponent, CarritoComponent, CartaComponent,],
 
   imports: [
     BrowserModule,

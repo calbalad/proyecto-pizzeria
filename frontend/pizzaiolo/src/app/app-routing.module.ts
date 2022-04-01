@@ -6,6 +6,7 @@ import { CartaComponent } from './carta/carta.component';
 import { RegistroComponent } from './security/registro/registro.component';
 import { LoginComponent } from './login/login.component';
 import { CarritoComponent } from './carrito/carrito.component';
+import { UserComponent, UserEditComponent, UserResetComponent } from './user/user.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: CartaComponent, data: { pageTitle: 'Pizzas' } },
@@ -18,13 +19,13 @@ const routes: Routes = [
   // { path: 'pizzas', component: PizzasComponent, data: { pageTitle: 'Pizzas' } },
   // { path: 'pizzas/:id', component: PizzasViewComponent, data: { pageTitle: 'Detalle Pizzas' } },
   { path: 'carrito', component: CarritoComponent, data: { pageTitle: 'Carrito' } },
-  { path: 'manager', loadChildren: () => import('./manager/manager.module').then(mod => mod.ManagerModule)}
+  { path: 'manager', loadChildren: () => import('./manager/manager.module').then(mod => mod.ManagerModule)},
 
-  // { path: 'user', children: [
-  //   { path: '', component: UserComponent },
-  //   { path: 'edit', component: UserEditComponent },
-  //   { path: 'reset', component: UserResetComponent },
-  // ]},
+  { path: 'user', children: [
+    { path: '', component: UserComponent },
+    { path: 'edit', component: UserEditComponent },
+    { path: 'reset', component: UserResetComponent },
+  ]},
 
   // { path: 'manager', children: [
   //   { path: '', component: AdminComponent },
