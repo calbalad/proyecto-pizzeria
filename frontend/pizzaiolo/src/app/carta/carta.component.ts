@@ -3,6 +3,7 @@ import {} from 'primeng';
 import { MenuItem } from 'primeng/api';
 import { SelectItem } from 'primeng/api';
 import { PrimeNGConfig } from 'primeng/api';
+import { RestApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-carta',
@@ -13,6 +14,7 @@ export class CartaComponent implements OnInit {
   sortOptions: SelectItem[] = [];
   sortOrder: number = 0;
   sortField: string = '';
+  pizzas: any = [];
   products = {
     data: [
       {
@@ -215,7 +217,7 @@ export class CartaComponent implements OnInit {
     numVisible: number;
     numScroll: number;
   }[];
-  constructor(private primengConfig: PrimeNGConfig) {
+  constructor(private primengConfig: PrimeNGConfig, public restApi: RestApiService) {
     this.responsiveOptions = [
       {
         breakpoint: '1024px',
@@ -240,6 +242,10 @@ export class CartaComponent implements OnInit {
       { label: 'Price High to Low', value: '!price' },
       { label: 'Price Low to High', value: 'price' },
     ];
+    this.restApi.getPizzasCortass().subscribe((data: {}) => {
+      this.pizzas = data
+      console.log(this.pizzas)
+    });
 
     this.primengConfig.ripple = true;
   }

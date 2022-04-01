@@ -27,10 +27,13 @@ import {CardModule} from 'primeng/card';
 import { LoginComponent } from './login/login.component';
 import {OrderListModule} from 'primeng/orderlist';
 import {ImageModule} from 'primeng/image';
+import { HttpClientModule } from '@angular/common/http';
+
 import { PedidosComponent } from './pedidos/pedidos.component';
 import {FieldsetModule} from 'primeng/fieldset';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations'
+
 
 
 
@@ -61,9 +64,11 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations'
     CardModule,
     OrderListModule,
     ImageModule,
+    HttpClientModule,
     FieldsetModule,
     BrowserAnimationsModule,
     NoopAnimationsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent],
