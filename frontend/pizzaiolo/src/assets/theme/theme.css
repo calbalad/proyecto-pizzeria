@@ -5068,6 +5068,9 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   .p-input-icon-left > .p-inputtext{
     max-width: 100%;
   }
+  body{
+    margin-bottom: 30px;
+  }
 }
 .p-panelmenu .p-panelmenu-header > a {
   padding: 1.25rem;

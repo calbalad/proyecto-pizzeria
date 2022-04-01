@@ -16,28 +16,44 @@ export class HeaderComponent  {
           },
           {
             label:'Login',
-            icon:'pi pi-fw pi-sign-in'
+            icon:'pi pi-fw pi-sign-in',
+            routerLinkActiveOptions: 'active',
+            routerLink : "/login"
           },{
             label:'Registro',
-            icon:'pi pi-fw pi-user'
+            icon:'pi pi-fw pi-user',
+            routerLinkActiveOptions: 'active',
+            routerLink : "/registro"
           },{
             label:'Pizzas',
-            icon:'pi pi-spin pi-star'
+            icon:'pi pi-spin pi-star',
+            routerLinkActiveOptions: 'active',
+            routerLink : "/"
           },{
             label:'Carrito',
-            icon:'pi pi-fw pi-shopping-cart'
+            icon:'pi pi-fw pi-shopping-cart',
+            routerLinkActiveOptions: 'active',
+            routerLink : "/carrito"
           },{
             label:'Pedidos',
-            icon:'pi pi-fw pi-send'
+            icon:'pi pi-fw pi-send',
+            routerLinkActiveOptions: 'active',
+            routerLink : "/pedidos"
           },{
-            label:'User',
-            icon:'pi pi-fw pi-cog'
+            label:'Mi Perfil',
+            icon:'pi pi-fw pi-cog',
+            routerLinkActiveOptions: 'active',
+            routerLink : "/user"
           },{
             label:'Cocina',
-            icon:'pi pi-fw pi-inbox'
+            icon:'pi pi-fw pi-inbox',
+            routerLinkActiveOptions: 'active',
+            routerLink : "/tienda/cocina"
           },{
             label:'Reparto',
-            icon:'pi pi-fw pi-globe'
+            icon:'pi pi-fw pi-globe',
+            routerLinkActiveOptions: 'active',
+            routerLink : "/tienda/reparto"
           },
     ];
 }
