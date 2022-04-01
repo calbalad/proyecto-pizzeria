@@ -37,7 +37,7 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations'
 
 @NgModule({
 
-  declarations: [AppComponent, PizzaDetailComponent, LoginComponent, CarritoComponent, CartaComponent, PedidosComponent,],
+  declarations: [AppComponent, CartaProductComponent, LoginComponent, CarritoComponent, CartaComponent, PedidosComponent,],
 
   imports: [
     BrowserModule,
