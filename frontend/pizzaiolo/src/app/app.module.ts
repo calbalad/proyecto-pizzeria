@@ -5,9 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegistroComponent } from './registro/registro.component';
 import { PizzasComponent } from './pizzas/pizzas.component';
-import { AccordionModule } from 'primeng/accordion';
-
 import { MainModule } from './main';
+import { PizzaDetailComponent } from './pizza-detail/pizza-detail.component';
+import { CarritoComponent } from './carrito/carrito.component';
+
+import { AccordionModule } from 'primeng/accordion';
 import { MenuModule } from 'primeng/menu';
 import { DataViewModule } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
@@ -19,13 +21,11 @@ import { RatingModule } from 'primeng/rating';
 import { RippleModule } from 'primeng/ripple';
 import {CarouselModule} from 'primeng/carousel';
 import {GalleriaModule} from 'primeng/galleria';
-import { PizzaDetailComponent } from './pizza-detail/pizza-detail.component';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {PasswordModule} from 'primeng/password';
 import {DividerModule} from 'primeng/divider';
 import {CardModule} from 'primeng/card';
 import { LoginComponent } from './login/login.component';
-import { CarritoComponent } from './carrito/carrito.component';
 import {OrderListModule} from 'primeng/orderlist';
 
 
