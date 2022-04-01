@@ -12,7 +12,7 @@ import { PizzasComponent } from './pizzas.component';
     PizzasComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
   ]
 })
 export class PizzasModule { }
