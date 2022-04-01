@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { PizzasCortas } from '../model/pizzasCortas';
+import { PizzasCortas } from '../model/pizzaiolo/models';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 @Injectable({
@@ -8,7 +8,7 @@ import { retry, catchError } from 'rxjs/operators';
 })
 export class RestApiService {
   // Define API
-  apiURL = 'http://localhost:3000';
+  apiURL = 'http://localhost:8080';
   constructor(private http: HttpClient) {}
   /*========================================
     CRUD Methods for consuming RESTful API

@@ -3,10 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RegistroComponent } from './registro/registro.component';
-import { PizzasComponent } from './pizzas/pizzas.component';
+import { CartaComponent } from './carta/carta.component';
 import { MainModule } from './main';
-import { PizzaDetailComponent } from './pizza-detail/pizza-detail.component';
+import { CartaProductComponent } from './cartaProduct/cartaProduct.component';
 import { CarritoComponent } from './carrito/carrito.component';
 
 import { AccordionModule } from 'primeng/accordion';
@@ -28,21 +27,15 @@ import {CardModule} from 'primeng/card';
 import { LoginComponent } from './login/login.component';
 import {OrderListModule} from 'primeng/orderlist';
 import {ImageModule} from 'primeng/image';
-<<<<<<< HEAD
-=======
+import { HttpClientModule } from '@angular/common/http';
 
->>>>>>> b3e0203d02fe69240422b7338e7a5eac6e03197f
 
 
 
 
 @NgModule({
 
-<<<<<<< HEAD
-  declarations: [AppComponent, PizzasComponent, RegistroComponent, PizzaDetailComponent, LoginComponent, CarritoComponent,],
-=======
-  declarations: [AppComponent, PizzaDetailComponent, LoginComponent, CarritoComponent, CartaComponent,],
->>>>>>> b3e0203d02fe69240422b7338e7a5eac6e03197f
+  declarations: [AppComponent, CartaProductComponent, LoginComponent, CarritoComponent, CartaComponent,],
 
   imports: [
     BrowserModule,
@@ -66,6 +59,7 @@ import {ImageModule} from 'primeng/image';
     CardModule,
     OrderListModule,
     ImageModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
