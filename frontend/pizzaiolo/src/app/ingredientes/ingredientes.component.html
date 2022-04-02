@@ -1,22 +1,25 @@
 
 <div class="col-5 flex align-items-center justify-content-center">
   <p-button label="Añadir" icon="pi pi-plus" styleClass="p-button"></p-button>
-  <p-button label="Volver" icon="pi pi-arrow-left" styleClass="p-button"></p-button></div>
+  <p-button label="Editar" icon="pi pi-user-edit" styleClass="p-button"></p-button>
+  <p-button label="Volver" icon="pi pi-arrow-left" styleClass="p-button"></p-button>
+</div>
 
-<p-orderList [value]="product.data" [listStyle]="{'max-height':'30rem'}">
-  <ng-template let-product pTemplate="item">
+
+<p-orderList [value]="ingredientes" [listStyle]="{'max-height':'30rem'}">
+  <ng-template let-ingrediente pTemplate="item">
       <div class="product-item">
           <!-- <div class="image-container">
                   <img src={{product.image}} [alt]="product.name" class="product-image" />
           </div> -->
           <div class="product-list-detail">
-              <h5 class="mb-2">{{product.name}}</h5>
+              <h5 class="mb-2">{{ ingrediente.name }}</h5>
               <i class="pi pi-tag product-category-icon"></i>
-              <span class="product-category">{{product.category}}</span>
+              <span class="product-category">{{ ingrediente.type }}</span>
           </div>
           <div class="product-list-action">
-              <h6 class="mb-2">€{{product.price}}</h6>
-              <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
+              <h6 class="mb-2">€{{ingrediente.price}}</h6>
+              <!-- <span [class]="'product-badge status-' + ingredientes.inventoryStatus.toLowerCase()">{{ingredientes.inventoryStatus}}</span> -->
           </div>
       </div>
   </ng-template>
