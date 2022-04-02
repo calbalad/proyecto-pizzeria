@@ -13,7 +13,8 @@
      <br/>
     <b>Ingredientes: </b>{{product.ingredientPizza}}
     </p-panel>
-    <div><i class="pi pi-heart"></i>{{product.likes}}</div>
+    <span><i class="pi pi-heart"></i></span>
+    <span *ngIf="!product.likes===false"> {{product.likes}}</span>
 </div>
 <p-button icon="pi pi-arrow-left" [routerLink]="['/pizza']" label="Atrás"></p-button>
 
