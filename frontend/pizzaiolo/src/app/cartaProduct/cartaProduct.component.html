@@ -1,15 +1,14 @@
 <p-card *ngIf="product">
   <div class="grid">
-    <div class=" pizza col-12 sm:col-4 md:col-4 lg:col-4">
+    <div class="col-12 sm:col-4 md:col-4 lg:col-4">
       <p-card>
-        <div class="text-center"><img
+        <img
           class="border-round"
           [src]="
             'http://localhost:8080/api/v1/pizzas/' + product.idPizza + '/foto'
           "
           [alt]="product.description"
         />
-      </div>
         <div class="text-right">
           <span><i class="pi pi-heart"></i></span>
           <span *ngIf="!product.likes === false"> {{ product.likes }}</span>
