@@ -44,7 +44,7 @@
     </ng-template>
     <ng-template pTemplate="summary">
         <div class="flex align-items-center justify-content-between">
-            {{carts ? carts.length : 0 }} products.  Total {{total}}
+            {{carts ? carts.length : 0 }} products.  Total {{total | number : '1.2-2'}}
         </div>
     </ng-template>
 </p-table>

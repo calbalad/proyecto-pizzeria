@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { RestApiService } from '../services/log.service';
+import { LoginService } from '../services/log.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   signinForm: FormGroup;
   constructor(
     public fb: FormBuilder,
-    public authService: RestApiService,
+    public authService: LoginService,
     public router: Router
   ) {
     this.signinForm = this.fb.group({
@@ -27,5 +27,8 @@ export class LoginComponent implements OnInit {
   }
   getData(){
     this.authService.getDatos();
+  }
+  logout() {
+    this.authService.doLogout();
   }
 }

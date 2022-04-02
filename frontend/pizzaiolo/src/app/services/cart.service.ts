@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
+import { ReplaySubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,14 +7,18 @@ import { ReplaySubject } from 'rxjs';
 export class CartService {
 
   private cartCount = new ReplaySubject<number>(1);
-  cartCount$ = this.cartCount.asObservable();
-  setCartCount(count: number) {
-    // encapsulate with logic to set local storage
-    localStorage.setItem("cart_count", JSON.stringify(count));
-    this.cartCount.next(count);
+  count = [];
+  simpleObservable = new Subject();
+  simpleObservable$ = this.simpleObservable.asObservable();
+  constructor() { }
+  
+  addCount() {
+    this.count = JSON.parse(localStorage.getItem('cart') || '[]');
+    this.simpleObservable.next(this.count.length)
+    console.log(this.count)
   }
 
-  constructor() {
-    // can check local storage here to initialize?
+  getCount(){
+    return this.simpleObservable$;
   }
 }
