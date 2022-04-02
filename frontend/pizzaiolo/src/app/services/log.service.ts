@@ -1,19 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginUserParam } from '../model/authService/models';
-import { Observable, throwError } from 'rxjs';
+import { Head, Observable, throwError } from 'rxjs';
 import { retry, catchError, map } from 'rxjs/operators';
 import { RouterModule, provideRoutes, Routes, ActivatedRoute, Router } from '@angular/router';
 import { CartaComponent } from '../carta/carta.component';
+import { HeaderComponent } from '../main/header/header.component';
 import { NavigationExtras } from '@angular/router';
+
 
 @Injectable({
   providedIn: 'root',
 })
-export class RestApiService {
+export class LoginService {
 
    routes: Routes  = [
-    { path: 'first-component', component: CartaComponent },
+    { path: 'first-component', component: CartaComponent },{component: HeaderComponent}
   ];
   // Define API
   apiURL = 'http://localhost:8080';
@@ -28,27 +30,14 @@ export class RestApiService {
     }),
   };
 
-  // HttpClient API post() method => Create PizzasCortas
-  // loginUser(LoginUserParam: any): Observable<LoginUserParam> {
-  //   return this.http
-  //     .post<LoginUserParam>(
-  //       this.apiURL + '/api/v1/auth/login',
-  //       JSON.stringify(LoginUserParam),
-  //       this.httpOptions
-  //     )
-  //     .pipe(retry(1), catchError(this.handleError));
-  // }
-
     signIn(user: LoginUserParam) {
       return this.http
         .post<any>(`${this.apiURL}/api/v1/auth/login`, user)
         .subscribe((res: any) => {
           localStorage.setItem('access_token', res.accessToken);
-          // this.getUserProfile(res._id).subscribe((res) => {
-          //   this.currentUser = res;
            this.getDatos();
-           this.router.navigate(['']);
-          // });
+           this.router.navigateByUrl('/');
+           window.location.replace('/');
         });
     }
 
@@ -69,27 +58,19 @@ export class RestApiService {
       return localStorage.getItem('access_token');
     }
 
-    get isLoggedIn(): boolean {
+    isLoggedIn(): boolean {
       let authToken = localStorage.getItem('access_token');
       return authToken !== null ? true : false;
     }
 
     doLogout() {
       let removeToken = localStorage.removeItem('access_token');
-      if (removeToken == null) {
-        // this.router.navigate(['log-in']);
+      let removeData = localStorage.removeItem('data');
+      if (removeToken == null && removeData == null) {
+        this.router.navigate(['/']);
+        window.location.replace('/');
       }
     }
-
-    // getUserProfile(id: any): Observable<any> {
-    //   let api = `${this.apiURL}/user-profile/${id}`;
-    //   return this.http.get(api, { headers: this.headers }).pipe(
-    //     map((res) => {
-    //       return res || {};
-    //     }),
-    //     catchError(this.handleError)
-    //   );
-    // }
 
   // Error handling
   handleError(error: any) {
