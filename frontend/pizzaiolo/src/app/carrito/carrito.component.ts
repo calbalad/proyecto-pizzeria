@@ -6,76 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./carrito.component.scss']
 })
 export class CarritoComponent implements OnInit {
-
-  product = {
-    data: [
-      {
-        id: '1000',
-        code: 'f230fh0g3',
-        name: 'Bamboo Watch',
-        description: 'Product Description',
-        image: 'https://picsum.photos/200/200',
-        price: 65,
-        category: 'Pizzas',
-        quantity: 24,
-        inventoryStatus: 'INSTOCK',
-        rating: 5,
-      },
-      {
-        id: '1001',
-        code: 'nvklal433',
-        name: 'Black Watch',
-        description: 'Product Description',
-        image: 'https://picsum.photos/200/200',
-        price: 72,
-        category: 'Pizzas',
-        quantity: 61,
-        inventoryStatus: 'INSTOCK',
-        rating: 4,
-      },
-      {
-        id: '1002',
-        code: 'zz21cz3c1',
-        name: 'Blue Band',
-        description: 'Product Description',
-        image: 'https://picsum.photos/200/200',
-        price: 79,
-        category: 'Pizzas',
-        quantity: 2,
-        inventoryStatus: 'LOWSTOCK',
-        rating: 3,
-      },
-      {
-        id: '1002',
-        code: 'zz21cz3c1',
-        name: 'Blue Band',
-        description: 'Product Description',
-        image: 'https://picsum.photos/200/200',
-        price: 79,
-        category: 'Pizzas',
-        quantity: 2,
-        inventoryStatus: 'LOWSTOCK',
-        rating: 3,
-      },
-      {
-        id: '1002',
-        code: 'zz21cz3c1',
-        name: 'Blue Band',
-        description: 'Product Description',
-        image: 'https://picsum.photos/200/200',
-        price: 79,
-        category: 'Pizzas',
-        quantity: 2,
-        inventoryStatus: 'LOWSTOCK',
-        rating: 3,
-      }
-    ]
-  }
+  carts = [{
+    "quantity": 0,
+  }];
+  total: number = 0;
 
   constructor() { }
 
   ngOnInit(): void {
-
+    this.carts = JSON.parse(localStorage.getItem('cart') || '[]');
+    console.log(this.carts)
+    this.total = this.carts.map(amount => amount.quantity).reduce((acc, amount) => amount + acc);
   }
 
 }

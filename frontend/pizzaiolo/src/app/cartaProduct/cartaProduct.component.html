@@ -1,14 +1,78 @@
 <p-card *ngIf="product">
-  <p-card>
-    <img [src]="'http://localhost:8001/api/v1/pizzas/' + product.idPizza + '/foto'" [alt]="product.description"/>
-  </p-card>
-    <p-panel header="{{product.description}}">
-      <b>Masa: </b>{{product.idBase}}
-     <br/>
-     <b>Salsa: </b> {{product.idSauce}}
-     <br/>
-    <b>Ingredientes: </b>{{product.ingredientPizza}}
-    <div><i class="pi pi-heart"></i>{{product.likes}}</div>
-  </p-panel>
+  <div class="grid">
+    <div class="col-12 sm:col-4 md:col-4 lg:col-4">
+      <p-card>
+        <div class="text-center">
+        <img
+          class="border-round"
+          [src]="
+            'http://localhost:8080/api/v1/pizzas/' + product.idPizza + '/foto'
+          "
+          [alt]="product.description"
+        />
+      </div>
+        <div class="text-right">
+          <span><i class="pi pi-heart"></i></span>
+          <span *ngIf="!product.likes === false"> {{ product.likes }}</span>
+        </div>
+      </p-card>
+    </div>
+    <div class="col-12 sm:col-8 md:col-8 lg:col-8">
+      <p-panel header="{{ product.description }}">
+        <b>Masa: </b>{{ product.idBase }}
+        <br />
+        <b>Salsa: </b> {{ product.idSauce }}
+        <br />
+        <b>Ingredientes: </b
+        ><span *ngFor="let item of product.ingredientPizza; let isLast = last">
+          {{ item }}{{ isLast ? "" : ", " }}
+        </span>
+      </p-panel>
+      <br />
+      <div class="grid text-center">
+        <div class="col-6 sm:col-6 md:col-6 lg:col-6">
+          <p-inputNumber
+            [showButtons]="true"
+            [(ngModel)]="product.quantity"
+            buttonLayout="horizontal"
+            inputId="horizontal"
+            spinnerMode="horizontal"
+            [step]="1"
+            [min]="1"
+            [max]="24"
+            decrementButtonClass="p-button-danger"
+            incrementButtonClass="p-button-success"
+            incrementButtonIcon="pi pi-plus"
+            decrementButtonIcon="pi pi-minus"
+            [allowEmpty]="false"
+          >
+          </p-inputNumber>
+        </div>
+        <div class="product-price col-6 sm:col-6 md:col-6 lg:col-6">
+          Coste: ${{ product.amount }}
+        </div>
+      </div>
+      <div class="grid text-center">
+        <div class="text-center col-12">
+          <p-button
+            icon="pi pi-shopping-cart"
+            (click)="addToCart()"
+            label="Añadir"
+          ></p-button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="grid">
 
-  </p-card>
+    <div class="back col-12 sm:col-6 md:col-6 lg:col-6">
+      <p-button
+        icon="pi pi-arrow-left"
+        [routerLink]="['/pizza']"
+        label="Atrás"
+      ></p-button>
+    </div>
+
+  </div>
+</p-card>
