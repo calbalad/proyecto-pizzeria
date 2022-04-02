@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {MenuItem} from 'primeng/api';
+import { CartService } from 'src/app/services/cart.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -7,6 +8,13 @@ import {MenuItem} from 'primeng/api';
 })
 export class HeaderComponent  {
   items: MenuItem[] = [];
+  countSub: any;
+  cartCount!: number;
+  carts: any;
+  cartCount$: any;
+  constructor(private cartService: CartService) {
+    this.cartCount$ = this.cartService.cartCount$
+  }
 
     ngOnInit() {
       this.items = [
@@ -30,15 +38,11 @@ export class HeaderComponent  {
             routerLinkActiveOptions: 'active',
             routerLink : "/"
           },{
-            label:'Carrito',
-            icon:'pi pi-fw pi-shopping-cart',
-            routerLinkActiveOptions: 'active',
-            routerLink : "/carrito"
-          },{
             label:'Pedidos',
             icon:'pi pi-fw pi-send',
             routerLinkActiveOptions: 'active',
-            routerLink : "/pedidos"
+            routerLink : "/pedidos",
+            visible: true
           },{
             label:'Mi Perfil',
             icon:'pi pi-fw pi-cog',
@@ -56,6 +60,8 @@ export class HeaderComponent  {
             routerLink : "/tienda/reparto"
           },
     ];
+
+
 }
 
 }

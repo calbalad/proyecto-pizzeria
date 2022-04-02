@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RestApiService } from '../services/api.service';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-cartaProduct',
@@ -11,7 +12,14 @@ export class CartaProductComponent implements OnInit {
   public id: any;
   product!: any;
   cart: any[] = [];
-  constructor(private route: ActivatedRoute, public restApi: RestApiService) {}
+  countSub: any;
+  cartCount: any;
+  constructor(private route: ActivatedRoute, public restApi: RestApiService, private cartService: CartService) {
+  }
+
+  ngOnDestroy() {
+    this.countSub.unsubscribe(); // important to unsubscribe
+  }
 
   ngOnInit() {
     this.restApi
@@ -32,6 +40,13 @@ export class CartaProductComponent implements OnInit {
     this.cart.push({ description: this.product.description, amount: this.product.amount, idOrder: 0, idPizza: this.product.idPizza, quantity: this.product.quantity });
     console.log(this.cart)
     localStorage.setItem('cart', JSON.stringify(this.cart));
+    this.countSub = this.cartService.cartCount$.subscribe(
+      (      count: any) => {
+        // this runs everytime the count changes
+        this.cartCount = this.cart.length;
+        console.log(this.cartCount)
+      }
+    )
   }
 }
 

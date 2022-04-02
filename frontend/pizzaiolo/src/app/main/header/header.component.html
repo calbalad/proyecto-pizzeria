@@ -5,19 +5,10 @@
 </div><br>
 
 <p-menubar [model]="items" class="menu-top">
-  <ng-template pTemplate="start">
-      <img src="assets/showcase/images/primeng.svg" height="40" class="mr-2">
-  </ng-template>
-  <ng-template pTemplate="end">
-      <input type="text" pInputText placeholder="Search">
-  </ng-template>
+  <i class="pi pi-shopping-cart cart mr-4 p-text-secondary" pBadge style="font-size: 2rem" value="{{ cartCount$ | async }}"></i>
 </p-menubar>
+
 <p-menubar [model]="items" class="menu-mobile">
-  <ng-template pTemplate="start">
-      <img src="assets/showcase/images/primeng.svg" height="40" class="mr-2">
-  </ng-template>
-  <ng-template pTemplate="end">
-      <input type="text" pInputText placeholder="Search">
-  </ng-template>
+  <i class="pi pi-shopping-cart cart mr-4 p-text-secondary" pBadge style="font-size: 1.5rem" value="{{ cartCount$ | async }}"></i>
 </p-menubar>
 

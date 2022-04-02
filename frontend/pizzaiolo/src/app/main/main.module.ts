@@ -8,6 +8,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { MenuModule } from 'primeng/menu';
 import {MenubarModule} from 'primeng/menubar';
 import { RouterModule } from '@angular/router';
+import {BadgeModule} from 'primeng/badge';
+
 
 
 @NgModule({
@@ -26,7 +28,7 @@ import { RouterModule } from '@angular/router';
     PageNotFoundComponent
   ],
   imports: [
-    CommonModule, MenuModule,MenubarModule, RouterModule.forChild([])
+    CommonModule, MenuModule,MenubarModule, BadgeModule, RouterModule.forChild([])
   ]
 })
 export class MainModule {
