@@ -92,12 +92,6 @@ public class PizzaEditDTO {
 		if(target.getDescription() != description)
 			target.setDescription(description);
 		
-		if(target.getNetPrice() != netPrice)
-			target.setNetPrice(netPrice);
-		
-		if(target.getAmount() != amount)
-			target.setAmount(amount);
-		
 		if(target.getActive() != active)
 			target.setActive(active);
 	}
