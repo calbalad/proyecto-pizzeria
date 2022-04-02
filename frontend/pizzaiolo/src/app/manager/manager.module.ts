@@ -5,21 +5,19 @@ import { RouterModule, Routes } from '@angular/router';
 import { IngredientesComponent } from '../ingredientes/ingredientes.component';
 import { PizzasComponent } from '../pizzas/pizzas.component';
 import { PizzasModule } from '../pizzas';
-import { IngredientesAddComponent } from '../ingredientes/ingredientes-add.component';
+
 
 import {OrderListModule} from 'primeng/orderlist';
+import { ManagerComponent } from './manager.component';
 
 
 
 
 const routes: Routes = [
-  // { path: '', component: IngredientesComponent },
+  { path: '', component: ManagerComponent },
   { path: 'ingredientes', children: [
     { path: '', component: IngredientesComponent },
-    { path: 'add', component: IngredientesAddComponent },
-    // { path: ':id/edit', component: BlogEditComponent },
-    // { path: ':id', component: BlogViewComponent },
-    // { path: ':id/:kk', component: BlogViewComponent },
+
   ]},
   { path: 'pizzas', children: [
      { path: '', component: PizzasComponent },
@@ -30,8 +28,10 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [],
-  exports: [OrderListModule,],
+  declarations: [
+    ManagerComponent
+  ],
+  exports: [OrderListModule],
   imports: [
     CommonModule, IngredientesModule, PizzasModule, RouterModule.forChild(routes), OrderListModule,
   ]
