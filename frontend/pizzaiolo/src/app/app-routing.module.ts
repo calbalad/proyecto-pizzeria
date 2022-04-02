@@ -8,25 +8,26 @@ import { LoginComponent } from './login/login.component';
 import { CarritoComponent } from './carrito/carrito.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { UserEditComponent, UserResetComponent } from './user/user.component';
+import { SesionGuardGuard } from './sesion-guard.guard';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: CartaComponent, data: { pageTitle: 'Pizzas' } },
-  { path: 'pizza/:id', pathMatch: 'full', component: CartaProductComponent, data: { pageTitle: 'Pizza' } },
-  { path: 'pizza', pathMatch: 'full', component: CartaComponent, data: { pageTitle: 'Pizzas' } },
+  { path: 'pizza/:id',canActivate: [SesionGuardGuard], pathMatch: 'full', component: CartaProductComponent, data: { pageTitle: 'Pizza' } },
+  { path: 'pizza',canActivate: [SesionGuardGuard], pathMatch: 'full', component: CartaComponent, data: { pageTitle: 'Pizzas' } },
   // { path: '', pathMatch: 'full', component: PizzasComponent, data: { pageTitle: 'Pizzas' } },
   // { path: 'inicio', component: PizzasComponent, data: { pageTitle: 'Pizzas' } },
   { path: 'registro', component: RegistroComponent, data: { pageTitle: 'Registro' } },
   { path: 'login', component: LoginComponent, data: { pageTitle: 'Login' } },
   // { path: 'pizzas', component: PizzasComponent, data: { pageTitle: 'Pizzas' } },
   // { path: 'pizzas/:id', component: PizzasViewComponent, data: { pageTitle: 'Detalle Pizzas' } },
-  { path: 'carrito', component: CarritoComponent, data: { pageTitle: 'Carrito' } },
-  { path: 'pedidos', component: PedidosComponent, data: { pageTitle: 'Pedidos' } },
-  { path: 'manager', loadChildren: () => import('./manager/manager.module').then(mod => mod.ManagerModule)},
+  { path: 'carrito',canActivate: [SesionGuardGuard], component: CarritoComponent, data: { pageTitle: 'Carrito' } },
+  { path: 'pedidos',canActivate: [SesionGuardGuard], component: PedidosComponent, data: { pageTitle: 'Pedidos' } },
+  { path: 'manager',canActivate: [SesionGuardGuard], loadChildren: () => import('./manager/manager.module').then(mod => mod.ManagerModule)},
 
   { path: 'user', children: [
-    { path: '', component: UserEditComponent },
-    { path: 'edit', component: UserEditComponent },
-    { path: 'reset', component: UserResetComponent },
+    { path: '',canActivate: [SesionGuardGuard], component: UserEditComponent },
+    { path: 'edit',canActivate: [SesionGuardGuard], component: UserEditComponent },
+    { path: 'reset',canActivate: [SesionGuardGuard], component: UserResetComponent },
   ]},
 
   // { path: 'manager', children: [
