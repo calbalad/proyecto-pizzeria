@@ -2,6 +2,7 @@
   <div class="grid">
     <div class="col-12 sm:col-4 md:col-4 lg:col-4">
       <p-card>
+        <div class="text-center">
         <img
           class="border-round"
           [src]="
@@ -9,6 +10,7 @@
           "
           [alt]="product.description"
         />
+      </div>
         <div class="text-right">
           <span><i class="pi pi-heart"></i></span>
           <span *ngIf="!product.likes === false"> {{ product.likes }}</span>
