@@ -2,3 +2,9 @@
   font-size: 1.5rem;
   font-weight: 600;
 }
+
+@media screen and (max-width: 576px) {
+  .back {
+    text-align: center;
+  }
+}
