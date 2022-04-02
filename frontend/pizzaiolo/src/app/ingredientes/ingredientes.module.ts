@@ -3,23 +3,26 @@ import { CommonModule } from '@angular/common';
 import { IngredientesComponent } from './ingredientes.component';
 import {OrderListModule} from 'primeng/orderlist';
 import { ButtonModule } from 'primeng/button';
-import { IngredientesAddComponent } from './ingredientes-add.component';
 
-
-
-
+import { RouterModule } from '@angular/router';
+import {ToolbarModule} from 'primeng/toolbar';
+import {TableModule} from 'primeng/table';
+import {DialogModule} from 'primeng/dialog';
+import {FormsModule} from '@angular/forms';
+import {CardModule} from 'primeng/card';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
     IngredientesComponent,
-    IngredientesAddComponent
+
   ],
   exports: [
-    IngredientesComponent, OrderListModule, ButtonModule, IngredientesAddComponent,
+    IngredientesComponent, OrderListModule, ButtonModule,
 
   ],
   imports: [
-    CommonModule, OrderListModule, ButtonModule,
+    CommonModule, OrderListModule, ButtonModule, RouterModule, ToolbarModule, TableModule, DialogModule, FormsModule, CardModule,DropdownModule
 
   ]
 })
