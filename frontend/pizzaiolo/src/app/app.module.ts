@@ -32,7 +32,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { PedidosComponent } from './pedidos/pedidos.component';
 import {FieldsetModule} from 'primeng/fieldset';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations'
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -67,7 +69,8 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations'
     HttpClientModule,
     FieldsetModule,
     BrowserAnimationsModule,
-    NoopAnimationsModule
+    NoopAnimationsModule,
+    ReactiveFormsModule
 
   ],
   providers: [],
