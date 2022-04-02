@@ -28,6 +28,28 @@ export class IngredientesService {
       .pipe(retry(1), catchError(this.handleError));
   }
 
+  createIngrediente(ingrediente: IngredientesEditables): Observable<IngredientesEditables> {
+    console.log( JSON.stringify(ingrediente))
+    return this.http
+      .post<IngredientesEditables>(
+        this.apiURL + '/api/v1/ingredientes',
+        JSON.stringify(ingrediente),
+        this.httpOptions
+      )
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  // HttpClient API put() method => Update PizzasCortas
+  updateIngrediente(id: number, IngredientesEditables: IngredientesEditables): Observable<IngredientesEditables> {
+    return this.http
+      .put<IngredientesEditables>(
+        this.apiURL + '/api/v1/ingredientes/' + id,
+        JSON.stringify(IngredientesEditables),
+        this.httpOptions
+      )
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
   handleError(error: any) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {

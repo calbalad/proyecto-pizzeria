@@ -8,8 +8,12 @@ import { LoginComponent } from './login/login.component';
 import { CarritoComponent } from './carrito/carrito.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { UserEditComponent, UserResetComponent } from './user/user.component';
+
+import { ManagerComponent } from './manager/manager.component';
+
 import { SesionGuardGuard } from './sesion-guard.guard';
 import { CocinaComponent, RepartoComponent } from './tienda/tienda.component';
+
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: CartaComponent, data: { pageTitle: 'Pizzas' } },
