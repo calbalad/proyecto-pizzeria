@@ -1,11 +1,11 @@
 <p-card *ngIf="product">
-  <div class="grid-container">
-  <div class="grid-item">
-  <p-card >
+  <div class="grid">
+  <div class="col-12 sm:col-4 md:col-4 lg:col-4">
+  <p-card>
     <img [src]="'http://localhost:8080/api/v1/pizzas/' + product.idPizza + '/foto'" [alt]="product.description"/>
   </p-card>
 </div>
-<div class="grid-item">
+<div class="col-12 sm:col-8 md:col-8 lg:col-8">
     <p-panel  header="{{product.description}}">
       <b>Masa: </b>{{product.idBase}}
      <br/>
@@ -16,18 +16,22 @@
    </span>
     </p-panel>
 
-    <div> <p-button icon="pi pi-cart" (click)="addToCart()" label="añadir"></p-button></div>
-    <p-inputNumber [showButtons]="true" [(ngModel)]="product.quantity" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal"
-              [step]="1" [min]="1" [max]="24" decrementButtonClass="p-button-danger"
-              incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus"
-              decrementButtonIcon="pi pi-minus" [allowEmpty]="false">
-            </p-inputNumber>
+
+
 
     <span><i class="pi pi-heart"></i></span>
     <span *ngIf="!product.likes===false"> {{product.likes}}</span>
 
 </div>
-<p-button icon="pi pi-arrow-left" [routerLink]="['/pizza']" label="Atrás"></p-button>
+
 
 </div>
+<div><p-button icon="pi pi-arrow-left" [routerLink]="['/pizza']" label="Atrás"></p-button></div>
+<div><p-button icon="pi pi-cart" (click)="addToCart()" label="Añadir"></p-button></div>
+<p-inputNumber [showButtons]="true" [(ngModel)]="product.quantity" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal"
+              [step]="1" [min]="1" [max]="24" decrementButtonClass="p-button-danger"
+              incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus"
+              decrementButtonIcon="pi pi-minus" [allowEmpty]="false">
+    </p-inputNumber>
+      <div class="product-price">Coste: ${{product.amount}}</div>
   </p-card>
