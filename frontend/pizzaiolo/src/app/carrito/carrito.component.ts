@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-carrito',
@@ -12,12 +13,18 @@ export class CarritoComponent implements OnInit {
   }];
   total: number = 0;
 
-  constructor() { }
+  constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
     this.carts = JSON.parse(localStorage.getItem('cart') || '[]');
     console.log(this.carts)
     this.total = this.carts.map(amount => amount.amount).reduce((acc, amount) => amount + acc);
+  }
+
+  remove(product: any){
+    this.carts = this.carts.filter(obj => {return obj !== product});
+    localStorage.setItem('cart', JSON.stringify(this.carts))
+    this.cartService.addCount();
   }
 
 }

@@ -5,10 +5,10 @@
 </div><br>
 
 <p-menubar [model]="items" class="menu-top">
-  <i class="pi pi-shopping-cart cart mr-4 p-text-secondary" pBadge style="font-size: 2rem" value="{{ cartCount  }}"></i>
+  <i class="pi pi-shopping-cart cart mr-4 p-text-secondary" pBadge style="font-size: 2rem" value="{{ cartCount }}" [routerLink]="['/carrito/']"></i>
 </p-menubar>
 
 <p-menubar [model]="items" class="menu-mobile">
-  <i class="pi pi-shopping-cart cart mr-4 p-text-secondary" pBadge style="font-size: 1.5rem" value="{{ cartCount  }}"></i>
+  <i class="pi pi-shopping-cart cart mr-4 p-text-secondary" pBadge style="font-size: 1.5rem" value="{{ cartCount }}" [routerLink]="['/carrito/']"></i>
 </p-menubar>
 
