@@ -1,5 +1,6 @@
 package com.pizzaiolo.application.resources;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,12 +25,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pizzaiolo.application.dtos.CommentShortDTO;
+import com.pizzaiolo.application.dtos.IngredientPizzaEditDTO;
 import com.pizzaiolo.application.dtos.PizzaActiveDetailsDTO;
 import com.pizzaiolo.application.dtos.PizzaDetailsDTO;
 import com.pizzaiolo.application.dtos.PizzaEditDTO;
 import com.pizzaiolo.application.dtos.PizzaShortDTO;
 import com.pizzaiolo.application.proxies.LikesProxy;
 import com.pizzaiolo.domains.contracts.repositories.PizzaRepository;
+import com.pizzaiolo.domains.contracts.services.IngredientService;
 import com.pizzaiolo.domains.contracts.services.PizzaService;
 import com.pizzaiolo.exceptions.DuplicateKeyException;
 import com.pizzaiolo.exceptions.InvalidDataException;
@@ -50,6 +53,9 @@ public class PizzaResource {
 
 	@Autowired
 	private PizzaService srv;
+	
+	@Autowired
+	private IngredientService srvIngredient;
 	
 	@Autowired
 	private PizzaRepository dao;
@@ -116,6 +122,23 @@ public class PizzaResource {
 		var entity = PizzaEditDTO.from(item);
 		if (entity.isInvalid())
 			throw new InvalidDataException(entity.getErrorsMessage());
+		
+		BigDecimal total = BigDecimal.ZERO;
+		BigDecimal netPrice = BigDecimal.ZERO;
+		
+		for (IngredientPizzaEditDTO value : item.getIngredientpizzas()) {
+			
+			netPrice = netPrice.add((srvIngredient.getOne(value.getIdIngredient()).getPrice())
+					.multiply(BigDecimal.valueOf(value.getQuantity())));
+		}
+		
+		netPrice = netPrice.add(srvIngredient.getOne(entity.getBase().getIdIngredient()).getPrice());
+		netPrice = netPrice.add(srvIngredient.getOne(entity.getSauce().getIdIngredient()).getPrice());
+		total = netPrice.multiply(new BigDecimal((1.5))).setScale(2);
+		
+		entity.setNetPrice(netPrice);
+		entity.setAmount(total);
+
 		entity = srv.add(entity);
 		entity = srv.getOne(entity.getIdPizza());
 		item.update(entity);
