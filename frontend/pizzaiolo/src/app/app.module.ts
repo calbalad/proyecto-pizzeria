@@ -35,6 +35,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import {TableModule} from 'primeng/table';
+import { FormsModule } from '@angular/forms';
+
 
 
 
@@ -70,7 +73,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     FieldsetModule,
     BrowserAnimationsModule,
     NoopAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TableModule,
+    FormsModule
 
   ],
   providers: [],
