@@ -58,7 +58,7 @@
       </div> -->
       <div class="field">
         <label for="name">Base Principal</label>
-        <p-dropdown [options]="ingredientesBase" [(ngModel)]="pizza.idBase" optionLabel="name"></p-dropdown>
+        <p-dropdown [options]="ingredientesBase" [(ngModel)]="idBaseSelected" optionLabel="name"></p-dropdown>
       </div>
       <!-- <div class="field">
         <label for="salsa">Salsa</label>
@@ -68,7 +68,7 @@
       </div> -->
       <div class="field">
         <label for="name">Salsa Principal</label>
-        <p-dropdown [options]="ingredientesSalsa" [(ngModel)]="pizza.idSauce" optionLabel="name"></p-dropdown>
+        <p-dropdown [options]="ingredientesSalsa" [(ngModel)]="idSauceSelected" optionLabel="name"></p-dropdown>
       </div>
       <div class="card">
         <p-table #dt [value]="ingredientesTarget" [rows]="10" [paginator]="true" [globalFilterFields]="['name','quantity']" responsiveLayout="scroll"

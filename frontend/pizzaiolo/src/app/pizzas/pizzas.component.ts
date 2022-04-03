@@ -43,6 +43,9 @@ export class PizzasComponent implements OnInit {
 
   ingredienteAdd: any = {};
 
+  idSauceSelected: any;
+  idBaseSelected: any;
+
   constructor(public restApi: PizzasService, public resApiIngredientes: IngredientesService, private messageService: MessageService) { }
 
   ngOnInit(): void {
@@ -99,9 +102,10 @@ export class PizzasComponent implements OnInit {
     if(!this.validarFormulario())  { return }
 
     this.pizza.ingredientPizza = this.ingredientesTarget;
-
     const pizzaToBD = {
       ...this.pizza,
+      idSauce: this.idSauceSelected.idIngredient,
+      idBase: this.idBaseSelected.idIngredient,
       active: true,
       amount: 1,
       netPrice: 1
@@ -148,6 +152,7 @@ export class PizzasComponent implements OnInit {
 
   validarFormulario() {
     console.log('estoy validando')
+    console.log(this.pizza)
     let errors: IMensajesError[] = [];
 
     if(this.pizza.description?.trim() === ''){
