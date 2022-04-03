@@ -54,11 +54,11 @@ export class RestApiService {
       )
       .pipe(retry(1), catchError(this.handleError));
   }
-  createOrder(OrderEditDTO: any): Observable<OrderEditDTO> {
+  createOrder(order: any): Observable<any> {
     return this.http
-      .post<OrderEditDTO>(
+      .post<any>(
         this.apiURL + '/api/v1/pedidos',
-        JSON.stringify(OrderEditDTO),
+        JSON.stringify(order),
         this.httpOptions
       )
       .pipe(retry(1), catchError(this.handleError));

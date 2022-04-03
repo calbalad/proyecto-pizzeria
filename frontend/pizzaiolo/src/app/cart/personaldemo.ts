@@ -77,7 +77,7 @@ export class PersonalDemo implements OnInit {
     nextPage() {
       console.log(new Date().toISOString() )
        // if (this.personalInformation.firstname && this.personalInformation.lastname && this.personalInformation.age) {
-            this.ticketService.ticketInformation.personalInformation.amount = this.total;
+            this.ticketService.ticketInformation.personalInformation.amount = Math.round(this.total * 100) /100;
             this.ticketService.ticketInformation.personalInformation.pizzas = this.carts;
             console.log(this.ticketService.ticketInformation.personalInformation)
             this.router.navigate(['carrito/direcciones']);

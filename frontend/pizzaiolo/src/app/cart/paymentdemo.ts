@@ -86,7 +86,7 @@ export class PaymentDemo implements OnInit {
   nextPage() {
     this.ticketService.ticketInformation.personalInformation.comment = this.comment;
     this.ticketService.ticketInformation.personalInformation.orderDate= new Date().toISOString().toString();
-    console.log(this.ticketService.ticketInformation.personalInformation)
+    console.log(JSON.stringify(this.ticketService.ticketInformation.personalInformation))
     this.restApi
       .createOrder(this.ticketService.ticketInformation.personalInformation)
       .subscribe((data: {}) => {
