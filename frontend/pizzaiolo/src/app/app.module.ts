@@ -37,6 +37,8 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import {TableModule} from 'primeng/table';
 import { FormsModule } from '@angular/forms';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 
 
 
@@ -75,7 +77,8 @@ import { FormsModule } from '@angular/forms';
     NoopAnimationsModule,
     ReactiveFormsModule,
     TableModule,
-    FormsModule
+    FormsModule,
+    Ng2SearchPipeModule
 
   ],
   providers: [],

@@ -1,5 +1,6 @@
 import { Component, Injectable } from '@angular/core';
 import {MenuItem} from 'primeng/api';
+import { CartService } from 'src/app/services/cart.service';
 import { LoginService } from 'src/app/services/log.service';
 @Component({
   selector: 'app-header',
@@ -9,10 +10,13 @@ import { LoginService } from 'src/app/services/log.service';
 
 
 export class HeaderComponent  {
-  constructor(private auth: LoginService){
-  }
-
   items: MenuItem[] = [];
+  countSub: any;
+  cartCount: any = 0;
+  carts: any;
+  constructor(private cartService: CartService, private auth: LoginService) {
+
+  }
 
     ngOnInit() {
       this.items = [
@@ -39,17 +43,11 @@ export class HeaderComponent  {
             routerLinkActiveOptions: 'active',
             routerLink : "/"
           },{
-            label:'Carrito',
-            icon:'pi pi-fw pi-shopping-cart',
-            routerLinkActiveOptions: 'active',
-            routerLink : "/carrito",
-            visible: this.auth.isLoggedIn(),
-          },{
             label:'Pedidos',
             icon:'pi pi-fw pi-send',
             routerLinkActiveOptions: 'active',
             routerLink : "/pedidos",
-            visible: this.auth.isLoggedIn(),
+            visible: this.auth.isLoggedIn()
           },{
             label:'Mi Perfil',
             icon:'pi pi-fw pi-cog',
@@ -78,6 +76,17 @@ export class HeaderComponent  {
             command : ((event?: any) =>this.auth.doLogout()),
           },
     ];
+
+}
+
+ngAfterContentInit(){
+  this.cartCount = JSON.parse(localStorage.getItem('cart') || '[]').length
+  this.cartService.getCount().subscribe(count => {
+    this.cartCount = count
+    console.log(count, "sdf")
+    }
+  );
+  console.log(this.cartCount)
 }
 
 }
