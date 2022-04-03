@@ -159,12 +159,12 @@ export class ConfirmationDemo implements OnInit {
     }
 
     prevPage() {
-        this.router.navigate(['steps/carrito']);
+        this.router.navigate(['carrito/carrito']);
     }
 
     nextPage() {
       //this.ticketService.ticketInformation.paymentInformation = this.paymentInformation;
-      this.router.navigate(['steps/payment']);
+      this.router.navigate(['carrito/payment']);
   }
 
     openNew() {

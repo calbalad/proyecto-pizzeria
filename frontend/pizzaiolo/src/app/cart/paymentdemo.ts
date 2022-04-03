@@ -27,10 +27,10 @@ export class PaymentDemo implements OnInit {
 
     nextPage() {
         this.ticketService.ticketInformation.paymentInformation = this.paymentInformation;
-        this.router.navigate(['steps/payment']);
+        this.router.navigate(['carrito/payment']);
     }
 
     prevPage() {
-        this.router.navigate(['steps/seat']);
+        this.router.navigate(['carrito/seat']);
     }
 }
