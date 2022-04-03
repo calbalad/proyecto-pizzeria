@@ -48,9 +48,9 @@ class OrderResourceTest {
 //		listado.add(new OrderEditDTO(2, "", "auno", Status.PEDIDO_ELABORANDOSE,  new Date(2022-03-22),  "", "",  new Date(2022-03-22), "", new CarritoEditDTO(1,2)  , new BigDecimal(5.00)));
 //		
 		listado2 = new ArrayList<OrderDetailsDTO>();
-		listado2.add(new OrderDetailsDTO(1, "", "auno", new BigDecimal(5.00), "",  new Date(2022-03-22),  "", "",  new Date(2022-03-22), ""));
-		listado2.add(new OrderDetailsDTO(2, "", "auno", new BigDecimal(5.00), "",  new Date(2022-03-22),  "", "",  new Date(2022-03-22), ""));
-		
+//		listado2.add(new OrderDetailsDTO(1, "", "auno", new BigDecimal(5.00), "",  new Date(2022-03-22),  "", "",  new Date(2022-03-22), ""));
+//		listado2.add(new OrderDetailsDTO(2, "", "auno", new BigDecimal(5.00), "",  new Date(2022-03-22),  "", "",  new Date(2022-03-22), ""));
+//		
 		listado3 = new ArrayList<OrderStatusEditDTO>();
 		listado3.add(new OrderStatusEditDTO(1, "", "auno",  "",  "",  new Date(2022-03-22)));
 		listado3.add(new OrderStatusEditDTO(2, "", "auno",  "",  "",  new Date(2022-03-22)));
