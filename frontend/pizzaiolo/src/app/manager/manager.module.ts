@@ -9,6 +9,7 @@ import { PizzasModule } from '../pizzas';
 
 import {OrderListModule} from 'primeng/orderlist';
 import { ManagerComponent } from './manager.component';
+import { RolesComponent } from '../roles/roles.component';
 
 
 
@@ -25,6 +26,13 @@ const routes: Routes = [
     // { path: ':id', component: BlogViewComponent },
     // { path: ':id/:kk', component: BlogViewComponent },
   ]},
+  { path: 'usuarios', children: [
+    { path: '', component: RolesComponent },
+   // { path: ':id/edit', component: BlogEditComponent },
+   // { path: ':id', component: BlogViewComponent },
+   // { path: ':id/:kk', component: BlogViewComponent },
+ ]},
+
 ]
 
 @NgModule({
