@@ -11,6 +11,8 @@ import {DialogModule} from 'primeng/dialog';
 import {FormsModule} from '@angular/forms';
 import {CardModule} from 'primeng/card';
 import { DropdownModule } from 'primeng/dropdown';
+import {InputTextModule} from 'primeng/inputtext';
+import {InputNumberModule} from 'primeng/inputnumber';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,7 @@ import { DropdownModule } from 'primeng/dropdown';
 
   ],
   imports: [
-    CommonModule, OrderListModule, ButtonModule, RouterModule, ToolbarModule, TableModule, DialogModule, FormsModule, CardModule,DropdownModule
+    CommonModule, OrderListModule, ButtonModule, RouterModule, ToolbarModule, TableModule, DialogModule, FormsModule, CardModule,DropdownModule, InputTextModule, InputNumberModule
 
   ]
 })

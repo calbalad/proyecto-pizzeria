@@ -33,23 +33,23 @@ export class PizzasService {
       .pipe(retry(1), catchError(this.handleError));
   }
 
-  createIngrediente(ingrediente: PizzasEditables): Observable<PizzasEditables> {
-    console.log( JSON.stringify(ingrediente))
+  createPizza(pizza: PizzasEditables): Observable<PizzasEditables> {
+    console.log( JSON.stringify(pizza))
     return this.http
       .post<PizzasEditables>(
         this.apiURL + '/api/v1/pizzas',
-        JSON.stringify(ingrediente),
+        JSON.stringify(pizza),
         this.httpOptions
       )
       .pipe(retry(1), catchError(this.handleError));
   }
 
   // HttpClient API put() method => Update PizzasCortas
-  updateIngrediente(id: number, IngredientesEditables: PizzasEditable): Observable<PizzasEditable> {
+  updatePizza(id: number, pizza: PizzasEditables): Observable<PizzasEditables> {
     return this.http
-      .put<PizzasEditable>(
-        this.apiURL + '/api/v1/ingredientes/' + id,
-        JSON.stringify(IngredientesEditables),
+      .put<PizzasEditables>(
+        this.apiURL + '/api/v1/pizzas/' + id,
+        JSON.stringify(pizza),
         this.httpOptions
       )
       .pipe(retry(1), catchError(this.handleError));

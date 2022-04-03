@@ -42,68 +42,38 @@
       </div>
     </ng-template>
   </p-table>
+
+  <p-dialog [(visible)]="ingredienteDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="name">Nombre</label>
+            <input type="text" pInputText id="name" [(ngModel)]="ingrediente.name" required autofocus />
+            <small class="p-error" *ngIf="submitted && !ingrediente.name">Name is required.</small>
+        </div>
+        <div class="field">
+          <label for="name">Tipo Ingrediente</label>
+          <p-dropdown [options]="tiposIngredientes" [(ngModel)]="tipoIngredienteSelected" optionLabel="name"></p-dropdown>
+        </div>
+        <div class="field">
+          <label for="price">Precio</label>
+          <input type="number" step="0.01" pInputText id="price" [(ngModel)]="ingrediente.price" required autofocus />
+          <!-- <p-inputNumber [(ngModel)]="ingrediente.price" mode="currency" currency="EUR" [showButtons]="true" inputId="stacked"></p-inputNumber> -->
+        </div>
+        <!-- <div class="field">
+          <label for="price">Precio</label>
+          <select [(ngModel)]="ingrediente.type" name="select">
+            <option value="base" [selected]="ingrediente.type === 'base'">Base</option>
+            <option value="salsa" [selected]="ingrediente.type === 'salsa'">Salsa</option>
+            <option value="otros" [selected]="ingrediente.type === 'otros'">Otros</option>
+          </select>
+        </div> -->
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+      <p-button label="Save" icon="pi pi-check" class="p-button-text" (click)="saveIngrediente()"></p-button>
+      <p-button label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></p-button>
+    </ng-template>
+  </p-dialog>
+
 </div>
-
-
-<p-dialog [(visible)]="ingredienteDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
-  <ng-template pTemplate="content">
-      <div class="field">
-          <label for="name">Nombre</label>
-          <input type="text" pInputText id="name" [(ngModel)]="ingrediente.name" required autofocus />
-          <small class="p-error" *ngIf="submitted && !ingrediente.name">Name is required.</small>
-      </div>
-      <div class="field">
-        <label for="price">Precio</label>
-        <input type="number" pInputText id="price" [(ngModel)]="ingrediente.price" required autofocus />
-        <!-- <small class="p-error" *ngIf="submitted && !ingrediente.name">Name is required.</small>1 -->
-      </div>
-      <div class="field">
-        <label for="price">Precio</label>
-        <select [(ngModel)]="ingrediente.type" name="select">
-          <option value="base" [selected]="ingrediente.type === 'base'">Base</option>
-          <option value="salsa" [selected]="ingrediente.type === 'salsa'">Salsa</option>
-          <option value="otros" [selected]="ingrediente.type === 'otros'">Otros</option>
-        </select>
-      </div>
-
-  </ng-template>
-
-  <ng-template pTemplate="footer">
-    <p-button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveIngrediente()"></p-button>
-    <p-button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></p-button>
-  </ng-template>
-</p-dialog>
-
-<!-- <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog> -->
-
-<!-- <p-dialog [(visible)]="ingredienteDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
-  <ng-template pTemplate="content">
-    <div class="field">
-      <label for="name">Name</label>
-      <input type="text" pInputText id="name" [(ngModel)]="ingrediente.name" required autofocus />
-      <small class="p-error" *ngIf="submitted && !ingrediente.name">Name is required.</small>
-    </div>
-  </ng-template>
-</p-dialog> -->
-
-<!-- <div class="col-5 flex align-items-center justify-content-center">
-  <p-button label="Añadir" [routerLink]="['add']" icon="pi pi-plus" styleClass="p-button"></p-button>
-  <p-button label="Editar" icon="pi pi-user-edit" styleClass="p-button"></p-button>
-  <p-button label="Volver" [routerLink]="['/manager/']" icon="pi pi-arrow-left" styleClass="p-button"></p-button>
-</div>
-
-
-<p-orderList [value]="ingredientes" [listStyle]="{'max-height':'30rem'}">
-  <ng-template let-ingrediente pTemplate="item">
-      <div class="product-item">
-          <div class="product-list-detail">
-              <h5 class="mb-2">{{ ingrediente.name }}</h5>
-              <i class="pi pi-tag product-category-icon"></i>
-              <span class="product-category">{{ ingrediente.type }}</span>
-          </div>
-          <div class="product-list-action">
-              <h6 class="mb-2">€{{ingrediente.price}}</h6>
-          </div>
-      </div>
-  </ng-template>
-</p-orderList> -->
