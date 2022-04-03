@@ -9,6 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { CestaEditDTO } from './cestaEditDTO';
 
 export interface OrderDetailsDTO { 
     address?: string;
@@ -21,4 +22,5 @@ export interface OrderDetailsDTO {
     idUser?: string;
     orderDate?: Date;
     orderStatus?: string;
+    pizzas?: Array<CestaEditDTO>;
 }
