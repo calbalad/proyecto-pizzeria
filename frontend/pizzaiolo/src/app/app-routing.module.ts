@@ -25,9 +25,10 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, data: { pageTitle: 'Login' } },
   // { path: 'pizzas', component: PizzasComponent, data: { pageTitle: 'Pizzas' } },
   // { path: 'pizzas/:id', component: PizzasViewComponent, data: { pageTitle: 'Detalle Pizzas' } },
-  { path: 'carrito',canActivate: [SesionGuardGuard], component: CarritoComponent, data: { pageTitle: 'Carrito' } },
+ // { path: 'carritote',canActivate: [SesionGuardGuard], component: CarritoComponent, data: { pageTitle: 'Carrito' } },
   { path: 'pedidos',canActivate: [SesionGuardGuard], component: PedidosComponent, data: { pageTitle: 'Pedidos' } },
   { path: 'manager',canActivate: [SesionGuardGuard], loadChildren: () => import('./manager/manager.module').then(mod => mod.ManagerModule)},
+  { path: 'carrito',canActivate: [SesionGuardGuard], loadChildren: () => import('./cart/cart.module').then(mod => mod.CartModule)},
 
   { path: 'user', children: [
     { path: '',canActivate: [SesionGuardGuard], component: UserEditComponent },

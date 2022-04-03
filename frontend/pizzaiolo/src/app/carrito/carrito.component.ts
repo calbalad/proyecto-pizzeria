@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../services/cart.service';
+import {MenuModule} from 'primeng/menu';
+import {MenuItem} from 'primeng/api';
+import {MegaMenuItem} from 'primeng/api';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-carrito',
@@ -12,6 +16,8 @@ export class CarritoComponent implements OnInit {
     "amount": 0
   }];
   total: number = 0;
+  items: MenuItem[] = [];
+  subscription!: Subscription;
 
   constructor(private cartService: CartService) { }
 

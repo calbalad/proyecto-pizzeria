@@ -24,11 +24,4 @@ export class CartaComponent implements OnInit {
     });
     this.primengConfig.ripple = true;
   }
-
-  search(product: any) {
-    var marvelHeroes =  this.pizzas.filter(function(hero: { description: any; }) {
-      return hero.description
-  });
-  console.log(marvelHeroes)
-  }
 }

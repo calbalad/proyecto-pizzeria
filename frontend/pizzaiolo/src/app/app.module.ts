@@ -38,6 +38,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {TableModule} from 'primeng/table';
 import { FormsModule } from '@angular/forms';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import {StepsModule} from 'primeng/steps';
+import {ToastModule} from 'primeng/toast';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+
+
 
 
 
@@ -78,7 +83,11 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     ReactiveFormsModule,
     TableModule,
     FormsModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    StepsModule,
+    ToastModule,
+    ConfirmDialogModule,
+    DialogModule
 
   ],
   providers: [],
