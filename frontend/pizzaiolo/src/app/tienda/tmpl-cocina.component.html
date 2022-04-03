@@ -1,61 +1,76 @@
 <div class="card">
-
-  <p-table #dt [value]="pedidos" [rows]="10" [paginator]="true" [globalFilterFields]="['idOrder','status']" responsiveLayout="scroll"
-            [rowHover]="true" dataKey="id"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+  <p-table #dt [value]="pedidos" responsiveLayout="scroll" [rowHover]="true">
     <ng-template pTemplate="caption">
-        <div class="flex align-items-center justify-content-between">
-            <h5 class="m-0">Gestión de pedidos en cocina</h5>
-        </div>
+      <div class="flex align-items-center justify-content-between">
+        <h5 class="m-0">Gestión de pedidos en cocina</h5>
+      </div>
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
-          <th pSortableColumn="idOrder">ID<p-sortIcon field="idOrder"></p-sortIcon></th>
-          <th>Producto</th>
-          <th pSortableColumn="status">Estado<p-sortIcon field="orderStatus"></p-sortIcon></th>
-          <th>Comentario</th>
-          <th></th>
-          <th></th>
-
+        <th>ID</th>
+        <th>Producto</th>
+        <th>Estado</th>
+        <th>Comentario</th>
+        <th></th>
+        <th></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-pedido>
       <tr>
-          <!-- <td>
-              <p-tableCheckbox [value]="ingrediente"></p-tableCheckbox>
-          </td> -->
-          <td>{{pedido.idOrder}}</td>
-          <td>Aquí van las pizzas</td>
-          <td>{{pedido.orderStatus}}</td>
-          <td>{{pedido.comment}}</td>
-          <td>
-
-              <button pButton pRipple icon="pi pi-check" class="p-button-rounded p-button-success mr-2"></button>
-
-            </td>
-            <td>              <button pButton pRipple icon="pi pi-times" class="p-button-rounded p-button-success mr-2"></button>
-            </td>
+        <td>{{ pedido.idOrder }}</td>
+        <td>Aquí van las pizzas</td>
+        <td>{{ pedido.orderStatus }}</td>
+        <td>{{ pedido.comment }}</td>
+        <td>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-check"
+            class="p-button-rounded p-button-success mr-2"
+            (click)="openEdit(pedido)"
+          ></button>
+        </td>
+        <td>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-times"
+            class="p-button-rounded p-button-success mr-2"
+            (click)="openEdit(pedido)"
+          ></button>
+        </td>
       </tr>
-    </ng-template>
-    <ng-template pTemplate="summary">
-      <div class="flex align-items-center justify-content-between">
-          Total de pedidos {{pedidos ? pedidos.length : 0 }}.
-      </div>
     </ng-template>
   </p-table>
 </div>
 
-<p-dialog [(visible)]="pedidoDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
+<p-dialog
+  [(visible)]="pedidoDialog"
+  [style]="{ width: '450px' }"
+  header="Confirmar operación"
+  [modal]="true"
+  styleClass="p-fluid"
+>
   <ng-template pTemplate="content">
-      <div class="field">
-        HOLAAAA
-      </div>
-
+    <div class="field text-center">¿Quieres aceptar este pedido?</div>
   </ng-template>
-
   <ng-template pTemplate="footer">
-    <p-button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"></p-button>
-    <p-button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"></p-button>
+    <p-button
+      pButton
+      pRipple
+      label="Sí"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="changeStatus()"
+    ></p-button>
+    <p-button
+      pButton
+      pRipple
+      label="No"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="hideDialog()"
+    ></p-button>
   </ng-template>
 </p-dialog>
 
