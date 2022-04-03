@@ -141,4 +141,11 @@ public class Pizzaorder extends EntityBase<Pizzaorder> implements Serializable {
 		Pizzaorder other = (Pizzaorder) obj;
 		return Objects.equals(id, other.id);
 	}
+
+	@Override
+	public String toString() {
+		return "Pizzaorder [amount=" + amount + ", quantity=" + quantity + ", order=" + order + ", pizza=" + pizza
+				+ "]";
+	}
+	
 }

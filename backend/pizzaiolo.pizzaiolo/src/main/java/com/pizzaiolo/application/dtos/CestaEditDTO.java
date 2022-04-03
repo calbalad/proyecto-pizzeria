@@ -30,13 +30,15 @@ public class CestaEditDTO {
 	private int quantity;
 	@JsonProperty("amount")
 	private BigDecimal amount;
+	private String nombre;
 
 	public static CestaEditDTO from(Pizzaorder source) {
 		return new CestaEditDTO(
 				source.getPizza().getIdPizza(),
 				source.getOrder().getIdOrder(),
 				source.getQuantity(),
-				source.getAmount()
+				source.getAmount(),
+				source.getPizza().getDescription()
 				);
 	}
 	
