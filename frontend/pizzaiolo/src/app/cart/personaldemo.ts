@@ -17,14 +17,14 @@ import { Subscription } from 'rxjs';
             <th></th>
             <th>Pizza</th>
             <th>Price</th>
-            <th>Catidad</th>
+            <th>Cantidad</th>
             <th>Total</th>
             <th></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-product>
         <tr>
-            <td><img [src]="'http://localhost:8001/api/v1/pizzas/' + product.idPizza + '/foto'" [alt]="product.des" width="100" class="shadow-4" /></td>
+            <td><img [src]="'http://localhost:8080/api/v1/pizzas/' + product.idPizza + '/foto'" [alt]="product.description" width="100" class="shadow-4" /></td>
             <td>{{product.description}}</td>
             <td>{{product.amount | currency:'EUR'}}</td>
             <td>{{product.quantity}}</td>
@@ -75,8 +75,11 @@ export class PersonalDemo implements OnInit {
   }
 
     nextPage() {
+      console.log(new Date().toISOString() )
        // if (this.personalInformation.firstname && this.personalInformation.lastname && this.personalInformation.age) {
-         //   this.ticketService.ticketInformation.personalInformation = this.personalInformation;
+            this.ticketService.ticketInformation.personalInformation.amount = this.total;
+            this.ticketService.ticketInformation.personalInformation.pizzas = this.carts;
+            console.log(this.ticketService.ticketInformation.personalInformation)
             this.router.navigate(['carrito/direcciones']);
 
             return;

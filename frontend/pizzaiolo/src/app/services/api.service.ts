@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { PizzasCortas, OrderEditDTO } from '../model/pizzaiolo/models';
+import { CreateAddressParam, UserResponse } from '../model/authService/models';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 @Injectable({
@@ -25,6 +26,18 @@ export class RestApiService {
       .get<PizzasCortas>(this.apiURL + '/api/v1/pizzas')
       .pipe(retry(1), catchError(this.handleError));
   }
+  getUserAuthenticated(): Observable<UserResponse> {
+    var auth_token = localStorage.getItem('access_token') || '';
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': `Bearer ${auth_token}`
+    })};
+    return this.http
+      .get<UserResponse>(this.apiURL + '/api/v1/users/me',
+      this.httpOptions)
+      .pipe(retry(1), catchError(this.handleError));
+  }
   // HttpClient API get() method => Fetch PizzasCortas
   getPizzasDetalladas(id: any): Observable<any> {
     return this.http
@@ -46,6 +59,21 @@ export class RestApiService {
       .post<OrderEditDTO>(
         this.apiURL + '/api/v1/pedidos',
         JSON.stringify(OrderEditDTO),
+        this.httpOptions
+      )
+      .pipe(retry(1), catchError(this.handleError));
+  }
+  createAddress(CreateAddressParam: any, id: string): Observable<CreateAddressParam> {
+    var auth_token = localStorage.getItem('access_token') || '';
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': `Bearer ${auth_token}`
+    })};
+    return this.http
+      .post<CreateAddressParam>(
+        this.apiURL + '/api/v1/address/' + id,
+        JSON.stringify(CreateAddressParam),
         this.httpOptions
       )
       .pipe(retry(1), catchError(this.handleError));
