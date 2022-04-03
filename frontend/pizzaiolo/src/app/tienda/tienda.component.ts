@@ -10,10 +10,11 @@ import { TiendaModule } from '../tienda';
   styleUrls: ['./tienda.component.scss'],
 })
 export class CocinaComponent implements OnInit {
-  pedidoDialog: boolean = false;
+  pedidoConfirmDialog: boolean = false;
+  pedidoDeclineDialog: boolean = false;
+
   pedidos: any = [];
   pedido: OrderStatusEditDTO = { idOrder: -1 };
-  submitted: boolean = false;
 
   constructor(public restApi: PedidosService) {}
 
@@ -29,30 +30,45 @@ export class CocinaComponent implements OnInit {
     });
   }
 
-  changeStatus() {
+  changeStatus(operation: string) {
     console.log(this.pedido.idOrder);
     if (this.pedido.idOrder) {
-      this.pedido.orderStatus = OrderStatusEditDTO.OrderStatusEnum.Elaborandose;
-      this.pedido.idChef = "10";
-      console.log(this.pedido);
-      this.restApi
-        .updatePedido(this.pedido.idOrder, this.pedido)
-        .subscribe((data: {}) => {
-          this.ngOnInit();
-        });
+      if (operation === 'confirm') {
+        this.pedido.orderStatus =
+          OrderStatusEditDTO.OrderStatusEnum.Elaborandose;
+        this.pedido.idChef = '10';
+        this.restApi
+          .updatePedido(this.pedido.idOrder, this.pedido)
+          .subscribe((data: {}) => {
+            this.ngOnInit();
+          });
+      }
+      else
+      if (operation === 'decline') {
+        console.log(this.pedido);
+        this.restApi
+          .deletePedido(this.pedido.idOrder)
+          .subscribe((data: {}) => {
+            this.ngOnInit();
+          });
+      }
+      else throw new Error("Operación no válida");
+      this.hideDialog();
     }
-    this.pedidoDialog = false;
+
   }
 
-  openEdit(pedido: OrderEditDTO) {
+  openEdit(pedido: OrderStatusEditDTO, operation: string) {
     this.pedido = { ...pedido };
-    console.log(pedido);
-    this.pedidoDialog = true;
+
+    if (operation === 'confirm') this.pedidoConfirmDialog = true
+    else if (operation === 'decline') this.pedidoDeclineDialog = true;
+    else throw new Error("Operación no válida")
   }
 
   hideDialog() {
-    this.pedidoDialog = false;
-    this.submitted = false;
+    if (this.pedidoConfirmDialog) this.pedidoConfirmDialog = false;
+    if (this.pedidoDeclineDialog) this.pedidoDeclineDialog = false;
   }
 }
 

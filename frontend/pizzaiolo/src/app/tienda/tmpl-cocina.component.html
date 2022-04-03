@@ -27,7 +27,7 @@
             pRipple
             icon="pi pi-check"
             class="p-button-rounded p-button-success mr-2"
-            (click)="openEdit(pedido)"
+            (click)="openEdit(pedido, 'confirm')"
           ></button>
         </td>
         <td>
@@ -36,7 +36,7 @@
             pRipple
             icon="pi pi-times"
             class="p-button-rounded p-button-success mr-2"
-            (click)="openEdit(pedido)"
+            (click)="openEdit(pedido, 'decline')"
           ></button>
         </td>
       </tr>
@@ -45,7 +45,7 @@
 </div>
 
 <p-dialog
-  [(visible)]="pedidoDialog"
+  [(visible)]="pedidoConfirmDialog"
   [style]="{ width: '450px' }"
   header="Confirmar operación"
   [modal]="true"
@@ -61,7 +61,37 @@
       label="Sí"
       icon="pi pi-check"
       class="p-button-text"
-      (click)="changeStatus()"
+      (click)="changeStatus('confirm')"
+    ></p-button>
+    <p-button
+      pButton
+      pRipple
+      label="No"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="hideDialog()"
+    ></p-button>
+  </ng-template>
+</p-dialog>
+
+<p-dialog
+  [(visible)]="pedidoDeclineDialog"
+  [style]="{ width: '450px' }"
+  header="Confirmar operación"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <div class="field text-center">¿Quieres cancelar este pedido?</div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <p-button
+      pButton
+      pRipple
+      label="Sí"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="changeStatus('decline')"
     ></p-button>
     <p-button
       pButton
