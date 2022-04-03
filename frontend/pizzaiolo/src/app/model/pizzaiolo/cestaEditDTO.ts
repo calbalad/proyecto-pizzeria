@@ -14,5 +14,6 @@ export interface CestaEditDTO {
     amount?: number;
     idOrder?: number;
     idPizza?: number;
+    nombre?: string;
     quantity?: number;
 }
