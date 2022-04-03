@@ -1,1 +1,136 @@
-<p>pizzas works!</p>
+<div class="card">
+  <p-toolbar styleClass="mb-4">
+    <ng-template pTemplate="left">
+      <button pButton pRipple label="Añadir" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+      <button pButton pRipple label="Volver" icon="pi pi-arrow-left" class="p-button-success mr-2" [routerLink]="['/manager/']"></button>
+      <!-- <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button> -->
+    </ng-template>
+
+  </p-toolbar>
+  <p-table #dt [value]="pizzas" [rows]="10" [paginator]="true" [globalFilterFields]="['name','type']" responsiveLayout="scroll"
+            [rowHover]="true" dataKey="id"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+    <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+            <h5 class="m-0">Gestión Pizzas</h5>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+          <th pSortableColumn="name">Nombre <p-sortIcon field="name"></p-sortIcon></th>
+          <th pSortableColumn="price">Precio <p-sortIcon field="price"></p-sortIcon></th>
+          <th pSortableColumn="type">Foto <p-sortIcon field="type"></p-sortIcon></th>
+          <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-pizza>
+      <tr>
+          <td>{{pizza.description}}</td>
+          <td>{{pizza.amount | currency:'EUR'}}</td>
+          <td> <img [src]="'http://localhost:8001/api/v1/pizzas/' + pizza.idPizza + '/foto'" [alt]="pizza.description" /></td>
+          <td>
+              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="openEdit(pizza)"></button>
+          </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+          Total de ingredientes {{pizzas ? pizzas.length : 0 }}.
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+
+
+<p-dialog [(visible)]="pizzaDialog" [style]="{width: '100%'}" header="Product Details" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+      <div class="field">
+          <label for="name">Nombre</label>
+          <input type="text" pInputText id="name" [(ngModel)]="pizza.description" required autofocus />
+          <small class="p-error" *ngIf="submitted && !pizza.description">Name is required.</small>
+      </div>
+      <div class="field">
+        <label for="price">Precio</label>
+        <input type="number" pInputText id="price" [(ngModel)]="pizza.amount" required autofocus />
+      </div>
+      <div class="field">
+        <label for="base">Base</label>
+        <select [(ngModel)]="pizza.idBase" name="select">
+          <option [value]="item.idIngredient" *ngFor="let item of ingredientesBase">{{ item.name }}</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="salsa">Salsa</label>
+        <select [(ngModel)]="pizza.idSauce" name="select">
+          <option [value]="item.idIngredient" *ngFor="let item of ingredientesSalsa">{{ item.name }}</option>
+        </select>
+      </div>
+      <p-pickList [source]="ingredientes" [target]="ingredientesTarget" sourceHeader="Available" targetHeader="Selected" [dragdrop]="true"
+          [responsive]="true" [sourceStyle]="{'height':'30rem'}" [targetStyle]="{'height':'30rem'}" filterBy="name"
+          sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name">
+          <ng-template let-ingrediente pTemplate="item">
+            <div class="ingrediente-item">
+              <span>{{ ingrediente.name }}</span>
+            </div>
+            <!-- <p-inputNumber [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical" inputId="vertical"
+            decrementButtonClass="p-button-secondary" incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
+            </p-inputNumber> -->
+          </ng-template>
+          <!-- <ng-template let-product pTemplate="item">
+              <div class="product-item">
+                  <div class="image-container">
+                          <img src="assets/showcase/images/demo/product/{{product.image}}" [alt]="product.name" class="product-image" />
+                  </div>
+                  <div class="product-list-detail">
+                      <h5 class="mb-2">{{product.name}}</h5>
+                      <i class="pi pi-tag product-category-icon"></i>
+                      <span class="product-category">{{product.category}}</span>
+                  </div>
+                  <div class="product-list-action">
+                      <h6 class="mb-2">${{product.price}}</h6>
+                      <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
+                  </div>
+              </div>
+          </ng-template> -->
+      </p-pickList>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <p-button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="savePizza()"></p-button>
+    <p-button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></p-button>
+  </ng-template>
+</p-dialog>
+
+<!-- <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog> -->
+
+<!-- <p-dialog [(visible)]="ingredienteDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <div class="field">
+      <label for="name">Name</label>
+      <input type="text" pInputText id="name" [(ngModel)]="ingrediente.name" required autofocus />
+      <small class="p-error" *ngIf="submitted && !ingrediente.name">Name is required.</small>
+    </div>
+  </ng-template>
+</p-dialog> -->
+
+<!-- <div class="col-5 flex align-items-center justify-content-center">
+  <p-button label="Añadir" [routerLink]="['add']" icon="pi pi-plus" styleClass="p-button"></p-button>
+  <p-button label="Editar" icon="pi pi-user-edit" styleClass="p-button"></p-button>
+  <p-button label="Volver" [routerLink]="['/manager/']" icon="pi pi-arrow-left" styleClass="p-button"></p-button>
+</div>
+
+
+<p-orderList [value]="ingredientes" [listStyle]="{'max-height':'30rem'}">
+  <ng-template let-ingrediente pTemplate="item">
+      <div class="product-item">
+          <div class="product-list-detail">
+              <h5 class="mb-2">{{ ingrediente.name }}</h5>
+              <i class="pi pi-tag product-category-icon"></i>
+              <span class="product-category">{{ ingrediente.type }}</span>
+          </div>
+          <div class="product-list-action">
+              <h6 class="mb-2">€{{ingrediente.price}}</h6>
+          </div>
+      </div>
+  </ng-template>
+</p-orderList> -->

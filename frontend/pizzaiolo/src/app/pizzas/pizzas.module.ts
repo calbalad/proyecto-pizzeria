@@ -10,7 +10,8 @@ import {DialogModule} from 'primeng/dialog';
 import {FormsModule} from '@angular/forms';
 import {CardModule} from 'primeng/card';
 import { DropdownModule } from 'primeng/dropdown';
-
+import {PickListModule} from 'primeng/picklist';
+import {InputNumberModule} from 'primeng/inputnumber';
 
 
 @NgModule({
@@ -21,7 +22,7 @@ import { DropdownModule } from 'primeng/dropdown';
     PizzasComponent, OrderListModule, ButtonModule,
   ],
   imports: [
-    CommonModule, OrderListModule, ButtonModule, RouterModule, ToolbarModule, TableModule, DialogModule, FormsModule, CardModule,DropdownModule
+    CommonModule, OrderListModule, ButtonModule, RouterModule, ToolbarModule, TableModule, DialogModule, FormsModule, CardModule,DropdownModule, PickListModule, InputNumberModule
   ]
 })
 export class PizzasModule { }
