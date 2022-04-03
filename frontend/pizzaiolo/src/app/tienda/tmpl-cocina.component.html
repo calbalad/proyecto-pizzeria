@@ -1,1 +1,94 @@
-<p>cocinitas works!</p>
+<div class="card">
+
+  <p-table #dt [value]="pedidos" [rows]="10" [paginator]="true" [globalFilterFields]="['idOrder','status']" responsiveLayout="scroll"
+            [rowHover]="true" dataKey="id"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+    <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+            <h5 class="m-0">Gestión de pedidos en cocina</h5>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+          <th pSortableColumn="idOrder">ID<p-sortIcon field="idOrder"></p-sortIcon></th>
+          <th>Producto</th>
+          <th pSortableColumn="status">Estado<p-sortIcon field="orderStatus"></p-sortIcon></th>
+          <th>Comentario</th>
+          <th></th>
+          <th></th>
+
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-pedido>
+      <tr>
+          <!-- <td>
+              <p-tableCheckbox [value]="ingrediente"></p-tableCheckbox>
+          </td> -->
+          <td>{{pedido.idOrder}}</td>
+          <td>Aquí van las pizzas</td>
+          <td>{{pedido.orderStatus}}</td>
+          <td>{{pedido.comment}}</td>
+          <td>
+
+              <button pButton pRipple icon="pi pi-check" class="p-button-rounded p-button-success mr-2"></button>
+
+            </td>
+            <td>              <button pButton pRipple icon="pi pi-times" class="p-button-rounded p-button-success mr-2"></button>
+            </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+          Total de pedidos {{pedidos ? pedidos.length : 0 }}.
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog [(visible)]="pedidoDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+      <div class="field">
+        HOLAAAA
+      </div>
+
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <p-button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"></p-button>
+    <p-button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"></p-button>
+  </ng-template>
+</p-dialog>
+
+<!-- <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog> -->
+
+<!-- <p-dialog [(visible)]="ingredienteDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <div class="field">
+      <label for="name">Name</label>
+      <input type="text" pInputText id="name" [(ngModel)]="ingrediente.name" required autofocus />
+      <small class="p-error" *ngIf="submitted && !ingrediente.name">Name is required.</small>
+    </div>
+  </ng-template>
+</p-dialog> -->
+
+<!-- <div class="col-5 flex align-items-center justify-content-center">
+  <p-button label="Añadir" [routerLink]="['add']" icon="pi pi-plus" styleClass="p-button"></p-button>
+  <p-button label="Editar" icon="pi pi-user-edit" styleClass="p-button"></p-button>
+  <p-button label="Volver" [routerLink]="['/manager/']" icon="pi pi-arrow-left" styleClass="p-button"></p-button>
+</div>
+
+
+<p-orderList [value]="ingredientes" [listStyle]="{'max-height':'30rem'}">
+  <ng-template let-ingrediente pTemplate="item">
+      <div class="product-item">
+          <div class="product-list-detail">
+              <h5 class="mb-2">{{ ingrediente.name }}</h5>
+              <i class="pi pi-tag product-category-icon"></i>
+              <span class="product-category">{{ ingrediente.type }}</span>
+          </div>
+          <div class="product-list-action">
+              <h6 class="mb-2">€{{ingrediente.price}}</h6>
+          </div>
+      </div>
+  </ng-template>
+</p-orderList> -->
