@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { OrderEditDTO } from '../model/pizzaiolo/orderEditDTO';
 import { OrderStatusEditDTO } from '../model/pizzaiolo/orderStatusEditDTO';
 import { PedidosService } from '../services/pedidos.service';
 import { TiendaModule } from '../tienda';
@@ -15,11 +14,11 @@ import { Message } from 'primeng/api';
 })
 export class CocinaComponent implements OnInit {
   msgs: Message[] = [];
-  pedidoConfirmDialog: boolean = false;
-  pedidoDeclineDialog: boolean = false;
+  pedidosSolicitados: any = [];
+  pedidosElaborandose: any = [];
+  pedidoSolicitado: OrderStatusEditDTO = { idOrder: -1 };
+  pedidoElaborandose: OrderStatusEditDTO = { idOrder: -1 };
 
-  pedidos: any = [];
-  pedido: OrderStatusEditDTO = { idOrder: -1 };
 
   constructor(
     public restApi: PedidosService,
@@ -28,17 +27,25 @@ export class CocinaComponent implements OnInit {
 
   ngOnInit(): void {
     this.restApi.getPedidosSolicitados().subscribe((data: {}) => {
-      this.pedidos = data;
+      this.pedidosSolicitados = data;
+    });
+    this.restApi.getPedidosElaborandose().subscribe((data: {}) => {
+      this.pedidosElaborandose = data;
     });
   }
 
-  openEdit(pedido: OrderStatusEditDTO, operation: string) {
-    this.pedido = { ...pedido };
-    console.log(this.pedido);
+  openEditSolicitado(pedido: OrderStatusEditDTO, operation: string) {
+    this.pedidoSolicitado = { ...pedido };
 
     if (operation === 'confirm') this.statusConfirmed();
     else if (operation === 'decline') this.statusDeclined();
     else throw new Error('Operación no válida');
+  }
+
+  openEditElaborandose(pedido: OrderStatusEditDTO) {
+    this.pedidoElaborandose = { ...pedido };
+
+    this.statusProcessed();
   }
 
   statusConfirmed() {
@@ -47,15 +54,13 @@ export class CocinaComponent implements OnInit {
       header: 'Confirmación de pedido',
       icon: 'pi pi-info-circle',
       accept: () => {
-        console.log("entro")
-        console.log(this.pedido)
 
-        if (this.pedido.idOrder) {
-          this.pedido.orderStatus =
+        if (this.pedidoSolicitado.idOrder) {
+          this.pedidoSolicitado.orderStatus =
             OrderStatusEditDTO.OrderStatusEnum.Elaborandose;
-          this.pedido.idChef = '10';
+          this.pedidoSolicitado.idChef = '10';
           this.restApi
-            .updatePedido(this.pedido.idOrder, this.pedido)
+            .updatePedido(this.pedidoSolicitado.idOrder, this.pedidoSolicitado)
             .subscribe((data: {}) => {
               this.ngOnInit();
             });
@@ -88,8 +93,8 @@ export class CocinaComponent implements OnInit {
       header: 'Confirmación de cancelar pedido',
       icon: 'pi pi-exclamation-triangle ',
       accept: () => {
-        if (this.pedido.idOrder) {
-        this.restApi.deletePedido(this.pedido.idOrder).subscribe((data: {}) => {
+        if (this.pedidoSolicitado.idOrder) {
+        this.restApi.deletePedido(this.pedidoSolicitado.idOrder).subscribe((data: {}) => {
           this.ngOnInit();
         });
 
@@ -102,6 +107,44 @@ export class CocinaComponent implements OnInit {
           ];
         }
         else throw new Error('No existe ID del producto');
+      },
+      reject: () => {
+        this.msgs = [
+          {
+            severity: 'error',
+            summary: 'Rejected',
+            detail: 'Operación abortada',
+          },
+        ];
+      },
+    });
+  }
+
+  statusProcessed() {
+    this.confirmationService.confirm({
+      message: '¿Pedido preparado?',
+      header: 'Confirmación de estado',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+
+        if (this.pedidoElaborandose.idOrder) {
+          this.pedidoElaborandose.orderStatus =
+            OrderStatusEditDTO.OrderStatusEnum.Preparado;
+          this.restApi
+            .updatePedido(this.pedidoElaborandose.idOrder, this.pedidoElaborandose)
+            .subscribe((data: {}) => {
+              this.ngOnInit();
+            });
+
+          this.msgs = [
+            {
+              severity: 'success',
+              summary: 'Confirmed',
+              detail: 'Pedido preparado',
+            },
+          ];
+        }
+        else throw new Error("No existe ID del producto")
       },
       reject: () => {
         this.msgs = [
