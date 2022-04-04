@@ -1,45 +1,54 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { IngredientesEditables } from '../model/pizzaiolo/models';
-import { Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
-import { UserListResponse } from '../model/authService/userListResponse';
-import { UserResponse } from '../model/authService/userResponse';
-import { LoginService } from './log.service';
+import { Injectable } from '@angular/core';
+import { catchError, Observable, retry, throwError } from 'rxjs';
+import { PizzasEditables } from '../model/pizzaiolo/pizzasEditables';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RolesService {
-
+export class PizzasService {
   apiURL = 'http://localhost:8080';
   constructor(private http: HttpClient) {}
   /*========================================
     CRUD Methods for consuming RESTful API
   =========================================*/
   // Http Options
-  token = LoginService.prototype.getToken();
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.token}`
     }),
   };
 
   // HttpClient API get() method => Fetch PizzasCortass list
-  getUsuarios(): Observable<UserListResponse> {
+  getPizzas(): Observable<PizzasEditables> {
     return this.http
-      .get<UserListResponse>(this.apiURL + '/api/v1/users', this.httpOptions)
+      .get<PizzasEditables>(this.apiURL + '/api/v1/pizzas')
       .pipe(retry(1), catchError(this.handleError));
   }
 
+  getPizza(idPizza: number): Observable<PizzasEditables> {
+    return this.http
+      .get<PizzasEditables>(this.apiURL + '/api/v1/pizzas/' + idPizza + '?mode=edit')
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  createPizza(pizza: PizzasEditables): Observable<PizzasEditables> {
+    console.log( JSON.stringify(pizza))
+    return this.http
+      .post<PizzasEditables>(
+        this.apiURL + '/api/v1/pizzas',
+        JSON.stringify(pizza),
+        this.httpOptions
+      )
+      .pipe(retry(1), catchError(this.handleError));
+  }
 
   // HttpClient API put() method => Update PizzasCortas
-  updateUsuario(id: string, body: any): Observable<any> {
+  updatePizza(id: number, pizza: PizzasEditables): Observable<PizzasEditables> {
     return this.http
-      .put<UserResponse>(
-        this.apiURL + '/api/v1/users/' + id +'/role',
-        JSON.stringify(body),
+      .put<PizzasEditables>(
+        this.apiURL + '/api/v1/pizzas/' + id,
+        JSON.stringify(pizza),
         this.httpOptions
       )
       .pipe(retry(1), catchError(this.handleError));
@@ -61,4 +70,3 @@ export class RolesService {
   }
 
 }
-

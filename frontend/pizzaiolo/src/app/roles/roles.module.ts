@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RolesComponent } from './roles.component';
+
 import {OrderListModule} from 'primeng/orderlist';
 import { ButtonModule } from 'primeng/button';
 

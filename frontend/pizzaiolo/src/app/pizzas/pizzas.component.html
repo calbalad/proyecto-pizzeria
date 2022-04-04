@@ -1,1 +1,152 @@
-<p>pizzas works!</p>
+<p-toast position="center"></p-toast>
+<div class="card">
+  <p-toolbar styleClass="mb-4">
+    <ng-template pTemplate="left">
+      <button pButton pRipple label="Añadir" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+      <button pButton pRipple label="Volver" icon="pi pi-arrow-left" class="p-button-success mr-2" [routerLink]="['/manager/']"></button>
+      <!-- <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button> -->
+    </ng-template>
+
+  </p-toolbar>
+  <p-table #dt [value]="pizzas" [rows]="10" [paginator]="true" [globalFilterFields]="['name','type']" responsiveLayout="scroll"
+            [rowHover]="true" dataKey="id"
+            currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} resultados" [showCurrentPageReport]="true">
+    <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+            <h5 class="m-0">Gestión Pizzas</h5>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+          <th pSortableColumn="name">Nombre <p-sortIcon field="name"></p-sortIcon></th>
+          <th pSortableColumn="price">Precio <p-sortIcon field="price"></p-sortIcon></th>
+          <th pSortableColumn="type">Foto <p-sortIcon field="type"></p-sortIcon></th>
+          <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-pizza>
+      <tr>
+          <td>{{pizza.description}}</td>
+          <td>{{pizza.amount | currency:'EUR'}}</td>
+          <td> <img [src]="'http://localhost:8001/api/v1/pizzas/' + pizza.idPizza + '/foto'" [alt]="pizza.description" /></td>
+          <td>
+              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="openEdit(pizza)"></button>
+          </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+          Total de Pizzas: {{pizzas ? pizzas.length : 0 }}.
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+
+
+<p-dialog [(visible)]="pizzaDialog" [style]="{width: '90%'}" header="Gestión Pizzas" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+      <div class="field">
+          <label for="name">Nombre</label>
+          <input type="text" pInputText id="name" [(ngModel)]="pizza.description" required autofocus />
+          <small class="p-error" *ngIf="submitted && !pizza.description">Name is required.</small>
+      </div>
+      <!-- <div class="field">
+        <label for="base">Base</label>
+        <select [(ngModel)]="pizza.idBase" name="select">
+          <option [value]="item.idIngredient" *ngFor="let item of ingredientesBase">{{ item.name }}</option>
+        </select>
+      </div> -->
+      <div class="field">
+        <label for="name">Base Principal</label>
+        <p-dropdown [options]="ingredientesBase" [(ngModel)]="idBaseSelected" optionLabel="name"></p-dropdown>
+      </div>
+      <!-- <div class="field">
+        <label for="salsa">Salsa</label>
+        <select [(ngModel)]="pizza.idSauce" name="select">
+          <option [value]="item.idIngredient" *ngFor="let item of ingredientesSalsa">{{ item.name }}</option>
+        </select>
+      </div> -->
+      <div class="field">
+        <label for="name">Salsa Principal</label>
+        <p-dropdown [options]="ingredientesSalsa" [(ngModel)]="idSauceSelected" optionLabel="name"></p-dropdown>
+      </div>
+      <div class="card">
+        <p-table #dt [value]="ingredientesTarget" [rows]="10" [paginator]="true" [globalFilterFields]="['name','quantity']" responsiveLayout="scroll"
+                  [rowHover]="true" dataKey="id"
+                  currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} resultados" [showCurrentPageReport]="true">
+          <ng-template pTemplate="caption">
+              <div class="flex align-items-center justify-content-between">
+                  <h5 class="m-0">Añadir Ingredientes</h5>
+                  <p-button label="" icon="pi pi-plus" class="p-button-text" (click)="openAddIngrediente()"></p-button>
+              </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="name">Ingrediente <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="quantity">Cantidad <p-sortIcon field="quantity"></p-sortIcon></th>
+                <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-ingrediente>
+            <tr>
+                <td>{{ingrediente.name}}</td>
+                <!-- <td>{{ingrediente.quantity}}</td> -->
+                <td pEditableColumn>
+                  <p-cellEditor>
+                      <ng-template pTemplate="input">
+                          <input pInputText [(ngModel)]="ingrediente.quantity">
+                      </ng-template>
+                      <ng-template pTemplate="output">
+                          {{ingrediente.quantity}}
+                      </ng-template>
+                  </p-cellEditor>
+                </td>
+                <td>
+                  <button pButton pRipple icon="pi pi-trash" class="p-button-danger" (click)="deleteIngrediente(ingrediente)"></button>
+                </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                <p class="p-button-success mr-10">Total de ingredientes {{ingredientesTarget ? ingredientesTarget.length : 0 }}.</p>
+            </div>
+          </ng-template>
+        </p-table>
+      </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <!-- <p-button label="Validar" icon="pi pi-check" class="p-button-text" (click)="validarFormulario()"></p-button> -->
+    <p-button label="Guardar" icon="pi pi-check" class="p-button-text" (click)="savePizza()"></p-button>
+    <p-button label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></p-button>
+  </ng-template>
+
+
+  <p-dialog [(visible)]="ingredientesDialog" [style]="{width: '50%'}" header="Añadir ingredientes" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <!-- <div class="field">
+          <label for="salsa">Ingredientes</label>
+          <select [(ngModel)]="ingredienteAdd.idIngredient" name="select">
+            <option [value]="item.idIngredient" *ngFor="let item of ingredientes">{{ item.name }}</option>
+          </select>
+        </div> -->
+        <div class="field">
+          <label for="name">Salsa Principal</label>
+          <p-dropdown [options]="ingredientes" [(ngModel)]="ingredienteAdd" optionLabel="name"></p-dropdown>
+        </div>
+        <div class="field">
+          <label for="quantity">Cantidad</label>
+          <input type="number" pInputText id="quantity" [(ngModel)]="ingredienteAdd.quantity" required autofocus />
+          <!-- <p-inputNumber [(ngModel)]="ingredienteAdd.quantity"></p-inputNumber> -->
+          <!-- <p-inputNumber [(ngModel)]="ingredienteAdd.quantity" [showButtons]="true" inputId="stacked"></p-inputNumber> -->
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+      <p-button label="Guardar" icon="pi pi-check" class="p-button-text" (click)="saveAddIngrediente()"></p-button>
+      <p-button label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></p-button>
+    </ng-template>
+  </p-dialog>
+
+</p-dialog>
+

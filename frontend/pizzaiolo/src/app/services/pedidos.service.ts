@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { OrderEditDTO, OrderShortDTO } from '../model/pizzaiolo/models';
+import { OrderDetailsDTO, OrderStatusEditDTO } from '../model/pizzaiolo/models';
 import { Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
+import { catchError, retry } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root',
@@ -21,31 +22,48 @@ export class PedidosService {
   };
 
   // HttpClient API get() method => Fetch PedidosSolicitados list
-  getPedidosSolicitados(): Observable<OrderShortDTO> {
+  getPedidosSolicitados(): Observable<OrderDetailsDTO> {
     return this.http
-      .get<OrderShortDTO>(this.apiURL + '/api/v1/pedidos/solicitado')
+      .get<OrderDetailsDTO>(this.apiURL + '/api/v1/pedidos/solicitado')
       .pipe(retry(1), catchError(this.handleError));
   }
   // HttpClient API get() method => Fetch PedidosSolicitados list
-  getPedidosElaborandose(): Observable<OrderShortDTO> {
+  getPedidosElaborandose(): Observable<OrderDetailsDTO> {
     return this.http
-      .get<OrderShortDTO>(this.apiURL + '/api/v1/pedidos/elaborandose')
+      .get<OrderDetailsDTO>(this.apiURL + '/api/v1/pedidos/elaborandose')
       .pipe(retry(1), catchError(this.handleError));
   }
 
   // HttpClient API put() method => Update PedidosEditables
   updatePedido(
     id: number,
-    OrderEditDTO: OrderEditDTO
-  ): Observable<OrderEditDTO> {
+    OrderStatusEditDTO: OrderStatusEditDTO
+  ): Observable<OrderStatusEditDTO> {
     return this.http
-      .put<OrderEditDTO>(
-        this.apiURL + '/api/v1/pedidos' + id,
-        JSON.stringify(OrderEditDTO),
+      .put<OrderStatusEditDTO>(
+        this.apiURL + '/api/v1/pedidos/' + id,
+        JSON.stringify(OrderStatusEditDTO),
         this.httpOptions
       )
       .pipe(retry(1), catchError(this.handleError));
   }
+
+  deletePedido(id: number): Observable<any> {
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: {
+        idOrder: id
+      },
+    };
+
+    return this.http
+      .delete<any>(this.apiURL + '/api/v1/pedidos/' + id, options)
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
 
   handleError(error: any) {
     let errorMessage = '';

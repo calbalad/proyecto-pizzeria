@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { IngredientesEditables } from '../model/pizzaiolo/ingredientesEditables';
 import { IngredientesService } from '../services/ingredientes.service';
 
-interface tipoIngrediente {
-  name: string,
-  code: string
+interface ITipoIngrediente {
+  name: string
 }
 
 @Component({
@@ -22,15 +21,23 @@ export class IngredientesComponent implements OnInit {
   ingrediente: IngredientesEditables = { idIngredient: -1};
   submitted: boolean = false;
 
-  constructor(public restApi: IngredientesService) {  }
+  tiposIngredientes: ITipoIngrediente[] = [];
+  tipoIngredienteSelected: any = {};
+
+  constructor(public restApi: IngredientesService) { }
 
   ngOnInit(): void {
     this.restApi.getIngredientes().subscribe(
         ( data: {} ) => {
           this.ingredientes = data
-          console.log(this.ingredientes)
+          // console.log(this.ingredientes)
         }
-      );
+    );
+    this.tiposIngredientes = [
+        { name: 'base' },
+        { name: 'salsa' },
+        { name: 'otros' },
+      ]
   }
 
   openNew() {
@@ -47,26 +54,31 @@ export class IngredientesComponent implements OnInit {
 
   saveIngrediente(){
 
+    const ingredienteToBD = {
+      ...this.ingrediente,
+      type: this.tipoIngredienteSelected.name
+    }
+
     if( this.ingrediente.name?.trim() !== ''  ){
       if( this.ingrediente.idIngredient > 0 ){
-        this.restApi.updateIngrediente(this.ingrediente.idIngredient, this.ingrediente).subscribe(
+        this.restApi.updateIngrediente(this.ingrediente.idIngredient, ingredienteToBD).subscribe(
           (data: {}) => {
             this.restApi.getIngredientes().subscribe(
               ( data: {} ) => {
                 this.ingredientes = data
-                console.log(this.ingredientes)
+                // console.log(this.ingredientes)
               }
             );
           }
         )
       }else{
         //createIngrediente
-        this.restApi.createIngrediente(this.ingrediente).subscribe(
+        this.restApi.createIngrediente(ingredienteToBD).subscribe(
           (data: {}) => {
             this.restApi.getIngredientes().subscribe(
               ( data: {} ) => {
                 this.ingredientes = data
-                console.log(this.ingredientes)
+                // console.log(this.ingredientes)
               }
             );
           }
@@ -84,3 +96,4 @@ export class IngredientesComponent implements OnInit {
   }
 
 }
+

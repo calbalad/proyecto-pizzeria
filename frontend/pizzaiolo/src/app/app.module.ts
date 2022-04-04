@@ -50,9 +50,10 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 
 
+
 @NgModule({
 
-  declarations: [AppComponent, CartaProductComponent, LoginComponent, CarritoComponent, CartaComponent, PedidosComponent,],
+  declarations: [AppComponent, CartaProductComponent, LoginComponent, CarritoComponent, CartaComponent, PedidosComponent, ],
 
   imports: [
     BrowserModule,

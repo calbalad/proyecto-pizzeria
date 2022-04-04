@@ -1,193 +1,272 @@
-import {Component,OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TicketService } from './ticketservice';
 import { Router } from '@angular/router';
-import {  MessageService } from 'primeng/api';
-
+import { MessageService } from 'primeng/api';
+import { RestApiService } from '../services/api.service';
+import { CreateAddressParam } from '../model/authService/createAddressParam';
 
 @Component({
-    template: `
-        <div class="stepsdemo-content">
-            <p-card>
-            <div class="card">
-    <p-toolbar styleClass="mb-4">
-        <ng-template pTemplate="left">
-            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
-        </ng-template>
-    </p-toolbar>
+  template: `
+    <div class="stepsdemo-content">
+      <p-card>
+        <div class="card">
+          <p-toolbar styleClass="mb-4">
+            <ng-template pTemplate="left">
+              <button
+                pButton
+                pRipple
+                label="Nueva dirección"
+                icon="pi pi-plus"
+                class="p-button-success mr-2"
+                (click)="openNew()"
+              ></button>
+            </ng-template>
+          </p-toolbar>
 
-    <p-table #dt [value]="carts" selectionMode="single" [(selection)]="products" [rows]="10" [paginator]="false"  responsiveLayout="scroll"
-         [rowHover]="true" dataKey="id"
-        >
-        <!-- <ng-template pTemplate="header">
-            <tr>
-                <th style="width: 3rem">
-                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                </th>
-                <th pSortableColumn="name">Name </th>
-                <th>Image</th>
-                <th pSortableColumn="price">Price </th>
-                <th pSortableColumn="category">Category </th>
-                <th pSortableColumn="rating">Reviews </th>
-                <th pSortableColumn="inventoryStatus">Status </th>
-                <th></th>
-            </tr>
-        </ng-template> -->
-        <ng-template pTemplate="body" let-product>
-            <tr>
-                <td [pSelectableRow]="product">
-                    <p-tableCheckbox [value]="product"></p-tableCheckbox>
-                </td>
-                <td>{{product.description}}</td>
-                <td><img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /></td>
-                <td>{{product.amount | currency:'USD'}}</td>
-                <td></td>
-                <td></td>
-                <td></td>
+          <p-table
+            #dt
+            [value]="user.data.address"
+            selectionMode="single"
+            [(selection)]="product"
+            [rows]="10"
+            [paginator]="false"
+            responsiveLayout="scroll"
+            [rowHover]="true"
+            dataKey="id"
+          >
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th>Nombre</th>
+                <th>Calle</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-user let-columns="columns">
+              <tr [pSelectableRow]="user">
+                <td>{{ user.name }}</td>
                 <td>
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editProduct(product)"></button>
-
+                  {{ user.street }}, {{ user.number }}, {{ user.city }},
+                  {{ user.location }}, {{ user.postalCode }}
                 </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="summary">
-            <div class="flex align-items-center justify-content-between">
-                In total there are {{carts ? carts.length : 0 }} products.
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+
+        <p-dialog
+          [(visible)]="productDialog"
+          [style]="{ width: '450px' }"
+          header="Product Details"
+          [modal]="true"
+          styleClass="p-fluid"
+        >
+          <ng-template pTemplate="content">
+            <div class="field">
+              <label for="name">Name</label>
+              <input
+                type="text"
+                pInputText
+                id="name"
+                [(ngModel)]="product.name"
+                required
+                autofocus
+              />
+              <small class="p-error" *ngIf="submitted && !product.name"
+                >Name is required.</small
+              >
             </div>
+            <div class="field">
+              <label for="description">street</label>
+              <input
+                type="text"
+                pInputText
+                id="street"
+                [(ngModel)]="product.street"
+                required
+              />
+              <small class="p-error" *ngIf="submitted && !product.street"
+                >street is required.</small
+              >
+            </div>
+            <div class="field">
+              <label for="description">Location</label>
+              <input
+                type="text"
+                pInputText
+                id="location"
+                [(ngModel)]="product.location"
+                required
+              />
+              <small class="p-error" *ngIf="submitted && !product.location"
+                >location is required.</small
+              >
+            </div>
+            <div class="field">
+              <label for="description">number</label>
+              <p-inputNumber
+                type="number"
+                id="number"
+                [(ngModel)]="product.number"
+                [useGrouping]="false"
+              ></p-inputNumber>
+              <small class="p-error" *ngIf="submitted && !product.number"
+                >number is required.</small
+              >
+            </div>
+            <div class="field">
+              <label for="description">postalCode</label>
+              <p-inputNumber
+                type="number"
+                id="postalCode"
+                [(ngModel)]="product.postalCode"
+                [useGrouping]="false"
+              ></p-inputNumber>
+              <small class="p-error" *ngIf="submitted && !product.postalCode"
+                >postalCode is required.</small
+              >
+            </div>
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <button
+              pButton
+              pRipple
+              label="Cancel"
+              icon="pi pi-times"
+              class="p-button-text"
+              (click)="hideDialog()"
+            ></button>
+            <button
+              pButton
+              pRipple
+              label="Save"
+              icon="pi pi-check"
+              class="p-button-text"
+              (click)="saveProduct()"
+            ></button>
+          </ng-template>
+        </p-dialog>
+        <ng-template pTemplate="footer">
+          <div class="grid grid-nogutter justify-content-between">
+            <p-button
+              label="Back"
+              (onClick)="prevPage()"
+              icon="pi pi-angle-left"
+            ></p-button>
+            <p-button
+              label="Next"
+              (onClick)="nextPage()"
+              icon="pi pi-angle-right"
+              iconPos="right"
+              [disabled]="!product"
+            ></p-button>
+          </div>
         </ng-template>
-    </p-table>
-</div>
-
-<p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
-    <ng-template pTemplate="content">
-
-        <div class="field">
-            <label for="name">Name</label>
-        <!--     <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus />
-            <small class="p-error" *ngIf="submitted && !product.name">Name is required.</small> -->
-        </div>
-        <div class="field">
-            <label for="description">Description</label>
-            <!-- <textarea id="description" pInputTextarea [(ngModel)]="product.description" required rows="3" cols="20"></textarea> -->
-        </div>
-        <div class="field">
-            <label for="inventoryStatus">Inventory Status</label>
-           <!--  <p-dropdown [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" placeholder="Select">
-                <ng-template let-option pTemplate="item">
-                    <span [class]="'product-badge status-' + option.value">{{option.label}}</span>
-                </ng-template>
-            </p-dropdown> -->
-        </div>
-
-        <div class="field">
-            <label class="mb-3">Category</label>
-            <!-- <div class="formgrid grid">
-                <div class="field-radiobutton col-6">
-                    <p-radioButton id="category1" name="category" value="Accessories" [(ngModel)]="product.category"></p-radioButton>
-                    <label for="category1">Accessories</label>
-                </div>
-                <div class="field-radiobutton col-6">
-                    <p-radioButton id="category2" name="category" value="Clothing" [(ngModel)]="product.category"></p-radioButton>
-                    <label for="category2">Clothing</label>
-                </div>
-                <div class="field-radiobutton col-6">
-                    <p-radioButton id="category3" name="category" value="Electronics" [(ngModel)]="product.category"></p-radioButton>
-                    <label for="category3">Electronics</label>
-                </div>
-                <div class="field-radiobutton col-6">
-                    <p-radioButton id="category4" name="category" value="Fitness" [(ngModel)]="product.category"></p-radioButton>
-                    <label for="category4">Fitness</label>
-                </div>
-            </div> -->
-        </div>
-
-
-    </ng-template>
-
-    <ng-template pTemplate="footer">
-        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
-    </ng-template>
-</p-dialog>
-<ng-template pTemplate="footer">
-                    <div class="grid grid-nogutter justify-content-between">
-                        <p-button label="Back" (onClick)="prevPage()" icon="pi pi-angle-left"></p-button>
-                        <p-button label="Next" (onClick)="nextPage()" icon="pi pi-angle-right" iconPos="right"></p-button>
-                    </div>
-                </ng-template>
-            </p-card>
-        </div>
-    `,
+      </p-card>
+    </div>
+  `,
 })
 export class ConfirmationDemo implements OnInit {
-    ticketInformation: any;
-    productDialog!: boolean;
+  ticketInformation: any;
+  productDialog!: boolean;
 
-    products: any;
+  user: any;
 
-    product = {};
+  products: any;
 
-    selectedProducts: any[] = [] ;
+  product!: CreateAddressParam;
 
-    submitted: boolean | undefined;
+  selectedProducts: any[] = [];
 
-    statuses: any[] = [];
+  submitted: boolean | undefined;
 
-    carts = [{
-      "quantity": 0,
-      "amount": 0
-    }];
+  statuses: any[] = [];
 
-    total: number = 0;
+  carts = [
+    {
+      quantity: 0,
+      amount: 0,
+    },
+  ];
 
-    constructor(private messageService: MessageService, public ticketService: TicketService, private router: Router) { }
+  total: number = 0;
 
-    ngOnInit() {
-        this.ticketInformation = this.ticketService.ticketInformation;
-        this.statuses = [
-          {label: 'INSTOCK', value: 'instock'},
-          {label: 'LOWSTOCK', value: 'lowstock'},
-          {label: 'OUTOFSTOCK', value: 'outofstock'}
-      ];
-      this.carts = JSON.parse(localStorage.getItem('cart') || '[]');
-    console.log(this.carts)
-    this.total = this.carts.map(amount => amount.amount).reduce((acc, amount) => amount + acc);
+  constructor(
+    private messageService: MessageService,
+    public ticketService: TicketService,
+    private router: Router,
+    private restApi: RestApiService
+  ) { }
 
-      }
-
-    complete() {
-        this.ticketService.complete();
-    }
-
-    prevPage() {
-        this.router.navigate(['carrito/carrito']);
-    }
-
-    nextPage() {
-      //this.ticketService.ticketInformation.paymentInformation = this.paymentInformation;
-      this.router.navigate(['carrito/payment']);
+  ngOnInit() {
+    this.user = JSON.parse(localStorage.getItem('data') || '[]');
+    this.carts = JSON.parse(localStorage.getItem('cart') || '[]');
+    console.log(this.carts);
+    this.total = this.carts
+      .map((amount) => amount.amount)
+      .reduce((acc, amount) => amount + acc);
   }
 
-    openNew() {
-      this.product = {};
-      this.submitted = false;
-      this.productDialog = true;
+  complete() {
+    this.ticketService.complete();
   }
 
+  prevPage() {
+    this.router.navigate(['carrito/carrito']);
+  }
 
+  nextPage() {
+    this.ticketService.ticketInformation.personalInformation.address = this.product.street + ", " + this.product.number + ", " + this.product.location + ", " + this.product.city + ", " + this.product.postalCode;
+    this.ticketService.ticketInformation.personalInformation.idUser = this.user.data.id
+    this.router.navigate(['carrito/payment']);
+    console.log(this.product);
+  }
+
+  openNew() {
+    this.product = {
+      city: '',
+      location: '',
+      name: '',
+      number: 0,
+      street: '',
+      postalCode: 0,
+    };
+    this.submitted = false;
+    this.productDialog = true;
+  }
 
   editProduct(product: any) {
-      this.product = {...product};
-      this.productDialog = true;
+    this.product = { ...product };
+    this.productDialog = true;
   }
 
+  hideDialog() {
+    this.productDialog = false;
+    this.submitted = false;
+  }
+  saveProduct() {
+    this.submitted = true;
+    console.log(this.product);
+    this.restApi
+      .createAddress(this.product, this.user.data.id)
+      .subscribe((data: {}) => {
+        this.restApi
+        .getUserAuthenticated()
+        .subscribe((data: {}) => {
+          localStorage.setItem('data', JSON.stringify(data));
+          this.productDialog = false;
+        console.log(data);
+        this.product = {
+          city: '',
+          location: '',
+          name: '',
+          number: 0,
+          street: '',
+          postalCode: 0,
+        };
 
-hideDialog() {
-  this.productDialog = false;
-  this.submitted = false;
-}
-saveProduct() {
-  this.submitted = true;
+        this.ngOnInit();
+        console.log(this.product);
+        });
+      });
 
-}
-
+  }
 }
