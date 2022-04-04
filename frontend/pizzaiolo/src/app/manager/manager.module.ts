@@ -5,13 +5,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { IngredientesComponent } from '../ingredientes/ingredientes.component';
 import { PizzasComponent } from '../pizzas/pizzas.component';
 import { PizzasModule } from '../pizzas';
+
 import { ManagerComponent } from './manager.component';
 import { RolesComponent } from '../roles/roles.component';
-
+import { RolesModule } from '../roles';
 
 import {OrderListModule} from 'primeng/orderlist';
 import { CardModule } from 'primeng/card';
 import {SplitterModule} from 'primeng/splitter';
+
 
 
 
@@ -43,7 +45,7 @@ const routes: Routes = [
   ],
   exports: [OrderListModule],
   imports: [
-    CommonModule, IngredientesModule, PizzasModule, RouterModule.forChild(routes), OrderListModule, CardModule, SplitterModule
+    CommonModule, IngredientesModule, PizzasModule, RouterModule.forChild(routes), OrderListModule, CardModule, SplitterModule,RolesModule
   ]
 })
 export class ManagerModule { }
