@@ -1,64 +1,105 @@
 <p-card>
   <h1>Registro</h1>
-  <form>
+  <form class="form-signup" [formGroup]="signupForm" (ngSubmit)="register()">
     <div class="p-fluid grid">
-      <div class="field ">
-          <span class="p-float-label">
-              <input type="text" name="nombre" id="nombre" pInputText ="value1" required minlength="2" maxlength="50">
-              <label for="inputtext">Nombre</label>
-          </span>
+      <div class="field">
+        <span class="p-float-label">
+          <input
+            class="form-control"
+            type="text"
+            name="firstName"
+            id="firstName"
+            required
+            minlength="2"
+            maxlength="50"
+            formControlName="firstName"
+          />
+          <label for="firstName">Nombre</label>
+        </span>
       </div>
     </div>
 
     <div class="p-fluid grid">
-      <div class="field ">
-          <span class="p-float-label">
-              <input type="text" name="apellidos" id="apellidos" pInputText ="value1" required minlength="2" maxlength="50">
-              <label for="inputtext">Apellidos</label>
-          </span>
+      <div class="field">
+        <span class="p-float-label">
+          <input
+            class="form-control"
+            type="text"
+            name="lastName"
+            id="lastName"
+            required
+            minlength="2"
+            maxlength="50"
+            formControlName="lastName"
+          />
+          <label for="lastName">Apellidos</label>
+        </span>
       </div>
     </div>
 
     <div class="p-fluid grid">
-      <div class="field ">
-          <span class="p-float-label">
-              <input type="tel" name="telefono" id="telefono" pInputText ="value1" required maxlength="11">
-              <label for="inputtext">Teléfono</label>
-          </span>
+      <div class="field">
+        <span class="p-float-label">
+          <input
+            class="form-control"
+            type="tel"
+            name="phone"
+            id="phone"
+            required
+            maxlength="11"
+            formControlName="phone"
+          />
+          <label for="phone">Teléfono</label>
+        </span>
       </div>
     </div>
 
     <div class="p-fluid grid">
-      <div class="field ">
-          <span class="p-float-label">
-              <input type="email" name="email" id="email" pInputText ="value1" required maxlength="50">
-              <label for="inputtext">Correo electrónico</label>
-          </span>
+      <div class="field">
+        <span class="p-float-label">
+          <input
+            class="form-control"
+            type="email"
+            name="email"
+            id="email"
+            required
+            maxlength="50"
+            formControlName="email"
+          />
+          <label for="email">Correo electrónico</label>
+        </span>
       </div>
     </div>
-    <div class="field ">
+    <div class="field">
       <span class="p-float-label">
-          <p-password inputId="password" ></p-password>
-          <label for="password">Password</label>
+        <input
+          class="form-control"
+          type="password"
+          name="password"
+          id="password"
+          required
+          maxlength="50"
+          formControlName="password"
+        />
+        <label for="password">Password</label>
       </span>
-  </div>
+    </div>
 
-  <div class="field ">
-    <span class="p-float-label">
-        <p-password inputId="password" ></p-password>
-        <label for="password">Confirmar Password</label>
-    </span>
-  </div>
-  <button pButton type="button" label="Enviar" class="p-button"></button>
-  <button pButton type="button" label="Cancelar" class="p-button"></button>
+    <div class="field">
+      <span class="p-float-label">
+        <input
+          class="form-control"
+          type="password"
+          name="confirmPassword"
+          id="confirmPassword"
+          required
+          maxlength="50"
+          formControlName="confirmPassword"
+        />
+        <label for="confirmPassword">Confirmar Password</label>
+      </span>
+    </div>
+    <button pButton type="submit" label="Enviar" class="p-button"></button>
+    <button pButton type="button" label="Cancelar" class="p-button" routerLink="/"></button>
   </form>
-  </p-card>
-
-
-
-
-
-
-
-
-<!-- <input type="text" id="inputtext" pinputtext="" class="p-inputtext p-component p-element ng-valid ng-touched ng-dirty"> -->
+</p-card>

@@ -1,1 +1,82 @@
-<p>roles works!</p>
+<div class="card">
+  <p-toolbar styleClass="mb-4">
+    <ng-template pTemplate="left">
+      <button pButton pRipple label="Volver" icon="pi pi-arrow-left" class="p-button-success mr-2" [routerLink]="['/manager/']"></button>
+      <!-- <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button> -->
+    </ng-template>
+
+  </p-toolbar>
+  <p-table #dt [value]="usuarios" [rows]="10" [paginator]="true" [globalFilterFields]="['name','type']" responsiveLayout="scroll"
+            [rowHover]="true" dataKey="id"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+    <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+            <h5 class="m-0">Gestión de roles de Usuario</h5>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+          <th pSortableColumn="name">Nombre <p-sortIcon field="firstName"></p-sortIcon></th>
+          <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+          <th pSortableColumn="type">id <p-sortIcon field="id"></p-sortIcon></th>
+          <th pSortableColumn="type">Rol <p-sortIcon field="role"></p-sortIcon></th>
+          <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-usuario>
+      <tr>
+          <!-- <td>
+              <p-tableCheckbox [value]="ingrediente"></p-tableCheckbox>
+          </td> -->
+          <td>{{usuario.firstName}}</td>
+          <td>{{usuario.email}}</td>
+          <td>{{usuario.id}}</td>
+          <td class="field">
+            <label for="name">Rol: </label>
+            <p-dropdown [options]="tiposRol" [(ngModel)]="usuario.role.name"  ></p-dropdown>
+          </td>
+          <!-- <td>{{usuario.role.name}}</td> -->
+          <p-button pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click)="saveRol(usuario.id,usuario.role.name)"></p-button>
+          <td>
+
+          </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+          Total de Usuarios {{usuarios ? usuarios.length : 0 }}.
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+
+
+<p-dialog [(visible)]="RolDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+      <div class="field">
+          <label for="name">Nombre</label>
+          <input type="text" pInputText id="name" [(ngModel)]="usuarios.name" required autofocus />
+          <small class="p-error" *ngIf="submitted && !usuarios.name">Name is required.</small>
+      </div>
+      <div class="field">
+        <label for="price">Precio</label>
+        <input type="number" pInputText id="price" [(ngModel)]="usuarios.email" required autofocus />
+        <!-- <small class="p-error" *ngIf="submitted && !ingrediente.name">Name is required.</small>1 -->
+      </div>
+      <div class="field">
+        <label for="price">Precio</label>
+        <!-- <select [(ngModel)]="usuarios.role" name="select">
+          <option value="base" [selected]="usuarios.type === 'base'">Base</option>
+          <option value="salsa" [selected]="usuarios.type === 'salsa'">Salsa</option>
+          <option value="otros" [selected]="usuarios.type === 'otros'">Otros</option>
+        </select> -->
+      </div>
+
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <!-- <p-button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveRol()"></p-button>
+    <p-button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></p-button> -->
+  </ng-template>
+</p-dialog>
+
