@@ -5,10 +5,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { IngredientesComponent } from '../ingredientes/ingredientes.component';
 import { PizzasComponent } from '../pizzas/pizzas.component';
 import { PizzasModule } from '../pizzas';
+import { RolesModule } from '../roles';
 
 
 import {OrderListModule} from 'primeng/orderlist';
 import { ManagerComponent } from './manager.component';
+import { RolesComponent } from '../roles/roles.component';
 
 
 
@@ -25,6 +27,12 @@ const routes: Routes = [
     // { path: ':id', component: BlogViewComponent },
     // { path: ':id/:kk', component: BlogViewComponent },
   ]},
+  { path: 'roles', children: [
+    { path: '', component: RolesComponent },
+   // { path: ':id/edit', component: BlogEditComponent },
+   // { path: ':id', component: BlogViewComponent },
+   // { path: ':id/:kk', component: BlogViewComponent },
+ ]},
 ]
 
 @NgModule({
@@ -33,7 +41,7 @@ const routes: Routes = [
   ],
   exports: [OrderListModule],
   imports: [
-    CommonModule, IngredientesModule, PizzasModule, RouterModule.forChild(routes), OrderListModule,
+    CommonModule, IngredientesModule, PizzasModule, RouterModule.forChild(routes), OrderListModule, RolesModule
   ]
 })
 export class ManagerModule { }

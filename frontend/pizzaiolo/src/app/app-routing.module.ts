@@ -17,7 +17,7 @@ import { CocinaComponent, RepartoComponent } from './tienda/tienda.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: CartaComponent, data: { pageTitle: 'Pizzas' } },
-  { path: 'pizza/:id',canActivate: [SesionGuardGuard], pathMatch: 'full', component: CartaProductComponent, data: { pageTitle: 'Pizza' } },
+  { path: 'pizza/:id',canActivate: [SesionGuardGuard], pathMatch: 'full', component: CartaProductComponent, data: { pageTitle: 'Pizza' , role: 'ROLE_ADMIN ROLE_USER' } },
   { path: 'pizza',canActivate: [SesionGuardGuard], pathMatch: 'full', component: CartaComponent, data: { pageTitle: 'Pizzas' } },
   // { path: '', pathMatch: 'full', component: PizzasComponent, data: { pageTitle: 'Pizzas' } },
   // { path: 'inicio', component: PizzasComponent, data: { pageTitle: 'Pizzas' } },
@@ -27,10 +27,10 @@ const routes: Routes = [
   // { path: 'pizzas/:id', component: PizzasViewComponent, data: { pageTitle: 'Detalle Pizzas' } },
  // { path: 'carritote',canActivate: [SesionGuardGuard], component: CarritoComponent, data: { pageTitle: 'Carrito' } },
   { path: 'pedidos',canActivate: [SesionGuardGuard], component: PedidosComponent, data: { pageTitle: 'Pedidos' } },
-  { path: 'manager',canActivate: [SesionGuardGuard], loadChildren: () => import('./manager/manager.module').then(mod => mod.ManagerModule)},
-  { path: 'carrito',canActivate: [SesionGuardGuard], loadChildren: () => import('./cart/cart.module').then(mod => mod.CartModule)},
+  { path: 'manager',canActivate: [SesionGuardGuard],data: {role: 'ROLE_ADMIN'} , loadChildren: () => import('./manager/manager.module').then(mod => mod.ManagerModule)},
+  { path: 'carrito',canActivate: [SesionGuardGuard],data: {role: 'ROLE_ADMIN ROLE_USER ROLE_CHEF ROLE_DELIVERY'} , loadChildren: () => import('./cart/cart.module').then(mod => mod.CartModule)},
 
-  { path: 'user', children: [
+  { path: 'user',canActivate: [SesionGuardGuard], data: {role: 'ROLE_ADMIN ROLE_USER ROLE_CHEF ROLE_DELIVERY'}, children: [
     { path: '',canActivate: [SesionGuardGuard], component: UserEditComponent },
     { path: 'edit',canActivate: [SesionGuardGuard], component: UserEditComponent },
     { path: 'reset',canActivate: [SesionGuardGuard], component: UserResetComponent },
@@ -45,8 +45,8 @@ const routes: Routes = [
 
   { path: 'tienda', children: [
 
-    { path: 'cocina', component: CocinaComponent },
-    { path: 'reparto', component: RepartoComponent },
+    { path: 'cocina',canActivate: [SesionGuardGuard],data: {role: 'ROLE_ADMIN ROLE_CHEF'}, component: CocinaComponent },
+    { path: 'reparto',canActivate: [SesionGuardGuard],data: {role: 'ROLE_ADMIN ROLE_DELIVERY'}, component: RepartoComponent },
   ]},
 ];
 

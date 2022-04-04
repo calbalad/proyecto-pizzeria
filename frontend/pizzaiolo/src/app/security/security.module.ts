@@ -9,16 +9,20 @@ import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 
+import { RouterModule } from '@angular/router';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
     LoginComponent, RegistroComponent
   ],
   exports: [
-    LoginComponent, RegistroComponent, CardModule, PasswordModule, ButtonModule, DropdownModule, InputTextModule
+    LoginComponent, RegistroComponent, CardModule, PasswordModule, ButtonModule, DropdownModule, InputTextModule,FormsModule,RouterModule
   ],
   imports: [
-    CommonModule, CardModule, PasswordModule,ButtonModule, DropdownModule, InputTextModule,
+    ReactiveFormsModule,CommonModule, CardModule, PasswordModule,ButtonModule, DropdownModule, InputTextModule,FormsModule,RouterModule
   ]
 })
 export class SecurityModule { }
