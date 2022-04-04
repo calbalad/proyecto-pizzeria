@@ -30,7 +30,7 @@ export class IngredientesComponent implements OnInit {
     this.restApi.getIngredientes().subscribe(
         ( data: {} ) => {
           this.ingredientes = data
-          console.log(this.ingredientes)
+          // console.log(this.ingredientes)
         }
     );
     this.tiposIngredientes = [
@@ -66,7 +66,7 @@ export class IngredientesComponent implements OnInit {
             this.restApi.getIngredientes().subscribe(
               ( data: {} ) => {
                 this.ingredientes = data
-                console.log(this.ingredientes)
+                // console.log(this.ingredientes)
               }
             );
           }
@@ -78,7 +78,7 @@ export class IngredientesComponent implements OnInit {
             this.restApi.getIngredientes().subscribe(
               ( data: {} ) => {
                 this.ingredientes = data
-                console.log(this.ingredientes)
+                // console.log(this.ingredientes)
               }
             );
           }

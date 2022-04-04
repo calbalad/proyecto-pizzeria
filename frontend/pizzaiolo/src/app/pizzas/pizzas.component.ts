@@ -90,7 +90,7 @@ export class PizzasComponent implements OnInit {
           const ingredientePush = this.ingredientes.find((x: any) => x.idIngredient === item.idIngredient )
           return {idIngredient: item.idIngredient, name: ingredientePush.name, quantity: item.quantity};
         })
-        console.log(this.ingredientesTarget, 'En openEdit');
+        //console.log(this.ingredientesTarget, 'En openEdit');
       }
     );
     this.pizzaDialog = true;
@@ -102,6 +102,7 @@ export class PizzasComponent implements OnInit {
     if(!this.validarFormulario())  { return }
 
     this.pizza.ingredientPizza = this.ingredientesTarget;
+
     const pizzaToBD = {
       ...this.pizza,
       idSauce: this.idSauceSelected.idIngredient,
@@ -118,7 +119,7 @@ export class PizzasComponent implements OnInit {
         ( data: {} ) => {
           this.cargarPizzas();
           this.pizzaDialog = false;
-          console.log('hemos grabado');
+          //console.log('hemos grabado');
         }
       )
     }else{
@@ -128,7 +129,7 @@ export class PizzasComponent implements OnInit {
         ( data: {} ) => {
           this.cargarPizzas();
           this.pizzaDialog = false;
-          console.log('hemos grabado');
+         // console.log('hemos grabado');
         }
       )
     }
@@ -140,41 +141,12 @@ export class PizzasComponent implements OnInit {
     this.restApi.getPizzas().subscribe(
       ( data: {} ) => {
         this.pizzas = data
-        console.log(this.pizzas)
+        //console.log(this.pizzas)
       }
     );
   }
 
-  hideDialog() {
-    this.pizzaDialog = false;
-    this.submitted = false;
-  }
 
-  validarFormulario() {
-    console.log('estoy validando')
-    console.log(this.pizza)
-    let errors: IMensajesError[] = [];
-
-    if(this.pizza.description?.trim() === ''){
-      errors.push({
-        severity:'error', summary:'Descripción Incorrecta', detail:'La pizza tiene que tener una descripción'
-      })
-    }
-
-    if(this.pizzas.find((x: any) => x.description === this.pizza.description)){
-      errors.push({
-        severity:'error', summary:'Nombre repetido', detail:'El nombre de una pizza no se puede repetir'
-      })
-    }
-
-    if(errors.length > 0){
-      this.messageService.addAll(errors);
-      return false
-    }
-
-    return true;
-
-  }
 
   /* eventos Dialogo Añadir ingredientes */
   openAddIngrediente() {
@@ -206,7 +178,38 @@ export class PizzasComponent implements OnInit {
     this.ingredientesTarget = this.ingredientesTarget.filter((item: any) => item.idIngredient !== parseInt(ingrediente.idIngredient) )
   }
 
+ /* general */
 
+  hideDialog() {
+    this.pizzaDialog = false;
+    this.submitted = false;
+  }
+
+  validarFormulario() {
+    console.log('estoy validando')
+    console.log(this.pizza)
+    let errors: IMensajesError[] = [];
+
+    if(this.pizza.description?.trim() === ''){
+      errors.push({
+        severity:'error', summary:'Descripción Incorrecta', detail:'La pizza tiene que tener una descripción'
+      })
+    }
+
+    if(this.pizzas.find((x: any) => x.description === this.pizza.description)){
+      errors.push({
+        severity:'error', summary:'Nombre repetido', detail:'El nombre de una pizza no se puede repetir'
+      })
+    }
+
+    if(errors.length > 0){
+      this.messageService.addAll(errors);
+      return false
+    }
+
+    return true;
+
+  }
 
 }
 
