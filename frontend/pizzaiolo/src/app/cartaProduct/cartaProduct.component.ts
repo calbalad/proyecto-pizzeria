@@ -14,11 +14,13 @@ export class CartaProductComponent implements OnInit {
   cart: any[] = [];
   countSub: any;
   cartCount: any;
+
   constructor(
     private route: ActivatedRoute,
     public restApi: RestApiService,
     private cartService: CartService
   ) {}
+
 
   ngOnInit() {
     this.restApi
