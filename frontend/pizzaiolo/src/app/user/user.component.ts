@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../model/authService/user';
+import { UserResponse } from '../model/authService/userResponse';
 import {UserModule} from '../user';
 
 @Component({
@@ -7,9 +9,20 @@ import {UserModule} from '../user';
   styleUrls: ['./user.component.scss']
 })
 export class UserEditComponent implements OnInit {
-  constructor() { }
+  test: string = "";
+  user: User;
+
+  constructor() {
+    this.user = JSON.parse(localStorage.getItem('data') || '{}').data;
+
+  }
 
   ngOnInit(): void {
+
+  }
+
+  saveUser() {
+    console.log(this.test)
   }
 
 }

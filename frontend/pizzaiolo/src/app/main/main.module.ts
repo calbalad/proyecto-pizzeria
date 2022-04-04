@@ -9,6 +9,7 @@ import { MenuModule } from 'primeng/menu';
 import {MenubarModule} from 'primeng/menubar';
 import { RouterModule } from '@angular/router';
 import {BadgeModule} from 'primeng/badge';
+import { AuthImagePipe } from '../pipes/auth-image.pipe';
 
 
 
@@ -19,6 +20,8 @@ import {BadgeModule} from 'primeng/badge';
     HeaderComponent,
     FooterComponent,
     PageNotFoundComponent,
+    AuthImagePipe
+
   ],
   exports: [
     NotificationComponent,

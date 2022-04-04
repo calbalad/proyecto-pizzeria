@@ -2,6 +2,9 @@ import { Component, Injectable } from '@angular/core';
 import {MenuItem} from 'primeng/api';
 import { CartService } from 'src/app/services/cart.service';
 import { LoginService } from 'src/app/services/log.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { DomSanitizer } from '@angular/platform-browser';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -14,11 +17,13 @@ export class HeaderComponent  {
   countSub: any;
   cartCount: any = 0;
   carts: any;
-  constructor(private cartService: CartService, private auth: LoginService) {
+  blob: any = null;
+  constructor(private cartService: CartService, private auth: LoginService, private http: HttpClient, private sanitizer: DomSanitizer) {
 
   }
 
     ngOnInit() {
+      this.getBinary();
       this.items = [
           {
             label:'Admin',
@@ -87,6 +92,15 @@ ngAfterContentInit(){
     }
   );
   console.log(this.cartCount)
+}
+
+getBinary() {
+  this.http.get('http://localhost:8080/api/v1/users/profile', { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('access_token') }, responseType: 'blob'}).subscribe({
+    next: (data: any) => {
+      console.log(data)
+      this.blob = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(data));
+    }
+  })
 }
 
 }

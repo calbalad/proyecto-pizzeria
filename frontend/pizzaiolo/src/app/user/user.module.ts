@@ -8,6 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CardModule } from 'primeng/card';
 import { PasswordModule } from 'primeng/password';
 import { AppRoutingModule } from '../app-routing.module';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -17,7 +18,7 @@ import { AppRoutingModule } from '../app-routing.module';
   ],
   imports: [
     CommonModule, InputTextModule, DropdownModule, ButtonModule, PasswordModule,
-    CardModule,ButtonModule, AppRoutingModule
+    CardModule,ButtonModule, AppRoutingModule, FormsModule
   ]
 })
 export class UserModule { }

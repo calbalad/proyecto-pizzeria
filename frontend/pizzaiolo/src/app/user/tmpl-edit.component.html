@@ -1,33 +1,33 @@
 <p-card>
   <h1>Perfil</h1>
-  <form>
+  <form *ngIf="!user">
     <div class="p-fluid grid">
       <div class="field col-12 md:col-4">
             <label for="inputtext">Nombre</label>
-              <input type="text" name="nombre" id="nombre" pInputText ="value1" required minlength="2" maxlength="50">
+              <input type="text" name="nombre" id="nombre" pInputText="test" [(ngModel)]="user.firstName"  required >
       </div>
     </div>
     <div class="p-fluid grid">
       <div class="field col-12 md:col-4">
             <label for="inputtext">Apellidos</label>
-              <input type="text" name="nombre" id="nombre" pInputText ="value1" required minlength="2" maxlength="50">
+              <input type="text" name="nombre" id="nombre" pInputText   required minlength="2" maxlength="50">
       </div>
     </div>
     <div class="p-fluid grid">
       <div class="field col-12 md:col-4">
             <label for="inputtext">Teléfono</label>
-              <input type="text" name="nombre" id="nombre" pInputText ="value1" required minlength="2" maxlength="50">
+              <input type="text" name="nombre" id="nombre" pInputText required minlength="2" maxlength="50">
       </div>
     </div>
-    <div class="p-fluid grid">
+<!--     <div class="p-fluid grid">
       <div class="field col-12 md:col-4">
         <label for="avatar">Avatar</label>
-        <input type="url" name="avatar" id="avatar" pInputText ="value1" required minlength="2">
+        <input type="url" name="avatar" id="avatar" pInputText [value]="user.firstName" required minlength="2">
       </div>
-    </div>
+    </div> -->
 
 
-  <button pButton type="button" label="Guardar cambios" class="p-button"></button>
+  <button pButton type="button" label="Guardar cambios" class="p-button" (click)="saveUser()"></button>
   <button pButton type="button" [routerLink]="['reset']" label="Cambiar contraseña" class="p-button"></button>
 </form>
 </p-card>

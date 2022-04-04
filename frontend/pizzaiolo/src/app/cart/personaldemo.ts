@@ -65,7 +65,7 @@ export class PersonalDemo implements OnInit {
   ngOnInit(): void {
     this.carts = JSON.parse(localStorage.getItem('cart') || '[]');
     console.log(this.carts)
-    this.total = this.carts.map(amount => amount.amount).reduce((acc, amount) => amount + acc);
+    this.total = this.carts.map(amount => amount.amount).reduce((acc, amount) => (amount + acc));
   }
 
   remove(product: any){

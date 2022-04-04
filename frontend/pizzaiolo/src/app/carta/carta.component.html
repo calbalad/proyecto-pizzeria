@@ -22,7 +22,7 @@
               }}</span>
           </div>
           <div class="product-list-action">
-            <span class="product-price">${{ product.amount }}</span>
+            <span class="product-price">{{ product.amount | currency:'EUR' }}</span>
             <p-button icon="pi pi-shopping-cart" [routerLink]="['/pizza/', product.idPizza]" label="Añadir"></p-button>
           </div>
         </div>
@@ -41,7 +41,7 @@
 
           </div>
           <div class="product-grid-item-bottom">
-            <span class="product-price">${{ product.amount }}</span>
+            <span class="product-price">{{ product.amount | currency:'EUR' }}</span>
 
             <p-button icon="pi pi-shopping-cart" [routerLink]="['/pizza/', product.idPizza]" label="Añadir"></p-button>
           </div>

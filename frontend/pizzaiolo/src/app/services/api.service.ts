@@ -38,6 +38,18 @@ export class RestApiService {
       this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
   }
+  getUserProfilePhoto(): Observable<any> {
+    var auth_token = localStorage.getItem('access_token') || '';
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  '*/*',
+        'Authorization': `Bearer ${auth_token}`
+    })};
+    return this.http
+      .get<UserResponse>(this.apiURL + '/api/v1/users/me',
+      this.httpOptions)
+      .pipe(retry(1), catchError(this.handleError));
+  }
   // HttpClient API get() method => Fetch PizzasCortas
   getPizzasDetalladas(id: any): Observable<any> {
     return this.http
