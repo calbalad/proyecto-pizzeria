@@ -1,109 +1,121 @@
-<div class="card">
-  <p-table #dt [value]="pedidos" responsiveLayout="scroll" [rowHover]="true">
-    <ng-template pTemplate="caption">
-      <div class="flex align-items-center justify-content-between">
-        <h5 class="m-0">Gestión de pedidos en cocina</h5>
-      </div>
-    </ng-template>
-    <ng-template pTemplate="header">
+<p-messages [value]="msgs"></p-messages>
+<br/>
+
+<p-card header="Listado de pedidos solicitados" class="p-component text-center">
+  <p-table *ngIf="pedidosSolicitados.length != 0" [value]="pedidosSolicitados" dataKey="idOrder" responsiveLayout="scroll">
+  <ng-template pTemplate="header">
       <tr>
-        <th>ID</th>
-        <th>Producto</th>
-        <th>Estado</th>
-        <th>Comentario</th>
-        <th></th>
-        <th></th>
+          <th style="width: 3rem"></th>
+          <th>ID</th>
+          <th>Estado</th>
+         <th>Comentario</th>
+          <th></th>
+          <th></th>
       </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-pedido>
+  </ng-template>
+  <ng-template pTemplate="body" let-pedidoSolicitado let-expanded="expanded">
       <tr>
-        <td>{{ pedido.idOrder }}</td>
-        <td>Aquí van las pizzas</td>
-        <td>{{ pedido.orderStatus }}</td>
-        <td>{{ pedido.comment }}</td>
-        <td>
-          <button
-            pButton
-            pRipple
-            icon="pi pi-check"
-            class="p-button-rounded p-button-success mr-2"
-            (click)="openEdit(pedido)"
-          ></button>
-        </td>
-        <td>
-          <button
-            pButton
-            pRipple
-            icon="pi pi-times"
-            class="p-button-rounded p-button-success mr-2"
-            (click)="openEdit(pedido)"
-          ></button>
-        </td>
+          <td>
+              <button type="button" pButton pRipple [pRowToggler]="pedidoSolicitado" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+          </td>
+          <td>{{pedidoSolicitado.idOrder}}</td>
+          <td>{{pedidoSolicitado.orderStatus}}</td>
+          <td>{{pedidoSolicitado.comment}}</td>
+          <td><button pButton class="p-button-rounded" (click)="openEditSolicitado(pedidoSolicitado, 'confirm')" icon="pi pi-check"></button>
+          </td>
+          <td><button pButton class="p-button-rounded" (click)="openEditSolicitado(pedidoSolicitado, 'decline')" icon="pi pi-times"></button></td>
       </tr>
-    </ng-template>
-  </p-table>
-</div>
-
-<p-dialog
-  [(visible)]="pedidoDialog"
-  [style]="{ width: '450px' }"
-  header="Confirmar operación"
-  [modal]="true"
-  styleClass="p-fluid"
->
-  <ng-template pTemplate="content">
-    <div class="field text-center">¿Quieres aceptar este pedido?</div>
   </ng-template>
-  <ng-template pTemplate="footer">
-    <p-button
-      pButton
-      pRipple
-      label="Sí"
-      icon="pi pi-check"
-      class="p-button-text"
-      (click)="changeStatus()"
-    ></p-button>
-    <p-button
-      pButton
-      pRipple
-      label="No"
-      icon="pi pi-times"
-      class="p-button-text"
-      (click)="hideDialog()"
-    ></p-button>
+  <ng-template pTemplate="rowexpansion" let-pedidoSolicitado>
+      <tr>
+          <td colspan="7">
+              <div class="p-3">
+                  <p-table [value]="pedidoSolicitado.pizzas" dataKey="idPizza">
+                      <ng-template pTemplate="header">
+                          <tr>
+                              <th pSortableColumn="idPizza">ID<p-sortIcon field="idPizza"></p-sortIcon></th>
+                              <th pSortableColumn="nombre">Pizza<p-sortIcon field="nombre"></p-sortIcon></th>
+                              <th pSortableColumn="quantity">Cantidad<p-sortIcon field="quantity"></p-sortIcon></th>
+                          </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-pizzas>
+                          <tr>
+                              <td>{{pizzas.idPizza}}</td>
+                              <td>{{pizzas.nombre}}</td>
+                              <td>{{pizzas.quantity}}</td>
+                          </tr>
+                      </ng-template>
+                      <ng-template pTemplate="emptymessage">
+                          <tr>
+                              <td colspan="6">No hay pizzas para este pedido</td>
+                          </tr>
+                      </ng-template>
+                  </p-table>
+              </div>
+          </td>
+      </tr>
   </ng-template>
-</p-dialog>
+</p-table>
+<h2 *ngIf="pedidosSolicitados.length === 0" class="p-component">En estos momentos no hay ningún pedido</h2>
+</p-card>
 
-<!-- <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog> -->
 
-<!-- <p-dialog [(visible)]="ingredienteDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
-  <ng-template pTemplate="content">
-    <div class="field">
-      <label for="name">Name</label>
-      <input type="text" pInputText id="name" [(ngModel)]="ingrediente.name" required autofocus />
-      <small class="p-error" *ngIf="submitted && !ingrediente.name">Name is required.</small>
-    </div>
+
+<br/>
+<p-card header="Listado de pedidos elaborándose" class="p-component text-center">
+<p-table *ngIf="pedidosElaborandose.length != 0" [value]="pedidosElaborandose" dataKey="idOrder" responsiveLayout="scroll">
+  <ng-template pTemplate="header">
+      <tr>
+          <th style="width: 3rem"></th>
+          <th>ID</th>
+          <th>Estado</th>
+         <th>Comentario</th>
+          <th></th>
+          <th></th>
+      </tr>
   </ng-template>
-</p-dialog> -->
-
-<!-- <div class="col-5 flex align-items-center justify-content-center">
-  <p-button label="Añadir" [routerLink]="['add']" icon="pi pi-plus" styleClass="p-button"></p-button>
-  <p-button label="Editar" icon="pi pi-user-edit" styleClass="p-button"></p-button>
-  <p-button label="Volver" [routerLink]="['/manager/']" icon="pi pi-arrow-left" styleClass="p-button"></p-button>
-</div>
-
-
-<p-orderList [value]="ingredientes" [listStyle]="{'max-height':'30rem'}">
-  <ng-template let-ingrediente pTemplate="item">
-      <div class="product-item">
-          <div class="product-list-detail">
-              <h5 class="mb-2">{{ ingrediente.name }}</h5>
-              <i class="pi pi-tag product-category-icon"></i>
-              <span class="product-category">{{ ingrediente.type }}</span>
-          </div>
-          <div class="product-list-action">
-              <h6 class="mb-2">€{{ingrediente.price}}</h6>
-          </div>
-      </div>
+  <ng-template pTemplate="body" let-pedidoElaborandose let-expanded="expanded">
+      <tr>
+          <td>
+              <button type="button" pButton pRipple [pRowToggler]="pedidoElaborandose" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+          </td>
+          <td>{{pedidoElaborandose.idOrder}}</td>
+          <td>{{pedidoElaborandose.orderStatus}}</td>
+          <td>{{pedidoElaborandose.comment}}</td>
+          <td><button pButton class="p-button-rounded" (click)="openEditElaborandose(pedidoElaborandose)"><i class = "pi pi-shopping-bag"></i><i class = "pi pi-arrow-right"></i></button>
+          </td>
+      </tr>
   </ng-template>
-</p-orderList> -->
+  <ng-template pTemplate="rowexpansion" let-pedidoElaborandose>
+      <tr>
+          <td colspan="7">
+              <div class="p-3">
+                  <p-table [value]="pedidoElaborandose.pizzas" dataKey="idPizza">
+                      <ng-template pTemplate="header">
+                          <tr>
+                              <th pSortableColumn="idPizza">ID<p-sortIcon field="idPizza"></p-sortIcon></th>
+                              <th pSortableColumn="nombre">Pizza<p-sortIcon field="nombre"></p-sortIcon></th>
+                              <th pSortableColumn="quantity">Cantidad<p-sortIcon field="quantity"></p-sortIcon></th>
+                          </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-pizzas>
+                          <tr>
+                              <td>{{pizzas.idPizza}}</td>
+                              <td>{{pizzas.nombre}}</td>
+                              <td>{{pizzas.quantity}}</td>
+                          </tr>
+                      </ng-template>
+                      <ng-template pTemplate="emptymessage">
+                          <tr>
+                              <td colspan="6">No hay pizzas para este pedido</td>
+                          </tr>
+                      </ng-template>
+                  </p-table>
+              </div>
+          </td>
+      </tr>
+  </ng-template>
+</p-table>
+<h2 *ngIf="pedidosElaborandose.length === 0" class="p-component">En estos momentos no hay ningún pedido</h2>
+</p-card>
+<p-confirmDialog showEffect="fade" [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>

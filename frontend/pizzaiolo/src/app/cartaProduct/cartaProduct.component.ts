@@ -14,9 +14,12 @@ export class CartaProductComponent implements OnInit {
   cart: any[] = [];
   countSub: any;
   cartCount: any;
-  constructor(private route: ActivatedRoute, public restApi: RestApiService, private cartService: CartService) {
-  }
 
+  constructor(
+    private route: ActivatedRoute,
+    public restApi: RestApiService,
+    private cartService: CartService
+  ) {}
 
 
   ngOnInit() {
@@ -30,15 +33,30 @@ export class CartaProductComponent implements OnInit {
     console.log(this.cart);
   }
 
-  addKeyValue(obj: any, key: string, data: number){
+  addKeyValue(obj: any, key: string, data: number) {
     obj[key] = data;
   }
 
   addToCart() {
-    this.cart.push({ description: this.product.description, amount: this.product.amount, idOrder: 0, idPizza: this.product.idPizza, quantity: this.product.quantity });
-    console.log(this.cart)
+    var hasMatch = false;
+    for (var i = 0; i < this.cart.length; ++i) {
+      var product = this.cart[i];
+      if (product.idPizza == this.product.idPizza) {
+        hasMatch = true;
+        this.cart[i].quantity += this.product.quantity
+        break;
+      }
+    }
+    if (!hasMatch) {
+      this.cart.push({
+        description: this.product.description,
+        amount: this.product.amount,
+        idOrder: 0,
+        idPizza: this.product.idPizza,
+        quantity: this.product.quantity,
+      });
+    }
     localStorage.setItem('cart', JSON.stringify(this.cart));
     this.cartService.addCount();
   }
 }
-

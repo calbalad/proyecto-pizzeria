@@ -20,6 +20,9 @@ import {TableModule} from 'primeng/table';
 import {DialogModule} from 'primeng/dialog';
 import {ToolbarModule} from 'primeng/toolbar';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {InputNumberModule} from 'primeng/inputnumber';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+
 
 
 @NgModule({
@@ -40,6 +43,8 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     DialogModule,
     ToolbarModule,
     ConfirmDialogModule,
+    InputNumberModule,
+    InputTextareaModule
 	],
 	declarations: [
 		StepsDemo,

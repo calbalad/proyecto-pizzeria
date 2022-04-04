@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { OrderDetailsDTO, OrderStatusEditDTO } from '../model/pizzaiolo/models';
 import { Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
+import { catchError, retry } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root',
@@ -46,6 +47,23 @@ export class PedidosService {
       )
       .pipe(retry(1), catchError(this.handleError));
   }
+
+  deletePedido(id: number): Observable<any> {
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: {
+        idOrder: id
+      },
+    };
+
+    return this.http
+      .delete<any>(this.apiURL + '/api/v1/pedidos/' + id, options)
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
 
   handleError(error: any) {
     let errorMessage = '';

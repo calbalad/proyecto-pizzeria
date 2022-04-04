@@ -6,21 +6,17 @@ export class TicketService {
 
     ticketInformation = {
         personalInformation: {
-            firstname: '',
-            lastname: '',
-            age: null
+          address: "",
+          amount: 0,
+          comment: "",
+          idOrder: 0,
+          idUser: "",
+          orderDate: "",
+          pizzas: [{}]
         },
         seatInformation: {
-            class: null,
-            wagon: null,
-            seat: null
         },
         paymentInformation: {
-            cardholderName:'',
-            cardholderNumber:'',
-            date:'',
-            cvv:'',
-            remember:false
         }
     };
 
@@ -32,7 +28,7 @@ export class TicketService {
         return this.ticketInformation;
     }
 
-    setTicketInformation(ticketInformation: { personalInformation: { firstname: string; lastname: string; age: null; }; seatInformation: { class: null; wagon: null; seat: null; }; paymentInformation: { cardholderName: string; cardholderNumber: string; date: string; cvv: string; remember: boolean; }; }) {
+    setTicketInformation(ticketInformation: any) {
         this.ticketInformation = ticketInformation;
     }
 

@@ -11,9 +11,9 @@
           [alt]="product.description"
         />
       </div>
-        <div class="text-right">
+        <div class="text-right" *ngIf="product.likes != 0">
           <span><i class="pi pi-heart"></i></span>
-          <span *ngIf="!product.likes === false"> {{ product.likes }}</span>
+          <span> {{ product.likes }}</span>
         </div>
       </p-card>
     </div>
@@ -74,5 +74,8 @@
       ></p-button>
     </div>
 
+  </div>
+  <div>
+    <h3>comentarios</h3>
   </div>
 </p-card>
