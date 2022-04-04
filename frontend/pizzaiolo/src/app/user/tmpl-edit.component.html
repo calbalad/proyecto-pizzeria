@@ -1,22 +1,23 @@
 <p-card>
   <h1>Perfil</h1>
-  <form *ngIf="!user">
+  <form #myForm="ngForm">
     <div class="p-fluid grid">
+      <p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*"></p-fileUpload>
       <div class="field col-12 md:col-4">
             <label for="inputtext">Nombre</label>
-              <input type="text" name="nombre" id="nombre" pInputText="test" [(ngModel)]="user.firstName"  required >
+              <input type="text" name="nombre" id="nombre" [(ngModel)]="user.firstName" pInputText required >
       </div>
     </div>
     <div class="p-fluid grid">
       <div class="field col-12 md:col-4">
             <label for="inputtext">Apellidos</label>
-              <input type="text" name="nombre" id="nombre" pInputText   required minlength="2" maxlength="50">
+              <input type="text" name="apellido" id="apellido" pInputText [(ngModel)]="user.lastName"  required minlength="2" maxlength="50">
       </div>
     </div>
     <div class="p-fluid grid">
       <div class="field col-12 md:col-4">
-            <label for="inputtext">Teléfono</label>
-              <input type="text" name="nombre" id="nombre" pInputText required minlength="2" maxlength="50">
+            <label for="inputtext" >Teléfono</label>
+              <input type="text" [(ngModel)]="user.phone" name="telefono" id="telefono" pInputText required minlength="2" maxlength="50">
       </div>
     </div>
 <!--     <div class="p-fluid grid">

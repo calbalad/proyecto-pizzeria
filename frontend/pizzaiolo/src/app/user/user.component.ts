@@ -10,10 +10,12 @@ import {UserModule} from '../user';
 })
 export class UserEditComponent implements OnInit {
   test: string = "";
-  user: User;
+  user: any = [];
 
   constructor() {
-    this.user = JSON.parse(localStorage.getItem('data') || '{}').data;
+    this.user = JSON.parse(localStorage.getItem('data') || '{}');
+    this.user = this.user.data
+    console.log(this.user)
 
   }
 
