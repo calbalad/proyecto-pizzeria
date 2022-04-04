@@ -13,13 +13,14 @@ import { NavigationExtras } from '@angular/router';
   providedIn: 'root',
 })
 export class LoginService {
-
+    rol : any = '';
    routes: Routes  = [
     { path: 'first-component', component: CartaComponent },{component: HeaderComponent}
   ];
   // Define API
   apiURL = 'http://localhost:8080';
-  constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) {}
+  constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router, ) {
+  }
   /*========================================
     CRUD Methods for consuming RESTful API
   =========================================*/
@@ -56,6 +57,12 @@ export class LoginService {
 
     getToken() {
       return localStorage.getItem('access_token');
+    }
+
+    getRole() {
+      this.rol = JSON.parse(localStorage.getItem('data') || '[]');
+      //console.log(this.rol.data.role.name)
+      return this.rol.data.role.name;
     }
 
     isLoggedIn(): boolean {

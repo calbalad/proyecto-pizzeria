@@ -17,18 +17,30 @@ export class HeaderComponent  {
   countSub: any;
   cartCount: any = 0;
   carts: any;
+
   blob: any = null;
+  rol : any = '';
   constructor(private cartService: CartService, private auth: LoginService, private http: HttpClient, private sanitizer: DomSanitizer) {
 
-  }
 
+
+
+
+  }
+  getRole() {
+    this.rol = JSON.parse(localStorage.getItem('data') || '[]');
+    console.log(this.rol.data.role.name)
+    return this.rol.data.role.name;
+  }
     ngOnInit() {
       this.getBinary();
       this.items = [
           {
             label:'Admin',
             icon:'pi pi-fw pi-lock',
-            visible: this.auth.isLoggedIn(),
+            visible: this.auth.isLoggedIn() && (this.getRole()=='ROLE_ADMIN'),
+            routerLinkActiveOptions : "active",
+            routerLink:"/manager"
           },
           {
             label:'Login',
@@ -64,13 +76,13 @@ export class HeaderComponent  {
             icon:'pi pi-fw pi-inbox',
             routerLinkActiveOptions: 'active',
             routerLink : "/tienda/cocina",
-            visible: this.auth.isLoggedIn(),
+            visible: this.auth.isLoggedIn() && ((this.getRole()=='ROLE_ADMIN')||(this.getRole()=='ROLE_CHEF')),
           },{
             label:'Reparto',
             icon:'pi pi-fw pi-globe',
             routerLinkActiveOptions: 'active',
             routerLink : "/tienda/reparto",
-            visible: this.auth.isLoggedIn(),
+            visible: this.auth.isLoggedIn() && ((this.getRole()=='ROLE_ADMIN')||(this.getRole()=='ROLE_DELIVERY')),
           },
           {
             label:'Desconectar',
