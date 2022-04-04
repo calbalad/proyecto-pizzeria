@@ -17,7 +17,7 @@ export class CartaProductComponent implements OnInit {
   constructor(private route: ActivatedRoute, public restApi: RestApiService, private cartService: CartService) {
   }
 
- 
+
 
   ngOnInit() {
     this.restApi

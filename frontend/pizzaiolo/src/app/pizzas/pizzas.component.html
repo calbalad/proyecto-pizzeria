@@ -10,7 +10,7 @@
   </p-toolbar>
   <p-table #dt [value]="pizzas" [rows]="10" [paginator]="true" [globalFilterFields]="['name','type']" responsiveLayout="scroll"
             [rowHover]="true" dataKey="id"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+            currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} resultados" [showCurrentPageReport]="true">
     <ng-template pTemplate="caption">
         <div class="flex align-items-center justify-content-between">
             <h5 class="m-0">Gestión Pizzas</h5>
@@ -36,14 +36,14 @@
     </ng-template>
     <ng-template pTemplate="summary">
       <div class="flex align-items-center justify-content-between">
-          Total de ingredientes {{pizzas ? pizzas.length : 0 }}.
+          Total de Pizzas: {{pizzas ? pizzas.length : 0 }}.
       </div>
     </ng-template>
   </p-table>
 </div>
 
 
-<p-dialog [(visible)]="pizzaDialog" [style]="{width: '90%'}" header="Product Details" [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="pizzaDialog" [style]="{width: '90%'}" header="Gestión Pizzas" [modal]="true" styleClass="p-fluid">
   <ng-template pTemplate="content">
       <div class="field">
           <label for="name">Nombre</label>
@@ -73,7 +73,7 @@
       <div class="card">
         <p-table #dt [value]="ingredientesTarget" [rows]="10" [paginator]="true" [globalFilterFields]="['name','quantity']" responsiveLayout="scroll"
                   [rowHover]="true" dataKey="id"
-                  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+                  currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} resultados" [showCurrentPageReport]="true">
           <ng-template pTemplate="caption">
               <div class="flex align-items-center justify-content-between">
                   <h5 class="m-0">Añadir Ingredientes</h5>
@@ -116,13 +116,13 @@
   </ng-template>
 
   <ng-template pTemplate="footer">
-    <p-button label="Validar" icon="pi pi-check" class="p-button-text" (click)="validarFormulario()"></p-button>
-    <p-button label="Save" icon="pi pi-check" class="p-button-text" (click)="savePizza()"></p-button>
-    <p-button label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></p-button>
+    <!-- <p-button label="Validar" icon="pi pi-check" class="p-button-text" (click)="validarFormulario()"></p-button> -->
+    <p-button label="Guardar" icon="pi pi-check" class="p-button-text" (click)="savePizza()"></p-button>
+    <p-button label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></p-button>
   </ng-template>
 
 
-  <p-dialog [(visible)]="ingredientesDialog" [style]="{width: '90%'}" header="Product Details" [modal]="true" styleClass="p-fluid">
+  <p-dialog [(visible)]="ingredientesDialog" [style]="{width: '50%'}" header="Añadir ingredientes" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
         <!-- <div class="field">
           <label for="salsa">Ingredientes</label>
@@ -143,8 +143,8 @@
     </ng-template>
 
     <ng-template pTemplate="footer">
-      <p-button label="Save" icon="pi pi-check" class="p-button-text" (click)="saveAddIngrediente()"></p-button>
-      <p-button label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></p-button>
+      <p-button label="Guardar" icon="pi pi-check" class="p-button-text" (click)="saveAddIngrediente()"></p-button>
+      <p-button label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></p-button>
     </ng-template>
   </p-dialog>
 
