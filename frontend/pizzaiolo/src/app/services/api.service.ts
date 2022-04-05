@@ -110,7 +110,7 @@ export class RestApiService {
     })};
     return this.http
       .post<CreateAddressParam>(
-        'http://localhost:8001' + '/api/v1/address/' + id,
+        'http://localhost:8080' + '/api/v1/address/' + id,
         JSON.stringify(CreateAddressParam),
         this.httpOptions
       )
@@ -204,7 +204,7 @@ export class RestApiService {
       // Get server-side error
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    window.alert(errorMessage);
+    /* window.alert(errorMessage); */
     return throwError(() => {
       return errorMessage;
     });

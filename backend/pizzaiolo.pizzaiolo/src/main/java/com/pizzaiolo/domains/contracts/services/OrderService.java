@@ -12,6 +12,5 @@ public interface OrderService extends ProjectionDomainService <Order, Integer>{
 	public <T> List<T> getEnviado(Class <T> type);
 	public <T> List<T> getRecibido(Class <T> type);
 	public <T> List<T> getCancelado(Class <T> type);
-	public <T> List<T> getOrderById(String id,Class <T> type);
 	public <T> List<T> getOrderByIdUser(String id,Class <T> type);
 }
