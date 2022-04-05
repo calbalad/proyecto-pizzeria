@@ -93,14 +93,12 @@ export class PizzasComponent implements OnInit {
 
     this.restApi.getPizza(idPizza).subscribe(
       ( data: {} ) => {
-        // this.pizzas = data
         this.pizza = data
         this.ingredientesTarget = this.pizza.ingredientPizza?.map((item: any) => {
           const ingredientePush = this.ingredientes.find((x: any) => x.idIngredient === item.idIngredient )
           return {idIngredient: item.idIngredient, name: ingredientePush.name, quantity: item.quantity};
         })
-        //console.log(this.ingredientesTarget, 'En openEdit');
-      }
+       }
     );
     this.pizzaDialog = true;
 
@@ -152,7 +150,6 @@ export class PizzasComponent implements OnInit {
         ( data: {} ) => {
           this.cargarPizzas();
           this.pizzaDialog = false;
-          //console.log('hemos grabado');
         }
       )
     }else{
@@ -162,7 +159,6 @@ export class PizzasComponent implements OnInit {
         ( data: {} ) => {
           this.cargarPizzas();
           this.pizzaDialog = false;
-         // console.log('hemos grabado');
         }
       )
     }
@@ -170,11 +166,9 @@ export class PizzasComponent implements OnInit {
   }
 
   cargarPizzas() {
-    // Cargamos todas las pizzas
     this.restApi.getPizzas().subscribe(
       ( data: {} ) => {
         this.pizzas = data
-        //console.log(this.pizzas)
       }
     );
   }
@@ -220,8 +214,7 @@ export class PizzasComponent implements OnInit {
   }
 
   validarFormulario() {
-    // console.log('estoy validando')
-    // console.log(this.pizza)
+
     let errors: IMensajesError[] = [];
 
     if(this.pizza.description?.trim() === ''){
@@ -230,13 +223,7 @@ export class PizzasComponent implements OnInit {
       })
     }
 
-    if(this.pizzas.find((x: any) => x.description === this.pizza.description)){
-      errors.push({
-        severity:'error', summary:'Nombre repetido', detail:'El nombre de una pizza no se puede repetir'
-      })
-    }
-
-    if(errors.length > 0){
+   if(errors.length > 0){
       this.messageService.addAll(errors);
       return false
     }
