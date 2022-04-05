@@ -15,6 +15,7 @@ import {InputNumberModule} from 'primeng/inputnumber';
 import {ToastModule} from 'primeng/toast';
 import {InputTextModule} from 'primeng/inputtext';
 
+
 @NgModule({
   declarations: [
     PizzasComponent
