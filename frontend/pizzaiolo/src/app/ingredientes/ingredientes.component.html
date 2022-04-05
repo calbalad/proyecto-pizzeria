@@ -58,23 +58,11 @@
         <div class="field">
           <label for="price">Precio</label>
           <input type="number" step="0.01" pInputText id="price" [(ngModel)]="ingrediente.price" required autofocus />
-          <!-- <p-inputNumber [(ngModel)]="ingrediente.price" mode="currency" currency="EUR" [showButtons]="true" inputId="stacked"></p-inputNumber> -->
         </div>
-        <!-- <div class="field">
-          <label for="price">Precio</label>
-          <select [(ngModel)]="ingrediente.type" name="select">
-            <option value="base" [selected]="ingrediente.type === 'base'">Base</option>
-            <option value="salsa" [selected]="ingrediente.type === 'salsa'">Salsa</option>
-            <option value="otros" [selected]="ingrediente.type === 'otros'">Otros</option>
-          </select>
-        </div> -->
-
     </ng-template>
-
     <ng-template pTemplate="footer">
       <p-button label="Guardar" icon="pi pi-check" class="p-button-text" (click)="saveIngrediente()"></p-button>
       <p-button label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></p-button>
     </ng-template>
   </p-dialog>
-
 </div>
