@@ -24,7 +24,6 @@ export class HeaderComponent  {
   constructor(private cartService: CartService, private auth: LoginService, private http: HttpClient, private sanitizer: DomSanitizer) { }
   getRole() {
     this.rol = JSON.parse(localStorage.getItem('data') || '[]');
-    console.log(this.rol.data.role.name)
     return this.rol.data.role.name;
   }
     ngOnInit() {
@@ -95,16 +94,13 @@ ngAfterContentInit(){
   this.cartCount = JSON.parse(localStorage.getItem('cart') || '[]').length
   this.cartService.getCount().subscribe(count => {
     this.cartCount = count
-    console.log(count, "sdf")
     }
   );
-  console.log(this.cartCount)
 }
 
 getBinary() {
   this.http.get('http://localhost:8080/api/v1/users/profile', { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('access_token') }, responseType: 'blob'}).subscribe({
     next: (data: any) => {
-      console.log(data)
       this.blob = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(data));
     }
   })
