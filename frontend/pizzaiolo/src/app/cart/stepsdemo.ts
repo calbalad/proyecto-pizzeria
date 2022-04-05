@@ -30,7 +30,7 @@ export class StepsDemo implements OnInit {
                 routerLink: 'payment'
             }, */
             {
-                label: 'Confirmation',
+                label: 'Confirmación',
                 routerLink: 'payment'
             }
         ];

@@ -45,6 +45,7 @@ import {FileUploadModule} from 'primeng/fileupload';
 import {  SecurityModule } from './security';
 import {BadgeModule} from 'primeng/badge';
 import { ChipModule } from 'primeng/chip';
+import { ResetPassComponent } from './login/reset-pass.component';
 
 
 
@@ -59,7 +60,7 @@ import { ChipModule } from 'primeng/chip';
 
 @NgModule({
 
-  declarations: [AppComponent, CartaProductComponent, LoginComponent, CarritoComponent, CartaComponent, PedidosComponent, ],
+  declarations: [AppComponent, CartaProductComponent, LoginComponent, CarritoComponent, CartaComponent, PedidosComponent, ResetPassComponent, ResetPassComponent ],
 
   imports: [
     BrowserModule,
