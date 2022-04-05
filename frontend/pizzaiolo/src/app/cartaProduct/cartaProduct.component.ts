@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { PizzasComponent } from '../pizzas/pizzas.component';
 import { RestApiService } from '../services/api.service';
 import { CartService } from '../services/cart.service';
 
@@ -14,6 +15,9 @@ export class CartaProductComponent implements OnInit {
   cart: any[] = [];
   countSub: any;
   cartCount: any;
+  pizzaComment: any;
+
+  kk : PizzasComponent[] =[];
 
   constructor(
     private route: ActivatedRoute,
@@ -31,6 +35,15 @@ export class CartaProductComponent implements OnInit {
       });
     this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
     console.log(this.cart);
+
+    this.restApi
+      .getPizzasDetalladas(this.route.snapshot.paramMap.get('id'))
+      .subscribe((data: {}) => {
+        this.pizzaComment = data;
+        this.pizzaComment = this.pizzaComment.comments
+        console.log(this.pizzaComment.comments, 'en inicio')
+
+      });
   }
 
   addKeyValue(obj: any, key: string, data: number) {
