@@ -98,7 +98,6 @@ export class RestApiService {
         'Content-Type':  'application/json',
         'Authorization': `Bearer ${auth_token}`
     })};
-    console.log("test")
     return this.http
       .post<any>(
         this.apiURL + '/api/v1/users/'+id+'/picture?action=u',
@@ -114,6 +113,22 @@ export class RestApiService {
       .put<PizzasCortas>(
         this.apiURL + '/PizzasCortass/' + id,
         JSON.stringify(PizzasCortas),
+        this.httpOptions
+      )
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  updateUser( user: any): Observable<any> {
+    var auth_token = localStorage.getItem('access_token') || '';
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': `Bearer ${auth_token}`
+    })};
+    return this.http
+      .put<any>(
+        this.apiURL + '/api/v1/users/' + user.id,
+        JSON.stringify(user),
         this.httpOptions
       )
       .pipe(retry(1), catchError(this.handleError));
