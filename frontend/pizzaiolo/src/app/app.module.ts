@@ -46,6 +46,8 @@ import {  SecurityModule } from './security';
 import {BadgeModule} from 'primeng/badge';
 import { ChipModule } from 'primeng/chip';
 import { ResetPassComponent } from './login/reset-pass.component';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+
 
 
 
@@ -98,6 +100,7 @@ import { ResetPassComponent } from './login/reset-pass.component';
     DialogModule,
     FileUploadModule,
     SecurityModule,
+    InputTextareaModule,
     BadgeModule,
     ChipModule
   ],

@@ -73,11 +73,27 @@
         label="Sigue pidiendo"
       ></p-button>
     </div>
+    <br/>
 
   </div>
   <div>
-    <h3>comentarios</h3>
+    <h3>Comentarios</h3>
   </div>
+
+ <div>
+    <textarea [rows]="3" [cols]="30" [(ngModel)]="newComment" [autoResize]="true" pInputTextarea></textarea>
+    <div class="grid grid-nogutter justify-content-between">
+      <p-button label="Enviar"
+        (onClick)="addComment()"
+        icon="pi pi-angle-right"
+        iconPos="right"
+      ></p-button>
+      <br/>
+    </div>
+  </div>
+  <br/>
+
+
   <p-table [value]="pizzaComment" responsiveLayout="scroll">
    <ng-template pTemplate="body" let-pizzaComment>
         <tr>

@@ -16,6 +16,7 @@ export class CartaProductComponent implements OnInit {
   countSub: any;
   cartCount: any;
   pizzaComment: any;
+  newComment: string = "";
 
   kk : PizzasComponent[] =[];
 
@@ -48,6 +49,18 @@ export class CartaProductComponent implements OnInit {
 
   addKeyValue(obj: any, key: string, data: number) {
     obj[key] = data;
+  }
+
+  addComment(){
+    // this.newComment = this.newComment;
+
+    // let idUser = JSON.parse(localStorage.getItem('data') || '[]');
+    // idUser = idUser.data.id;
+
+    // this.restApi.createCommet(this.newComment, this.product.idPizza, idUser)
+    // .subscribe((data: {}) => {
+    // });
+
   }
 
   addToCart() {
