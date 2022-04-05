@@ -3,7 +3,8 @@
   <form class="form-signup" [formGroup]="signupForm" (ngSubmit)="register()">
     <div class="p-fluid grid">
       <div class="field">
-        <span class="p-float-label">
+        <span class="">
+          <label for="firstName">Nombre</label>
           <input
             class="form-control"
             type="text"
@@ -14,14 +15,15 @@
             maxlength="50"
             formControlName="firstName"
           />
-          <label for="firstName">Nombre</label>
+
         </span>
       </div>
     </div>
 
     <div class="p-fluid grid">
       <div class="field">
-        <span class="p-float-label">
+        <span class="">
+          <label for="lastName">Apellidos</label>
           <input
             class="form-control"
             type="text"
@@ -32,14 +34,15 @@
             maxlength="50"
             formControlName="lastName"
           />
-          <label for="lastName">Apellidos</label>
+
         </span>
       </div>
     </div>
 
     <div class="p-fluid grid">
       <div class="field">
-        <span class="p-float-label">
+        <span class="">
+          <label for="phone">Teléfono</label>
           <input
             class="form-control"
             type="tel"
@@ -49,14 +52,17 @@
             maxlength="11"
             formControlName="phone"
           />
-          <label for="phone">Teléfono</label>
+
         </span>
       </div>
     </div>
 
     <div class="p-fluid grid">
       <div class="field">
-        <span class="p-float-label">
+
+
+        <span class="">
+          <label for="email">Correo electrónico</label>
           <input
             class="form-control"
             type="email"
@@ -66,12 +72,13 @@
             maxlength="50"
             formControlName="email"
           />
-          <label for="email">Correo electrónico</label>
+
         </span>
       </div>
     </div>
     <div class="field">
-      <span class="p-float-label">
+      <span class="">
+        <label for="password">Password</label>
         <input
           class="form-control"
           type="password"
@@ -81,12 +88,13 @@
           maxlength="50"
           formControlName="password"
         />
-        <label for="password">Password</label>
+
       </span>
     </div>
 
     <div class="field">
-      <span class="p-float-label">
+      <span class="">
+        <label for="confirmPassword">Confirmar Password</label>
         <input
           class="form-control"
           type="password"
@@ -96,7 +104,7 @@
           maxlength="50"
           formControlName="confirmPassword"
         />
-        <label for="confirmPassword">Confirmar Password</label>
+
       </span>
     </div>
     <button pButton type="submit" label="Enviar" class="p-button"></button>
