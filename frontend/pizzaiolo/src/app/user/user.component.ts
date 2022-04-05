@@ -80,7 +80,7 @@ export class UserEditComponent implements OnInit {
       .subscribe({
         next: (data: any) => {
           this.getBinary();
-          this.messageService.add({key: 'c', sticky: true, severity:'success', summary:'Guardado con Éxito', detail:'Los datos se han actualizado'});
+          this.messageService.add({key: 'c', sticky: true, severity:'success', summary:'Guardado con Éxito', detail:'La foto se ha actualizado'});
         },
       });
   }
