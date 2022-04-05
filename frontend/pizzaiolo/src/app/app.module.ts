@@ -43,8 +43,11 @@ import {ToastModule} from 'primeng/toast';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {FileUploadModule} from 'primeng/fileupload';
 import {  SecurityModule } from './security';
+import {BadgeModule} from 'primeng/badge';
+import { ChipModule } from 'primeng/chip';
 import { ResetPassComponent } from './login/reset-pass.component';
 import {InputTextareaModule} from 'primeng/inputtextarea';
+
 
 
 
@@ -97,8 +100,9 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     DialogModule,
     FileUploadModule,
     SecurityModule,
-    InputTextareaModule
-
+    InputTextareaModule,
+    BadgeModule,
+    ChipModule
   ],
   providers: [],
   bootstrap: [AppComponent],

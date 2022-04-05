@@ -42,7 +42,7 @@ export class RestApiService {
     var auth_token = localStorage.getItem('access_token') || '';
     this.httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  '*/*',
+        'Content-Type':  'application/json',
         'Authorization': `Bearer ${auth_token}`
     })};
     return this.http
@@ -54,6 +54,32 @@ export class RestApiService {
   getPizzasDetalladas(id: any): Observable<any> {
     return this.http
       .get<any>(this.apiURL + '/api/v1/pizzas/'+id+'?mode=details')
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  putLike(id: any) {
+    var auth_token = localStorage.getItem('access_token') || '';
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': `Bearer ${auth_token}`
+    })};
+    return this.http
+      .post<any>(this.apiURL + '/api/v1/likes/'+ id,
+      this.httpOptions)
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  decrementLike(id: any) {
+    var auth_token = localStorage.getItem('access_token') || '';
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': `Bearer ${auth_token}`
+    })};
+    return this.http
+      .delete<any>(this.apiURL + '/api/v1/likes/'+ id,
+      this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
   }
   // HttpClient API post() method => Create PizzasCortas
@@ -84,7 +110,7 @@ export class RestApiService {
     })};
     return this.http
       .post<CreateAddressParam>(
-        this.apiURL + '/api/v1/address/' + id,
+        'http://localhost:8001' + '/api/v1/address/' + id,
         JSON.stringify(CreateAddressParam),
         this.httpOptions
       )

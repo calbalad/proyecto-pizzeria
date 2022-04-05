@@ -8,7 +8,7 @@
   </p-toolbar>
   <p-table #dt [value]="usuarios" [rows]="10" [paginator]="true" [globalFilterFields]="['name','type']" responsiveLayout="scroll"
             [rowHover]="true" dataKey="id"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+            currentPageReportTemplate="Mostrando del usuario {first} al {last} del total de {totalRecords} usuarios" [showCurrentPageReport]="true">
     <ng-template pTemplate="caption">
         <div class="flex align-items-center justify-content-between">
             <h5 class="m-0">Gestión de roles de Usuario</h5>
@@ -37,9 +37,6 @@
           </td>
           <!-- <td>{{usuario.role.name}}</td> -->
           <p-button pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click)="saveRol(usuario.id,usuario.role.name)"></p-button>
-          <td>
-
-          </td>
       </tr>
     </ng-template>
     <ng-template pTemplate="summary">

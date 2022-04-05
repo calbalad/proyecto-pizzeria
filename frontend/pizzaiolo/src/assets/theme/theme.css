@@ -2628,7 +2628,13 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   border-width: 0 0 1px 0;
   padding: 1rem 1rem;
   min-width: 100px;
+
 }
+
+  app-pizzas .p-datatable .p-datatable-tbody > tr > td{
+    max-width: 100px;
+  }
+
 .p-datatable .p-datatable-tbody > tr > td .p-row-toggler,
 .p-datatable .p-datatable-tbody > tr > td .p-row-editor-init,
 .p-datatable .p-datatable-tbody > tr > td .p-row-editor-save,
@@ -6047,6 +6053,9 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 
 .product-grid-item-content img{
   border-radius: 10px;
+  /* max-height: 180px;
+  width: auto;
+  height: auto; */
 }
 
 .logo {
@@ -6267,6 +6276,12 @@ app-pedidos .p-card-content{
     margin-top: 10px;
   }
 
+  app-reset-pass input {
+    padding: 10px;
+    border-radius: 15px;
+    margin-top: 10px;
+  }
+
   app-registro .form-signup>*{
     padding-left: 10px;
   }
@@ -6323,4 +6338,21 @@ app-pedidos .p-card-content{
     } */
     .p-menubar-end{
       cursor:pointer;
+    }
+
+    app-user-edit .p-card-body{
+      max-width: 600px;
+      margin: auto;
+    }
+
+    app-user-editv .p-button-component{
+      margin: auto;
+      display: block;
+    }
+    app-manager>div{
+      margin-bottom: 150px;
+    }
+
+    app-ingredientes .p-button-text> .p-ripple{
+      margin-top: 30px;
     }
