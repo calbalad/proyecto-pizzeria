@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.pizzaiolo.domains.contracts.repositories.IngredientRepository;
 import com.pizzaiolo.domains.contracts.services.IngredientService;
 import com.pizzaiolo.domains.entities.Ingredient;
+import com.pizzaiolo.domains.entities.Order;
 import com.pizzaiolo.exceptions.DuplicateKeyException;
 import com.pizzaiolo.exceptions.InvalidDataException;
 import com.pizzaiolo.exceptions.NotFoundException;
@@ -89,5 +90,11 @@ public class IngredientServiceImpl implements IngredientService{
 	@Override
 	public void deleteById(Integer id) {
 		dao.deleteById(id);
+	}
+
+	@Override
+	public List<Order> getOrderUser(String id) throws NotFoundException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

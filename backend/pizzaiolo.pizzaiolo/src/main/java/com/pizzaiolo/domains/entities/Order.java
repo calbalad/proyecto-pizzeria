@@ -49,9 +49,6 @@ public class Order extends EntityBase<Order> implements Serializable {
 	@Lob
 	private String comment;
 
-	@Generated(value = GenerationTime.ALWAYS)
-	@PastOrPresent
-	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	private Date deliveryDate;
 
 	@Length(min=2, max=120)

@@ -90,12 +90,45 @@ export class RestApiService {
       )
       .pipe(retry(1), catchError(this.handleError));
   }
+
+  uploadFile(file: any, id: string): Observable<any> {
+    var auth_token = localStorage.getItem('access_token') || '';
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': `Bearer ${auth_token}`
+    })};
+    return this.http
+      .post<any>(
+        this.apiURL + '/api/v1/users/'+id+'/picture?action=u',
+        file,
+        this.httpOptions
+      )
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
   // HttpClient API put() method => Update PizzasCortas
   updatePizzasCortas(id: any, PizzasCortas: any): Observable<PizzasCortas> {
     return this.http
       .put<PizzasCortas>(
         this.apiURL + '/PizzasCortass/' + id,
         JSON.stringify(PizzasCortas),
+        this.httpOptions
+      )
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  updateUser( user: any): Observable<any> {
+    var auth_token = localStorage.getItem('access_token') || '';
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': `Bearer ${auth_token}`
+    })};
+    return this.http
+      .put<any>(
+        this.apiURL + '/api/v1/users/' + user.id,
+        JSON.stringify(user),
         this.httpOptions
       )
       .pipe(retry(1), catchError(this.handleError));

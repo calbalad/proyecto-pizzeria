@@ -98,7 +98,7 @@ public class AuthController {
 
             User user = userService.save(createUserDto);
 
-            eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user));
+            //eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user));
 
             return ResponseEntity.ok(user);
         } catch (ResourceNotFoundException e) {

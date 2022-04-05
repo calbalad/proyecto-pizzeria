@@ -28,6 +28,7 @@ import com.pizzaiolo.application.dtos.OrderDetailsDTO;
 import com.pizzaiolo.application.dtos.OrderEditDTO;
 import com.pizzaiolo.application.dtos.OrderShortDTO;
 import com.pizzaiolo.application.dtos.OrderStatusEditDTO;
+import com.pizzaiolo.domains.contracts.repositories.OrderRepository;
 import com.pizzaiolo.domains.contracts.services.OrderService;
 import com.pizzaiolo.domains.contracts.services.PizzaService;
 import com.pizzaiolo.domains.entities.Order;
@@ -54,6 +55,12 @@ public class OrderResource {
 	@ApiOperation(value = "Listado de los pedidos")
 	public List<OrderShortDTO> getAll() {
 		return srv.getByProjection(OrderShortDTO.class);
+	}
+	
+	@GetMapping(path = "/list/{id}/{status}")
+	@ApiOperation(value = "Listado de los pedidos user")
+	public List<OrderDetailsDTO> getlUserAll(@PathVariable String id, @PathVariable Status status) {
+		return srv.getOrderByIdUser(id, status, Order.class).stream().map(OrderDetailsDTO::from).toList();
 	}
 	
 	@GetMapping(path = "/solicitado")

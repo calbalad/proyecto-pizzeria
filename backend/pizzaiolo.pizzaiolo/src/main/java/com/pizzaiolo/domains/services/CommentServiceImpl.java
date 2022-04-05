@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.pizzaiolo.domains.contracts.repositories.CommentRepository;
 import com.pizzaiolo.domains.contracts.services.CommentService;
 import com.pizzaiolo.domains.entities.Comment;
+import com.pizzaiolo.domains.entities.Order;
 import com.pizzaiolo.exceptions.DuplicateKeyException;
 import com.pizzaiolo.exceptions.InvalidDataException;
 import com.pizzaiolo.exceptions.NotFoundException;
@@ -89,5 +90,11 @@ public class CommentServiceImpl implements CommentService{
 	@Override
 	public void deleteById(Integer id) {
 		dao.deleteById(id);
+	}
+
+	@Override
+	public List<Order> getOrderUser(String id) throws NotFoundException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

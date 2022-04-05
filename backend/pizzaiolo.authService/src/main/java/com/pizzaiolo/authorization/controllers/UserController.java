@@ -33,6 +33,8 @@ import javax.validation.constraints.Size;
 import static com.pizzaiolo.authorization.utils.Constants.*;
 
 import java.io.IOException;
+import java.security.Principal;
+
 import com.pizzaiolo.authorization.models.response.*;
 import com.pizzaiolo.authorization.exceptions.PasswordNotMatchException;
 import com.pizzaiolo.authorization.exceptions.ResourceNotFoundException;
@@ -44,6 +46,7 @@ import com.pizzaiolo.authorization.services.FileStorageServiceImpl;
 import com.pizzaiolo.authorization.services.interfaces.UserService;
 
 @Api(tags = SWG_USER_TAG_NAME, description = SWG_USER_TAG_DESCRIPTION)
+//@CrossOrigin(origins = "http://localhost:4200",allowedHeaders = {"Authorization"}, methods = {RequestMethod.GET}, maxAge = 3600)
 @RestController
 @RequestMapping(value = "/api/v1/users")
 @Validated
@@ -177,16 +180,12 @@ public class UserController {
 			throws IOException, ResourceNotFoundException {
 		User user = null;
 		UpdateUserDto updateUserDto = new UpdateUserDto();
-
 		if (action.equals("u")) {
 			String fileName = fileStorageServiceImpl.storeFile(file);
-
 			updateUserDto.setAvatar(fileName);
-
 			user = userService.update(id, updateUserDto);
 		} else if (action.equals("d")) {
 			user = userService.findById(id);
-
 			if (user.getAvatar() != null) {
 				boolean deleted = fileStorageServiceImpl.deleteFile(user.getAvatar());
 
@@ -256,6 +255,26 @@ public class UserController {
 	@ResponseBody
 	public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
 		Resource file = fileStorageServiceImpl.loadFileAsResource(filename);
+		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+				"attachment; filename=\"" + file.getFilename() + "\"").body(file);
+	}
+	
+	@GetMapping("/profile")
+	//@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_SUPER_ADMIN')")
+	@PreAuthorize("isAuthenticated()")
+	@ResponseBody
+	public ResponseEntity<Resource> profileImage(Principal principal) {
+		var avatar = "";
+		User user = null;
+		try {
+			user = userService.findByEmail(principal.getName());
+			avatar = user.getAvatar();
+		} catch (ResourceNotFoundException e) {
+		}
+		if (avatar == null || avatar.equals("")) {
+			avatar = "user.png";
+		}
+		Resource file = fileStorageServiceImpl.loadFileAsResource(avatar);
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
 				"attachment; filename=\"" + file.getFilename() + "\"").body(file);
 	}

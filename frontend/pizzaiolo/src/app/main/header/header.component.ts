@@ -20,13 +20,7 @@ export class HeaderComponent  {
 
   blob: any = null;
   rol : any = '';
-  constructor(private cartService: CartService, private auth: LoginService, private http: HttpClient, private sanitizer: DomSanitizer) {
-
-
-
-
-
-  }
+  constructor(private cartService: CartService, private auth: LoginService, private http: HttpClient, private sanitizer: DomSanitizer) { }
   getRole() {
     this.rol = JSON.parse(localStorage.getItem('data') || '[]');
     console.log(this.rol.data.role.name)

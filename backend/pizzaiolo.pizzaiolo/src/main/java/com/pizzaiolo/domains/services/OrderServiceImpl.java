@@ -120,4 +120,21 @@ public class OrderServiceImpl implements OrderService{
 	public <T> List<T> getCancelado(Class<T> type) {
 		return dao.findByOrderStatus(Status.PEDIDO_CANCELADO, type);
 	}
+
+	@Override
+	public List<Order> getOrderUser(String id) throws NotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> List<T> getOrderById(String id, Class<T> type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> List<T> getOrderByIdUser(String id, Status status, Class<T> type) {
+		return dao.findByIdUserAndOrderStatus(id, status,type);
+	}
 }

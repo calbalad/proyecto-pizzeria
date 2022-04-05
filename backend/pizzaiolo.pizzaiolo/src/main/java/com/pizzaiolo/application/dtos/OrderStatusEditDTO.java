@@ -2,8 +2,11 @@ package com.pizzaiolo.application.dtos;
 
 import java.awt.Point;
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.persistence.Convert;
 
@@ -63,7 +66,7 @@ public class OrderStatusEditDTO {
 		if(target.getOrderStatus() == Status.PEDIDO_ENVIADO 
 				&& Order.Status.getEnum(orderStatus) == Status.PEDIDO_RECIBIDO
 				&& (target.getDeliveryDate() == null)) {
-			target.setDeliveryDate(deliveryDate);
+			target.setDeliveryDate(new Date());
 			target.setOrderStatus(Order.Status.getEnum(orderStatus));
 		}
 		

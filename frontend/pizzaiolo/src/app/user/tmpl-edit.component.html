@@ -2,7 +2,13 @@
   <h1>Perfil</h1>
   <form #myForm="ngForm">
     <div class="p-fluid grid">
-      <p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*"></p-fileUpload>
+      <div class="field col-12 md:col-4">
+        <div class="logo foto-perfil"><img [src]="blob" alt="logo-usuario"></div>
+            <input class="form-control" type="file" (change)="onChange($event)" multiple="true">
+      </div>
+    </div>
+    <div class="p-fluid grid">
+     <!--  <p-fileUpload mode="basic" name="demo[]" (onUpload)="sendFormData($event)" accept="image/*"></p-fileUpload> -->
       <div class="field col-12 md:col-4">
             <label for="inputtext">Nombre</label>
 
@@ -30,7 +36,7 @@
     </div> -->
 
 
-  <button pButton type="button" label="Guardar cambios" class="p-button" (click)="saveUser()"></button>
+  <button pButton type="button" label="Guardar cambios" class="p-button" (click)="saveData()"></button>
   <button pButton type="button" [routerLink]="['reset']" label="Cambiar contraseña" class="p-button"></button>
 </form>
 </p-card>
