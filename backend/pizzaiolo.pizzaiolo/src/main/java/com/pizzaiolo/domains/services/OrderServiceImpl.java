@@ -134,7 +134,7 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public <T> List<T> getOrderByIdUser(String id, Status status, Class<T> type) {
-		return dao.findByIdUserAndOrderStatus(id, status,type);
+	public <T> List<T> getOrderByIdUser(String id, Class<T> type) {
+		return dao.findByIdUser(id,type);
 	}
 }
