@@ -1,1 +1,181 @@
-<p>reparto works!</p>
+<p-messages [value]="msgs"></p-messages>
+
+<br />
+
+<p-card header="Listado de pedidos preparados" class="p-component text-center">
+  <p-table
+    *ngIf="pedidosPreparados.length != 0"
+    [value]="pedidosPreparados"
+    dataKey="idOrder"
+    responsiveLayout="scroll"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 3rem"></th>
+        <th>ID</th>
+        <th>Estado</th>
+        <th>Dirección de envío</th>
+        <th>Comentario</th>
+        <th>Precio</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-pedidoPreparado let-expanded="expanded">
+      <tr>
+        <td>
+          <button
+            type="button"
+            pButton
+            pRipple
+            [pRowToggler]="pedidoPreparado"
+            class="p-button-text p-button-rounded p-button-plain"
+            [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+          ></button>
+        </td>
+        <td>{{ pedidoPreparado.idOrder }}</td>
+        <td>{{ pedidoPreparado.orderStatus }}</td>
+        <td>{{ pedidoPreparado.address }}</td>
+        <td>{{ pedidoPreparado.comment }}</td>
+        <td>{{ pedidoPreparado.amount }}</td>
+        <td>
+          <button
+            pButton
+            class="p-button-rounded"
+            (click)="openEditReady(pedidoPreparado)"
+            icon="pi pi-car"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="rowexpansion" let-pedidoPreparado>
+      <tr>
+        <td colspan="7">
+          <div class="p-3">
+            <p-table [value]="pedidoPreparado.pizzas" dataKey="idPizza">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th pSortableColumn="idPizza">
+                    ID<p-sortIcon field="idPizza"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="nombre">
+                    Pizza<p-sortIcon field="nombre"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="quantity">
+                    Cantidad<p-sortIcon field="quantity"></p-sortIcon>
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-pizzas>
+                <tr>
+                  <td>{{ pizzas.idPizza }}</td>
+                  <td>{{ pizzas.nombre }}</td>
+                  <td>{{ pizzas.quantity }}</td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="emptymessage">
+                <tr>
+                  <td colspan="6">No hay pizzas para este pedido</td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <h2 *ngIf="pedidosPreparados.length === 0" class="p-component">
+    En estos momentos no hay ningún pedido
+  </h2>
+</p-card>
+
+<br />
+<p-card header="Listado de pedidos enviados" class="p-component text-center">
+  <p-table
+    *ngIf="pedidosEnviados.length != 0"
+    [value]="pedidosEnviados"
+    dataKey="idOrder"
+    responsiveLayout="scroll"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 3rem"></th>
+        <th>ID</th>
+        <th>Estado</th>
+        <th>Dirección de envío</th>
+        <th>Comentario</th>
+        <th>Precio</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-pedidoEnviado let-expanded="expanded">
+      <tr>
+        <td>
+          <button
+            type="button"
+            pButton
+            pRipple
+            [pRowToggler]="pedidoEnviado"
+            class="p-button-text p-button-rounded p-button-plain"
+            [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+          ></button>
+        </td>
+        <td>{{ pedidoEnviado.idOrder }}</td>
+        <td>{{ pedidoEnviado.orderStatus }}</td>
+        <td>{{ pedidoEnviado.address }}</td>
+        <td>{{ pedidoEnviado.comment }}</td>
+        <td>{{ pedidoEnviado.amount }}</td>
+        <td>
+          <button
+            pButton
+            class="p-button-rounded"
+            (click)="openEditSent(pedidoEnviado)"
+            icon="pi pi-home"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="rowexpansion" let-pedidoEnviado>
+      <tr>
+        <td colspan="7">
+          <div class="p-3">
+            <p-table [value]="pedidoEnviado.pizzas" dataKey="idPizza">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th pSortableColumn="idPizza">
+                    ID<p-sortIcon field="idPizza"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="nombre">
+                    Pizza<p-sortIcon field="nombre"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="quantity">
+                    Cantidad<p-sortIcon field="quantity"></p-sortIcon>
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-pizzas>
+                <tr>
+                  <td>{{ pizzas.idPizza }}</td>
+                  <td>{{ pizzas.nombre }}</td>
+                  <td>{{ pizzas.quantity }}</td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="emptymessage">
+                <tr>
+                  <td colspan="6">No hay pizzas para este pedido</td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <h2 *ngIf="pedidosEnviados.length === 0" class="p-component">
+    En estos momentos no hay ningún pedido
+  </h2>
+</p-card>
+<p-confirmDialog
+  showEffect="fade"
+  [style]="{ width: '50vw' }"
+  rejectButtonStyleClass="p-button-text"
+></p-confirmDialog>
