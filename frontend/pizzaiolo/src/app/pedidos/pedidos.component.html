@@ -43,13 +43,13 @@
           <td>{{order.amount | currency:'EUR'}}</td>
           <!-- <td><span [ngClass]="{'product-badge status-primary': order.orderStatus == 'enviado',
             'product-badge status-secondary': order.orderStatus == 'solicitado',
-            'product-badge status-success': order.orderStatus == 'recibido',  
-            'product-badge status-info': order.orderStatus == 'preparado', 
-            'product-badge status-warning': order.orderStatus == 'elaborandose', 
+            'product-badge status-success': order.orderStatus == 'recibido',
+            'product-badge status-info': order.orderStatus == 'preparado',
+            'product-badge status-warning': order.orderStatus == 'elaborandose',
             'product-badge status-danger': order.orderStatus  == 'cancelado'}">{{order.orderStatus}}</span></td> -->
             <td><p-chip [ngClass]="getClassStatus(order.orderStatus)" [label]="order.orderStatus" ></p-chip></td>
-            <!-- <td><p-button label="Pedir de nuevo" (click)="neworder(order)"></p-button> -->
-            </td>
+            <!-- <td><p-button label="Pedir de nuevo" (click)="neworder(order)"></p-button>
+            </td>-->
         </tr>
   </ng-template>
   <ng-template pTemplate="rowexpansion" let-order>
@@ -61,10 +61,11 @@
                           <tr>
                               <th pSortableColumn="id">Id</th>
                               <th pSortableColumn="customer">Nombre </th>
-                              <th pSortableColumn="date">Amount </th>
+                              <th pSortableColumn="date">Precio </th>
                               <th pSortableColumn="amount">Total </th>
-                              
-                              
+                              <th></th>
+
+
                           </tr>
                       </ng-template>
                       <ng-template pTemplate="body" let-pizza>
@@ -73,8 +74,10 @@
                               <td>{{pizza.quantity}}</td>
                               <td>{{pizza.amount | currency:'EUR'}}</td>
                               <td>{{pizza.amount * pizza.quantity| currency:'EUR'}}</td>
-                              
-                              
+                              <td><button pButton pRipple *ngIf="pizza.like" (click)="like(pizza.idPizza)"  type="button" icon="pi pi-heart" class="p-button-rounded p-button-danger"></button>
+                                  <button pButton pRipple *ngIf="!pizza.like" (click)="like(pizza.idPizza)" type="button" icon="pi pi-heart" class="p-button-rounded p-button-danger p-button-outlined"></button>
+                              </td>
+
                           </tr>
                       </ng-template>
                       <ng-template pTemplate="emptymessage">

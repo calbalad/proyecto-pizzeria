@@ -107,17 +107,15 @@ export class PaymentDemo implements OnInit {
   nextPage() {
     this.ticketService.ticketInformation.personalInformation.comment = this.comment;
     this.ticketService.ticketInformation.personalInformation.orderDate= new Date().toISOString().toString();
-    console.log(JSON.stringify(this.ticketService.ticketInformation.personalInformation))
     this.restApi
       .createOrder(this.ticketService.ticketInformation.personalInformation)
       .subscribe((data: {}) => {
-        localStorage.setItem('cart', '[]')
-        this.cartService.addCount();
+        this.messageService.add({key: 'c', sticky: true, severity:'success', summary:'Pedido completado! ☺', detail:'Volver a la página principal'});
         });
     //this.router.navigate(['pizza']);
 
 
-    this.messageService.add({key: 'c', sticky: true, severity:'success', summary:'Pedido completado! ☺', detail:'Volver a la página principal'});
+
 
 
   }
@@ -129,8 +127,11 @@ export class PaymentDemo implements OnInit {
 
   onConfirm() {
     this.messageService.clear('c');
+    localStorage.removeItem('cart')
+        this.cartService.addCount();
     this.router.navigate(['pizza']);
 }
+
 
 onReject() {
     this.messageService.clear('c');
