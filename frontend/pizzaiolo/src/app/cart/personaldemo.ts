@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs';
         <tr>
             <th></th>
             <th>Pizza</th>
-            <th>Price</th>
+            <th>Precio</th>
             <th>Cantidad</th>
             <th>Total</th>
             <th></th>
@@ -34,7 +34,7 @@ import { Subscription } from 'rxjs';
     </ng-template>
     <ng-template pTemplate="summary">
         <div class="flex align-items-center justify-content-between">
-            {{carts ? carts.length : 0 }} products.  Total {{total | number : '1.2-2' | currency:'EUR'}}
+            {{carts ? carts.length : 0 }} productos.  Total {{total | number : '1.2-2' | currency:'EUR'}}
         </div>
     </ng-template>
 </p-table>

@@ -19,11 +19,11 @@ export class StepsDemo implements OnInit {
     ngOnInit() {
         this.items = [{
                 label: 'Carrito',
-                routerLink: 'personal'
+                routerLink: 'carrito'
             },
             {
                 label: 'Dirección',
-                routerLink: 'seat'
+                routerLink: 'direcciones'
             },
 /*             {
                 label: 'Pago',
@@ -31,7 +31,7 @@ export class StepsDemo implements OnInit {
             }, */
             {
                 label: 'Confirmation',
-                routerLink: 'confirmation'
+                routerLink: 'payment'
             }
         ];
 

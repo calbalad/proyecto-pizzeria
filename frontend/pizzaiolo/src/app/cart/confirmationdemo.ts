@@ -61,7 +61,7 @@ import { CreateAddressParam } from '../model/authService/createAddressParam';
         >
           <ng-template pTemplate="content">
             <div class="field">
-              <label for="name">Name</label>
+              <label for="name">Nombre</label>
               <input
                 type="text"
                 pInputText
@@ -71,11 +71,11 @@ import { CreateAddressParam } from '../model/authService/createAddressParam';
                 autofocus
               />
               <small class="p-error" *ngIf="submitted && !product.name"
-                >Name is required.</small
+                >El nombre es obligatorio.</small
               >
             </div>
             <div class="field">
-              <label for="description">street</label>
+              <label for="description">Calle</label>
               <input
                 type="text"
                 pInputText
@@ -84,11 +84,11 @@ import { CreateAddressParam } from '../model/authService/createAddressParam';
                 required
               />
               <small class="p-error" *ngIf="submitted && !product.street"
-                >street is required.</small
+                >El calle es obligatorio.</small
               >
             </div>
             <div class="field">
-              <label for="description">Location</label>
+              <label for="description">Localidad</label>
               <input
                 type="text"
                 pInputText
@@ -97,11 +97,24 @@ import { CreateAddressParam } from '../model/authService/createAddressParam';
                 required
               />
               <small class="p-error" *ngIf="submitted && !product.location"
-                >location is required.</small
+                >La localidad es obligatoria.</small
               >
             </div>
             <div class="field">
-              <label for="description">number</label>
+              <label for="description">Ciudad</label>
+              <input
+                type="text"
+                pInputText
+                id="location"
+                [(ngModel)]="product.city"
+                required
+              />
+              <small class="p-error" *ngIf="submitted && !product.city"
+                >La ciudad es obligatoria.</small
+              >
+            </div>
+            <div class="field">
+              <label for="description">Numero</label>
               <p-inputNumber
                 type="number"
                 id="number"
@@ -109,11 +122,11 @@ import { CreateAddressParam } from '../model/authService/createAddressParam';
                 [useGrouping]="false"
               ></p-inputNumber>
               <small class="p-error" *ngIf="submitted && !product.number"
-                >number is required.</small
+                >El numero es requerido.</small
               >
             </div>
             <div class="field">
-              <label for="description">postalCode</label>
+              <label for="description">Código postal</label>
               <p-inputNumber
                 type="number"
                 id="postalCode"
@@ -121,7 +134,7 @@ import { CreateAddressParam } from '../model/authService/createAddressParam';
                 [useGrouping]="false"
               ></p-inputNumber>
               <small class="p-error" *ngIf="submitted && !product.postalCode"
-                >postalCode is required.</small
+                >El codigo postal es requerido.</small
               >
             </div>
           </ng-template>
@@ -129,7 +142,7 @@ import { CreateAddressParam } from '../model/authService/createAddressParam';
             <button
               pButton
               pRipple
-              label="Cancel"
+              label="Cancelar"
               icon="pi pi-times"
               class="p-button-text"
               (click)="hideDialog()"
@@ -137,7 +150,7 @@ import { CreateAddressParam } from '../model/authService/createAddressParam';
             <button
               pButton
               pRipple
-              label="Save"
+              label="Guardar"
               icon="pi pi-check"
               class="p-button-text"
               (click)="saveProduct()"
@@ -147,12 +160,12 @@ import { CreateAddressParam } from '../model/authService/createAddressParam';
         <ng-template pTemplate="footer">
           <div class="grid grid-nogutter justify-content-between">
             <p-button
-              label="Back"
+              label="Volver"
               (onClick)="prevPage()"
               icon="pi pi-angle-left"
             ></p-button>
             <p-button
-              label="Next"
+              label="Siguiente"
               (onClick)="nextPage()"
               icon="pi pi-angle-right"
               iconPos="right"
