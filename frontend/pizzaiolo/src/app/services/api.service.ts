@@ -144,7 +144,7 @@ export class RestApiService {
     return this.http
       .post<any>(
         this.apiURL + '/api/v1/auth/forgot-password',
-        JSON.stringify(email),
+        {"email": email},
         this.httpOptions
       )
       .pipe(retry(1), catchError(this.handleError));
