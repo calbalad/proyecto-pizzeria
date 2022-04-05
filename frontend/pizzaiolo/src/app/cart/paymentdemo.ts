@@ -99,9 +99,8 @@ export class PaymentDemo implements OnInit {
   ngOnInit() {
     this.orders =
       this.ticketService.ticketInformation.personalInformation.pizzas;
-    this.total = this.orders
-      .map((amount: { amount: any }) => amount.amount)
-      .reduce((acc: any, amount: any) => amount + acc);
+
+  this.total = this.ticketService.ticketInformation.personalInformation.amount
     console.log(this.orders);
   }
 
