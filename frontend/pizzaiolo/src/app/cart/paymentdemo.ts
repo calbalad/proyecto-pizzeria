@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TicketService } from './ticketservice';
 import { Router } from '@angular/router';
 import { RestApiService } from '../services/api.service';
+import { CartService } from '../services/cart.service';
 
 @Component({
   template: `
@@ -71,7 +72,7 @@ export class PaymentDemo implements OnInit {
   orders: any;
   total: number = 0;
   comment = "";
-  constructor(public ticketService: TicketService, private router: Router, private restApi: RestApiService) {}
+  constructor(public ticketService: TicketService, private router: Router, private restApi: RestApiService, private cartService: CartService) {}
 
   ngOnInit() {
     this.orders =
@@ -89,7 +90,8 @@ export class PaymentDemo implements OnInit {
     this.restApi
       .createOrder(this.ticketService.ticketInformation.personalInformation)
       .subscribe((data: {}) => {
-        console.log(data)
+        localStorage.setItem('cart', '[]')
+        this.cartService.addCount();
       });
     this.router.navigate(['pizza']);
   }
