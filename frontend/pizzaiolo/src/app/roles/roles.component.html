@@ -21,7 +21,6 @@
           <th pSortableColumn="type">id <p-sortIcon field="id"></p-sortIcon></th>
           <th pSortableColumn="type">Rol <p-sortIcon field="role"></p-sortIcon></th>
           <th></th>
-          <th></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-usuario>
@@ -38,9 +37,6 @@
           </td>
           <!-- <td>{{usuario.role.name}}</td> -->
           <p-button pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click)="saveRol(usuario.id,usuario.role.name)"></p-button>
-          <td>
-
-          </td>
       </tr>
     </ng-template>
     <ng-template pTemplate="summary">
