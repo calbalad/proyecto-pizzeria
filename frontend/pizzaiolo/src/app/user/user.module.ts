@@ -11,6 +11,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import { FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {FileUploadModule} from 'primeng/fileupload';
+import {ToastModule} from 'primeng/toast';
 
 
 
@@ -21,7 +22,7 @@ import {FileUploadModule} from 'primeng/fileupload';
   ],
   imports: [
     CommonModule, InputTextModule, DropdownModule, ButtonModule, PasswordModule,
-    CardModule,ButtonModule, AppRoutingModule, FormsModule, HttpClientModule, FileUploadModule
+    CardModule,ButtonModule, AppRoutingModule, FormsModule, HttpClientModule, FileUploadModule, ToastModule
   ]
 })
 export class UserModule { }
