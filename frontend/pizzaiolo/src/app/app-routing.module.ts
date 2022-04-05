@@ -13,6 +13,7 @@ import { ManagerComponent } from './manager/manager.component';
 
 import { SesionGuardGuard } from './sesion-guard.guard';
 import { CocinaComponent, RepartoComponent } from './tienda/tienda.component';
+import { ResetPassComponent } from './login/reset-pass.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
   // { path: 'inicio', component: PizzasComponent, data: { pageTitle: 'Pizzas' } },
   { path: 'registro', component: RegistroComponent, data: { pageTitle: 'Registro' } },
   { path: 'login', component: LoginComponent, data: { pageTitle: 'Login' } },
+  { path: 'resetPass', component: ResetPassComponent, data: { pageTitle: 'resetPass' }},
   // { path: 'pizzas', component: PizzasComponent, data: { pageTitle: 'Pizzas' } },
   // { path: 'pizzas/:id', component: PizzasViewComponent, data: { pageTitle: 'Detalle Pizzas' } },
  // { path: 'carritote',canActivate: [SesionGuardGuard], component: CarritoComponent, data: { pageTitle: 'Carrito' } },

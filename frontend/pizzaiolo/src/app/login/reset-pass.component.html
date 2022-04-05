@@ -1,0 +1,17 @@
+
+<p-card>
+  <div class="card">
+    <div class="grid">
+        <form class="col-5 flex align-items-center justify-content-center form-signin">
+            <div class="p-fluid">
+                <div class="field">
+                  <h4>Recuperar Password</h4>
+                    <label for="email">Introduce aquí tu email</label>
+                    <input type="email" class="form-control" formControlName="email" required />
+                </div>
+                <p-button label="Enviar" type="submit" (ngSubmit)="this.email" ></p-button>
+              </div>
+        </form>
+    </div>
+  </div>
+</p-card>
