@@ -3,9 +3,31 @@ import { TicketService } from './ticketservice';
 import { Router } from '@angular/router';
 import { RestApiService } from '../services/api.service';
 import { CartService } from '../services/cart.service';
+import {MessageService} from 'primeng/api';
+
+
+interface IMensajesError {
+  severity: string;
+  summary: string;
+  detail: string;
+}
 
 @Component({
   template: `
+  <p-toast position="center" key="c" (onClose)="onReject()" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div class="flex flex-column" style="flex: 1">
+            <div class="text-center">
+                <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+                <h4>{{message.summary}}</h4>
+                <p>{{message.detail}}</p>
+            </div>
+            <div class="grid p-fluid">
+                    <button type="button" pButton (click)="onConfirm()" label="OK" class="p-button-success"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
     <div class="stepsdemo-content">
       <p-card>
         <ng-template pTemplate="title"> Resumen del pedido </ng-template>
@@ -56,8 +78,7 @@ import { CartService } from '../services/cart.service';
               (onClick)="prevPage()"
               icon="pi pi-angle-left"
             ></p-button>
-            <p-button
-              label="Finalizar"
+            <p-button label="Finalizar"
               (onClick)="nextPage()"
               icon="pi pi-angle-right"
               iconPos="right"
@@ -67,12 +88,13 @@ import { CartService } from '../services/cart.service';
       </p-card>
     </div>
   `,
+   providers: [MessageService]
 })
 export class PaymentDemo implements OnInit {
   orders: any;
   total: number = 0;
   comment = "";
-  constructor(public ticketService: TicketService, private router: Router, private restApi: RestApiService, private cartService: CartService) {}
+  constructor(public ticketService: TicketService, private router: Router, private restApi: RestApiService, private cartService: CartService, private messageService: MessageService) {}
 
   ngOnInit() {
     this.orders =
@@ -92,11 +114,26 @@ export class PaymentDemo implements OnInit {
       .subscribe((data: {}) => {
         localStorage.setItem('cart', '[]')
         this.cartService.addCount();
-      });
-    this.router.navigate(['pizza']);
+        });
+    //this.router.navigate(['pizza']);
+
+
+    this.messageService.add({key: 'c', sticky: true, severity:'success', summary:'Pedido completado! ☺', detail:'Volver a la página principal'});
+
+
   }
 
   prevPage() {
     this.router.navigate(['carrito/direcciones']);
   }
+
+
+  onConfirm() {
+    this.messageService.clear('c');
+    this.router.navigate(['pizza']);
+}
+
+onReject() {
+    this.messageService.clear('c');
+}
 }

@@ -6,6 +6,13 @@ import { User } from '../model/authService/user';
 import { UserResponse } from '../model/authService/userResponse';
 import { RestApiService } from '../services/api.service';
 import { UserModule } from '../user';
+import {MessageService} from 'primeng/api';
+
+interface IMensajesError {
+  severity: string;
+  summary: string;
+  detail: string;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +35,7 @@ export class FileUploadService {
   selector: 'app-user-edit',
   templateUrl: './tmpl-edit.component.html',
   styleUrls: ['./user.component.scss'],
+  providers: [MessageService]
 })
 export class UserEditComponent implements OnInit {
   test: string = '';
@@ -41,7 +49,8 @@ export class UserEditComponent implements OnInit {
     private http: HttpClient,
     private sanitizer: DomSanitizer,
     public restApi: RestApiService,
-    private fileUploadService: FileUploadService
+    private fileUploadService: FileUploadService,
+    private messageService: MessageService
   ) {
     this.user = JSON.parse(localStorage.getItem('data') || '{}');
     this.user = this.user.data;
@@ -71,6 +80,7 @@ export class UserEditComponent implements OnInit {
       .subscribe({
         next: (data: any) => {
           this.getBinary();
+          this.messageService.add({key: 'c', sticky: true, severity:'success', summary:'Guardado con Éxito', detail:'La foto se ha actualizado'});
         },
       });
   }
@@ -98,10 +108,21 @@ export class UserEditComponent implements OnInit {
       ( data: {} ) => {
         localStorage.setItem('data', JSON.stringify(data))
         console.log(data);
+        this.messageService.add({key: 'c', sticky: true, severity:'success', summary:'Guardado con Éxito', detail:'Los datos se han actualizado'});
       }
     )
   }
+
+  onConfirm() {
+    this.messageService.clear('c');
 }
+
+onReject() {
+    this.messageService.clear('c');
+}
+}
+
+
 
 @Component({
   selector: 'app-user-reset',
@@ -113,3 +134,5 @@ export class UserResetComponent implements OnInit {
 
   ngOnInit(): void {}
 }
+
+

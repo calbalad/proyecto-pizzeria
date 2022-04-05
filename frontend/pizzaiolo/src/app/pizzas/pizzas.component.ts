@@ -6,6 +6,9 @@ import { IngredientesService } from '../services/ingredientes.service';
 import { PizzasService } from '../services/pizzas.service';
 import {MessageService} from 'primeng/api';
 
+import { HttpClient} from '@angular/common/http';
+import { DomSanitizer } from '@angular/platform-browser';
+
 interface IIngredientesPizza {
   idIngredient: number;
   name: string;
@@ -46,7 +49,13 @@ export class PizzasComponent implements OnInit {
   idSauceSelected: any;
   idBaseSelected: any;
 
-  constructor(public restApi: PizzasService, public resApiIngredientes: IngredientesService, private messageService: MessageService) { }
+  fileURL: string = "";
+  loading: boolean = false;
+  file: File | null = null;
+  blob: any = null;
+
+  constructor(public restApi: PizzasService, public resApiIngredientes: IngredientesService, private messageService: MessageService,
+    private http: HttpClient, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     // Cargamos todas las pizzas
@@ -95,6 +104,30 @@ export class PizzasComponent implements OnInit {
     );
     this.pizzaDialog = true;
 
+  }
+
+  onChange(event: any) {
+    this.file = event.target.files[0];
+  }
+
+  sendBinary(pizza: PizzasEditables) {
+    if (!this.file) return;
+    this.loading = !this.loading;
+    console.log(this.file);
+    const reader = new FileReader();
+    reader.readAsArrayBuffer(this.file);
+    reader.onload = () => {
+      let url = 'http://localhost:8080/api/v1/pizzas/' + pizza.idPizza + '/foto';
+      this.http.put(url, reader.result, { headers: { 'Content-Type': this.file ? this.file.type : '*/*' }, responseType: 'blob' }).subscribe({
+        next: (data: any) => {
+          this.fileURL = url;
+          this.blob = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(data));
+          this.loading = false;
+        },
+        error: err => { this.loading = false; console.error(err); }
+      });
+    };
+    this.cargarPizzas();
   }
 
   savePizza() {
