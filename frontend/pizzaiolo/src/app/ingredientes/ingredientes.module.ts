@@ -13,7 +13,7 @@ import {CardModule} from 'primeng/card';
 import { DropdownModule } from 'primeng/dropdown';
 import {InputTextModule} from 'primeng/inputtext';
 import {InputNumberModule} from 'primeng/inputnumber';
-
+import {ToastModule} from 'primeng/toast';
 @NgModule({
   declarations: [
     IngredientesComponent,
@@ -24,7 +24,10 @@ import {InputNumberModule} from 'primeng/inputnumber';
 
   ],
   imports: [
-    CommonModule, OrderListModule, ButtonModule, RouterModule, ToolbarModule, TableModule, DialogModule, FormsModule, CardModule,DropdownModule, InputTextModule, InputNumberModule
+    CommonModule, OrderListModule, ButtonModule, RouterModule,
+    ToolbarModule, TableModule, DialogModule, FormsModule,
+    CardModule,DropdownModule, InputTextModule, InputNumberModule,
+    ToastModule
 
   ]
 })

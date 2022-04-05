@@ -183,11 +183,12 @@ export class PizzasComponent implements OnInit {
   hideDialog() {
     this.pizzaDialog = false;
     this.submitted = false;
+    this.ingredientesDialog = false;
   }
 
   validarFormulario() {
-    console.log('estoy validando')
-    console.log(this.pizza)
+    // console.log('estoy validando')
+    // console.log(this.pizza)
     let errors: IMensajesError[] = [];
 
     if(this.pizza.description?.trim() === ''){
