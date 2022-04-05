@@ -2,14 +2,14 @@
   <h1>Perfil</h1>
   <form #myForm="ngForm">
     <div class="p-fluid grid">
-      <div class="field col-12 md:col-4">
+      <div class="field col-12 ">
         <div class="logo foto-perfil"><img [src]="blob" alt="logo-usuario"></div>
             <input class="form-control" type="file" (change)="onChange($event)" multiple="true">
       </div>
     </div>
     <div class="p-fluid grid">
      <!--  <p-fileUpload mode="basic" name="demo[]" (onUpload)="sendFormData($event)" accept="image/*"></p-fileUpload> -->
-      <div class="field col-12 md:col-4">
+      <div class="field col-12 ">
             <label for="inputtext">Nombre</label>
 
               <input type="text" name="nombre" id="nombre" [(ngModel)]="user.firstName" pInputText required >
@@ -17,13 +17,13 @@
       </div>
     </div>
     <div class="p-fluid grid">
-      <div class="field col-12 md:col-4">
+      <div class="field col-12 ">
             <label for="inputtext">Apellidos</label>
               <input type="text" name="apellido" id="apellido" pInputText [(ngModel)]="user.lastName"  required minlength="2" maxlength="50">
       </div>
     </div>
     <div class="p-fluid grid">
-      <div class="field col-12 md:col-4">
+      <div class="field col-12 ">
             <label for="inputtext" >Teléfono</label>
               <input type="text" [(ngModel)]="user.phone" name="telefono" id="telefono" pInputText required minlength="2" maxlength="50">
       </div>

@@ -8,7 +8,7 @@
   </p-toolbar>
   <p-table #dt [value]="usuarios" [rows]="10" [paginator]="true" [globalFilterFields]="['name','type']" responsiveLayout="scroll"
             [rowHover]="true" dataKey="id"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+            currentPageReportTemplate="Mostrando del usuario {first} al {last} del total de {totalRecords} usuarios" [showCurrentPageReport]="true">
     <ng-template pTemplate="caption">
         <div class="flex align-items-center justify-content-between">
             <h5 class="m-0">Gestión de roles de Usuario</h5>
@@ -20,6 +20,7 @@
           <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
           <th pSortableColumn="type">id <p-sortIcon field="id"></p-sortIcon></th>
           <th pSortableColumn="type">Rol <p-sortIcon field="role"></p-sortIcon></th>
+          <th></th>
           <th></th>
       </tr>
     </ng-template>

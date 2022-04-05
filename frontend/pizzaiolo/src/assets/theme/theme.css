@@ -6324,3 +6324,16 @@ app-pedidos .p-card-content{
     .p-menubar-end{
       cursor:pointer;
     }
+
+    app-user-edit .p-card-body{
+      max-width: 600px;
+      margin: auto;
+    }
+
+    app-user-editv .p-button-component{
+      margin: auto;
+      display: block;
+    }
+    app-manager>div{
+      margin-bottom: 150px;
+    }
