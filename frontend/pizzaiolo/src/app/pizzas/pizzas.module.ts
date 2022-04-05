@@ -23,7 +23,10 @@ import {InputTextModule} from 'primeng/inputtext';
     PizzasComponent, OrderListModule, ButtonModule,
   ],
   imports: [
-    CommonModule, OrderListModule, ButtonModule, RouterModule, ToolbarModule, TableModule, DialogModule, FormsModule, CardModule,DropdownModule, PickListModule, InputNumberModule, ToastModule, InputTextModule
+    CommonModule, OrderListModule, ButtonModule, RouterModule,
+    ToolbarModule, TableModule, DialogModule, FormsModule, CardModule,
+    DropdownModule, PickListModule, InputNumberModule, ToastModule,
+    InputTextModule
   ]
 })
 export class PizzasModule { }
