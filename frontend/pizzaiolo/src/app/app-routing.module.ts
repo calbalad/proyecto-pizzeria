@@ -17,7 +17,7 @@ import { CocinaComponent, RepartoComponent } from './tienda/tienda.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: CartaComponent, data: { pageTitle: 'Pizzas' } },
-  { path: 'pizza/:id',canActivate: [SesionGuardGuard], pathMatch: 'full', component: CartaProductComponent, data: { pageTitle: 'Pizza' , role: 'ROLE_ADMIN ROLE_USER' } },
+  { path: 'pizza/:id',canActivate: [SesionGuardGuard], pathMatch: 'full', component: CartaProductComponent, data: { pageTitle: 'Pizza' , role: 'ROLE_ADMIN ROLE_USER ROLE_CHEF ROLE_DELIVERY' } },
   { path: 'pizza',canActivate: [SesionGuardGuard], pathMatch: 'full', component: CartaComponent, data: { pageTitle: 'Pizzas' } },
   // { path: '', pathMatch: 'full', component: PizzasComponent, data: { pageTitle: 'Pizzas' } },
   // { path: 'inicio', component: PizzasComponent, data: { pageTitle: 'Pizzas' } },

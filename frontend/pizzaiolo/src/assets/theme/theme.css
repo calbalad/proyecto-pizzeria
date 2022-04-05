@@ -60,7 +60,7 @@
 }
 
 .p-disabled, .p-component:disabled {
-  opacity: 0.6;
+  opacity: 1;
 }
 
 .p-error {
@@ -2541,8 +2541,8 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   border-radius: 0;
 }
 .p-datatable .p-paginator-bottom {
-  border-width: 0 0 1px 0;
-  border-radius: 0;
+  /* border-width: 0 0 1px 0;
+  border-radius: 0; */
 }
 .p-datatable .p-datatable-header {
   background: #d8ac80;
@@ -6175,3 +6175,121 @@ app-pedidos .p-card-content{
 .cincuenta img{
  border-radius: 15px;
 }
+
+.grid-header{
+  background: rgb(216,172,128);
+  background: -moz-linear-gradient(0deg, rgba(216,172,128,1) 0%, rgba(216,172,128,1) 34%, rgba(255,192,120,1) 100%);
+  background: -webkit-linear-gradient(0deg, rgba(216,172,128,1) 0%, rgba(216,172,128,1) 34%, rgba(255,192,120,1) 100%);
+  background: linear-gradient(0deg, rgba(216,172,128,1) 0%, rgba(216,172,128,1) 34%, rgba(255,192,120,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#d8ac80",endColorstr="#ffc078",GradientType=1);
+
+}
+
+  .grid-nogutter .product-grid-item, .p-card-body .p-card-body .p-card-component{
+    background-color: #ffc078;
+  }
+
+  .p-card-body{
+    background-color: #d8ac80;
+  }
+
+  .p-panel .p-panel-header, .p-panel .p-panel-content{
+    background-color: #ffc078;
+  }
+
+  .p-fieldset .p-fieldset-legend{
+    background-color: #ffc078;
+  }
+  li .ng-star-inserted .p-steps-number{
+
+    background-color: #f55a1d;
+  }
+
+  app-user-edit .p-card-content, .stepsdemo-content .p-card-content{
+    background: #fec078;
+    padding: 30px !important;
+    border-radius: 15px;
+    box-shadow: 1px 1px 6px 0px;
+  }
+
+  .stepsdemo-content .p-datatable{
+    background: #fec078;
+  }
+
+  .p-datatable {
+    background-color:#fec078 ;
+  }
+
+  tr:nth-child(even){
+    background-color:#fec078 ;
+  }
+
+  .p-datatable-wrapper{
+    border-radius: 15px;
+  }
+
+  .p-datatable-footer{
+    border-radius: 15px;
+    margin-top: 10px;
+  }
+
+  app-tienda .p-card-content{
+    background: #fec078;
+    padding: 30px !important;
+    border-radius: 15px;
+    box-shadow: 1px 1px 6px 0px;
+  }
+
+  .p-paginator-bottom{
+    border-radius: 15px;
+    margin-top: 10px;
+  }
+  app-ingredientes .p-datatable{
+    background: #fec078;
+    padding: 30px !important;
+    border-radius: 15px;
+    box-shadow: 1px 1px 6px 0px;
+  }
+  app-ingredientes .p-datatable-header{
+    border-radius: 15px;
+  }
+
+  app-registro input{
+    padding: 10px;
+    border-radius: 15px;
+    margin-top: 10px;
+  }
+
+  app-login input {
+    padding: 10px;
+    border-radius: 15px;
+    margin-top: 10px;
+  }
+
+  app-registro .form-signup>*{
+    padding-left: 10px;
+  }
+
+  app-registro .field{
+    padding-left: 0px;
+  }
+
+  app-registro .p-card-content{
+    background: #fec078;
+    padding: 30px !important;
+    border-radius: 15px;
+    box-shadow: 1px 1px 6px 0px;
+  }
+
+  .field > label{
+    display: block !important;
+  }
+
+  .ft-title, .ft-title ul{
+    margin: 0px;
+    padding: 2px;
+  }
+
+    .ft-social{
+      display: none;
+    }

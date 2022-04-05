@@ -73,7 +73,8 @@ export class LoginService {
     doLogout() {
       let removeToken = localStorage.removeItem('access_token');
       let removeData = localStorage.removeItem('data');
-      if (removeToken == null && removeData == null) {
+      let removeCart = localStorage.removeItem('cart');
+      if (removeToken == null && removeData == null && removeCart == null) {
         this.router.navigate(['/']);
         window.location.replace('/');
       }
