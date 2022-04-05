@@ -70,7 +70,7 @@ interface IMensajesError {
         </p-table>
 
         <ng-template pTemplate="footer">
-          <h5>Comentários</h5>
+          <h5>Comentarios</h5>
           <textarea [rows]="5" [cols]="60" [autoResize]="true" [(ngModel)]="comment" pInputTextarea></textarea>
           <div class="grid grid-nogutter justify-content-between">
             <p-button
