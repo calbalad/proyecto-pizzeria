@@ -7,6 +7,7 @@ import { RouterModule, provideRoutes, Routes, ActivatedRoute, Router } from '@an
 import { CartaComponent } from '../carta/carta.component';
 import { HeaderComponent } from '../main/header/header.component';
 import { NavigationExtras } from '@angular/router';
+import { coerceStringArray } from '@angular/cdk/coercion';
 
 
 @Injectable({
@@ -36,9 +37,10 @@ export class LoginService {
         .post<any>(`${this.apiURL}/api/v1/auth/login`, user)
         .subscribe((res: any) => {
           localStorage.setItem('access_token', res.accessToken);
+          console.log("Entra login")
            this.getDatos();
-           this.router.navigateByUrl('/');
-           window.location.replace('/');
+           console.log("Termina login")
+         
         });
     }
 
@@ -48,8 +50,12 @@ export class LoginService {
           'Content-Type':  'application/json',
           'Authorization': `Bearer ${this.getToken()}`
       })};
+      console.log("Entra get Datos")
        let res = this.http.get(`${this.apiURL}/api/v1/users/me`, httpOptions).subscribe((res: any) => {
         localStorage.setItem('data', JSON.stringify(res));
+        console.log("Entra get datos y success")
+        this.router.navigateByUrl('/');
+        window.location.replace('/');
 
       });
 

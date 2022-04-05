@@ -43,6 +43,9 @@ import {ToastModule} from 'primeng/toast';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {FileUploadModule} from 'primeng/fileupload';
 import {  SecurityModule } from './security';
+import {BadgeModule} from 'primeng/badge';
+import { ChipModule } from 'primeng/chip';
+
 
 
 
@@ -93,8 +96,9 @@ import {  SecurityModule } from './security';
     ConfirmDialogModule,
     DialogModule,
     FileUploadModule,
-    SecurityModule
-
+    SecurityModule,
+    BadgeModule,
+    ChipModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -48,6 +48,12 @@ export class PedidosService {
       .pipe(retry(1), catchError(this.handleError));
   }
 
+  getPedidosUser(id: string): Observable<any> {
+    return this.http
+      .get<any>(this.apiURL + '/api/v1/pedidos/list/' + id)
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
   // HttpClient API get() method => Fetch PedidosRecibidos list
   getPedidosRecibidos(): Observable<OrderDetailsDTO> {
     return this.http

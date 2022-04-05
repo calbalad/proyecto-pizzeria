@@ -1,4 +1,4 @@
-<p-fieldset legend="Pedidos activos">
+<!-- <p-fieldset legend="Pedidos activos">
   <p-card class="datos-pedido">
     <div class="cincuenta">
       <h4>Nombre</h4>
@@ -22,3 +22,69 @@
   </p-card>
   <p-button>Coste total: 20,59€</p-button>
 </p-fieldset>
+ -->
+
+ <p-table [value]="orders" dataKey="idOrder" responsiveLayout="scroll">
+  <ng-template pTemplate="header">
+      <tr>
+          <th style="width: 3rem"></th>
+          <th pSortableColumn="name">Pedido</th>
+          <th pSortableColumn="rating">Precio</th>
+          <th pSortableColumn="inventoryStatus">Estado </th>
+         <!--  <th pSortableColumn="inventoryStatus"></th> -->
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-order let-expanded="expanded">
+      <tr>
+          <td>
+            <button type="button" pButton pRipple [pRowToggler]="order" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+          </td>
+          <td>{{order.orderDate}}</td>
+          <td>{{order.amount | currency:'EUR'}}</td>
+          <!-- <td><span [ngClass]="{'product-badge status-primary': order.orderStatus == 'enviado',
+            'product-badge status-secondary': order.orderStatus == 'solicitado',
+            'product-badge status-success': order.orderStatus == 'recibido',  
+            'product-badge status-info': order.orderStatus == 'preparado', 
+            'product-badge status-warning': order.orderStatus == 'elaborandose', 
+            'product-badge status-danger': order.orderStatus  == 'cancelado'}">{{order.orderStatus}}</span></td> -->
+            <td><p-chip [ngClass]="getClassStatus(order.orderStatus)" [label]="order.orderStatus" ></p-chip></td>
+            <!-- <td><p-button label="Pedir de nuevo" (click)="neworder(order)"></p-button> -->
+            </td>
+        </tr>
+  </ng-template>
+  <ng-template pTemplate="rowexpansion" let-order>
+      <tr>
+          <td colspan="7">
+              <div class="p-3">
+                  <p-table [value]="order.pizzas" dataKey="idPizza">
+                      <ng-template pTemplate="header">
+                          <tr>
+                              <th pSortableColumn="id">Id</th>
+                              <th pSortableColumn="customer">Nombre </th>
+                              <th pSortableColumn="date">Amount </th>
+                              <th pSortableColumn="amount">Total </th>
+                              
+                              
+                          </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-pizza>
+                          <tr>
+                              <td>{{pizza.nombre}}</td>
+                              <td>{{pizza.quantity}}</td>
+                              <td>{{pizza.amount | currency:'EUR'}}</td>
+                              <td>{{pizza.amount * pizza.quantity| currency:'EUR'}}</td>
+                              
+                              
+                          </tr>
+                      </ng-template>
+                      <ng-template pTemplate="emptymessage">
+                          <tr>
+                              <td colspan="6">There are no order for this product yet.</td>
+                          </tr>
+                      </ng-template>
+                  </p-table>
+              </div>
+          </td>
+      </tr>
+  </ng-template>
+</p-table>
