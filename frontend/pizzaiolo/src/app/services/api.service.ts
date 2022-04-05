@@ -139,6 +139,18 @@ export class RestApiService {
       .delete<PizzasCortas>(this.apiURL + '/PizzasCortass/' + id, this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
   }
+
+  resetPassword(email: any): Observable<any> {
+    return this.http
+      .post<any>(
+        this.apiURL + '/api/v1/auth/forgot-password',
+        JSON.stringify(email),
+        this.httpOptions
+      )
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+
   // Error handling
   handleError(error: any) {
     let errorMessage = '';

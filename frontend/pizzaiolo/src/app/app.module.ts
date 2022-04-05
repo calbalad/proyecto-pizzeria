@@ -43,6 +43,7 @@ import {ToastModule} from 'primeng/toast';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {FileUploadModule} from 'primeng/fileupload';
 import {  SecurityModule } from './security';
+import { ResetPassComponent } from './login/reset-pass.component';
 
 
 
@@ -56,7 +57,7 @@ import {  SecurityModule } from './security';
 
 @NgModule({
 
-  declarations: [AppComponent, CartaProductComponent, LoginComponent, CarritoComponent, CartaComponent, PedidosComponent, ],
+  declarations: [AppComponent, CartaProductComponent, LoginComponent, CarritoComponent, CartaComponent, PedidosComponent, ResetPassComponent, ResetPassComponent ],
 
   imports: [
     BrowserModule,
