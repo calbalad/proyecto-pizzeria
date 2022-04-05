@@ -9,8 +9,9 @@ import { CardModule } from 'primeng/card';
 import { PasswordModule } from 'primeng/password';
 import { AppRoutingModule } from '../app-routing.module';
 import { FormsModule } from '@angular/forms';
-import {FileUploadModule} from 'primeng/fileupload';
 import {HttpClientModule} from '@angular/common/http';
+import {FileUploadModule} from 'primeng/fileupload';
+
 
 
 
@@ -20,7 +21,7 @@ import {HttpClientModule} from '@angular/common/http';
   ],
   imports: [
     CommonModule, InputTextModule, DropdownModule, ButtonModule, PasswordModule,
-    CardModule,ButtonModule, AppRoutingModule, FormsModule, FileUploadModule, HttpClientModule
+    CardModule,ButtonModule, AppRoutingModule, FormsModule, HttpClientModule, FileUploadModule
   ]
 })
 export class UserModule { }

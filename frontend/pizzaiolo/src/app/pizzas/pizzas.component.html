@@ -45,6 +45,11 @@
 
 <p-dialog [(visible)]="pizzaDialog" [style]="{width: '90%'}" header="Gestión Pizzas" [modal]="true" styleClass="p-fluid">
   <ng-template pTemplate="content">
+    <div class="field">
+      <label for="name">Imagen</label>
+      <input type="text" pInputText id="name" [(ngModel)]="pizza.description" required autofocus />
+      <small class="p-error" *ngIf="submitted && !pizza.description">Name is required.</small>
+  </div>
       <div class="field">
           <label for="name">Nombre</label>
           <input type="text" pInputText id="name" [(ngModel)]="pizza.description" required autofocus />

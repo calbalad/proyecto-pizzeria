@@ -41,6 +41,9 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import {StepsModule} from 'primeng/steps';
 import {ToastModule} from 'primeng/toast';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {FileUploadModule} from 'primeng/fileupload';
+import {  SecurityModule } from './security';
+
 
 
 
@@ -88,7 +91,9 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     StepsModule,
     ToastModule,
     ConfirmDialogModule,
-    DialogModule
+    DialogModule,
+    FileUploadModule,
+    SecurityModule
 
   ],
   providers: [],
