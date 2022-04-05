@@ -128,12 +128,6 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public <T> List<T> getOrderById(String id, Class<T> type) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public <T> List<T> getOrderByIdUser(String id, Class<T> type) {
 		return dao.findByIdUser(id,type);
 	}

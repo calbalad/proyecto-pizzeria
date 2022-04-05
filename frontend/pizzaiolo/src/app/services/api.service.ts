@@ -99,7 +99,7 @@ export class RestApiService {
         JSON.stringify(order),
         this.httpOptions
       )
-      .pipe(retry(1), catchError(this.handleError));
+      .pipe(retry(3), catchError(this.handleError));
   }
   createAddress(CreateAddressParam: any, id: string): Observable<CreateAddressParam> {
     var auth_token = localStorage.getItem('access_token') || '';
@@ -110,20 +110,20 @@ export class RestApiService {
     })};
     return this.http
       .post<CreateAddressParam>(
-        'http://localhost:8001' + '/api/v1/address/' + id,
+        'http://localhost:8080' + '/api/v1/address/' + id,
         JSON.stringify(CreateAddressParam),
         this.httpOptions
       )
       .pipe(retry(1), catchError(this.handleError));
   }
 
-  createCommet(commet: any, idPizza: any, idUsuario: any): Observable<any> {
+  createComment(comment: string, idPizza: number, idUsuario: string): Observable<any> {
     return this.http
       .post<any>(
         this.apiURL + '/api/v1/comentarios',
         JSON.stringify({
-  "comentario": commet,
-  "date": "2022-04-05T19:18:39.619Z",
+  "comentario": comment,
+  "date": new Date().toISOString(),
   "idComentario": 0,
   "idPizza": idPizza,
   "idUsuario": idUsuario,
@@ -204,7 +204,7 @@ export class RestApiService {
       // Get server-side error
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    window.alert(errorMessage);
+    /* window.alert(errorMessage); */
     return throwError(() => {
       return errorMessage;
     });

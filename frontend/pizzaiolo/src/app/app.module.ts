@@ -27,7 +27,7 @@ import {CardModule} from 'primeng/card';
 import { LoginComponent } from './login/login.component';
 import {OrderListModule} from 'primeng/orderlist';
 import {ImageModule} from 'primeng/image';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
 
 import { PedidosComponent } from './pedidos/pedidos.component';
 import {FieldsetModule} from 'primeng/fieldset';
@@ -48,6 +48,10 @@ import { ChipModule } from 'primeng/chip';
 import { ResetPassComponent } from './login/reset-pass.component';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 
+import { LoaderComponent } from './loader/loader.component';
+import { LoaderService } from './loader/services/loader.service';
+import { LoaderInterceptorService } from './loader/interceptors/loader-interceptor.service';
+
 
 
 
@@ -62,7 +66,7 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 
 @NgModule({
 
-  declarations: [AppComponent, CartaProductComponent, LoginComponent, CarritoComponent, CartaComponent, PedidosComponent, ResetPassComponent, ResetPassComponent ],
+  declarations: [AppComponent, CartaProductComponent, LoginComponent, CarritoComponent, CartaComponent, PedidosComponent, ResetPassComponent, ResetPassComponent, LoaderComponent ],
 
   imports: [
     BrowserModule,
@@ -104,7 +108,8 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     BadgeModule,
     ChipModule
   ],
-  providers: [],
+  providers: [LoaderService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptorService, multi: true }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -79,7 +79,7 @@ spring:
           - RewriteLocationResponseHeader=AS_IN_REQUEST, Location, ,
       - id: pizzaiolo
         predicates:
-          - Path=/api/v1/comments/**
+          - Path=/api/v1/comentarios/**
         uri: lb://pizzaiolo
         filters:
           - RewriteLocationResponseHeader=AS_IN_REQUEST, Location, ,
