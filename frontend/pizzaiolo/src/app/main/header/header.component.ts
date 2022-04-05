@@ -17,6 +17,7 @@ export class HeaderComponent  {
   countSub: any;
   cartCount: any = 0;
   carts: any;
+  item : any = "../../assets/img/sinusuario.png";
 
   blob: any = null;
   rol : any = '';

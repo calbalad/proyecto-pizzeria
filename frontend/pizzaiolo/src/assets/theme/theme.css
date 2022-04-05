@@ -5057,13 +5057,16 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
     border-bottom-right-radius: 0px;
   }
   .p-menuitem-text{
-    display: none;
+
   }
   .p-menubar-root-list{
     justify-content: center;
   }
   .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link{
     padding:5px;
+    display: block;
+    font-size: 11px;
+    text-align: center;
   }
   .p-menubar > p-menubarsub{
     margin: auto;
@@ -5071,6 +5074,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   }
   .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link .p-menuitem-icon{
     margin-right: 0px;
+    width: 100%;
   }
 
   .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link .p-menuitem-icon::before{
@@ -5082,6 +5086,20 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   }
   body{
     margin-bottom: 30px;
+  }
+  app-login .grid{
+    display: block !important;
+    width: 100% !important ;
+  }
+  app-login form{
+    max-width: 100% !important;
+    width: 80% !important;
+  }
+  app-login .grid .col-2{
+    display: none;
+  }
+  app-login .grid .col-5{
+    width: 100% !important;
   }
 }
 .p-panelmenu .p-panelmenu-header > a {
