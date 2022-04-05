@@ -27,10 +27,31 @@ export class PedidosService {
       .get<OrderDetailsDTO>(this.apiURL + '/api/v1/pedidos/solicitado')
       .pipe(retry(1), catchError(this.handleError));
   }
-  // HttpClient API get() method => Fetch PedidosSolicitados list
+  // HttpClient API get() method => Fetch PedidosElaborandose list
   getPedidosElaborandose(): Observable<OrderDetailsDTO> {
     return this.http
       .get<OrderDetailsDTO>(this.apiURL + '/api/v1/pedidos/elaborandose')
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  // HttpClient API get() method => Fetch PedidosPreparados list
+  getPedidosPreparados(): Observable<OrderDetailsDTO> {
+    return this.http
+      .get<OrderDetailsDTO>(this.apiURL + '/api/v1/pedidos/preparado')
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  // HttpClient API get() method => Fetch PedidosEnviados list
+  getPedidosEnviados(): Observable<OrderDetailsDTO> {
+    return this.http
+      .get<OrderDetailsDTO>(this.apiURL + '/api/v1/pedidos/enviado')
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  // HttpClient API get() method => Fetch PedidosRecibidos list
+  getPedidosRecibidos(): Observable<OrderDetailsDTO> {
+    return this.http
+      .get<OrderDetailsDTO>(this.apiURL + '/api/v1/pedidos/recibido')
       .pipe(retry(1), catchError(this.handleError));
   }
 

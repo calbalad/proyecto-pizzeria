@@ -15,13 +15,10 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MessagesModule } from 'primeng/messages';
 
 
+
 @NgModule({
   declarations: [
     CocinaComponent, RepartoComponent,
-
-  ],
-  exports: [
-    CocinaComponent, RepartoComponent, OrderListModule, ButtonModule,
 
   ],
   imports: [
