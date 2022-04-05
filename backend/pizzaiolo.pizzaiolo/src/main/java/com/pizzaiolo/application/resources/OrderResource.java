@@ -57,10 +57,10 @@ public class OrderResource {
 		return srv.getByProjection(OrderShortDTO.class);
 	}
 	
-	@GetMapping(path = "/list/{id}/{status}")
+	@GetMapping(path = "/list/{id}")
 	@ApiOperation(value = "Listado de los pedidos user")
-	public List<OrderDetailsDTO> getlUserAll(@PathVariable String id, @PathVariable Status status) {
-		return srv.getOrderByIdUser(id, status, Order.class).stream().map(OrderDetailsDTO::from).toList();
+	public List<OrderDetailsDTO> getlUserAll(@PathVariable String id) {
+		return srv.getOrderByIdUser(id, Order.class).stream().map(OrderDetailsDTO::from).toList();
 	}
 	
 	@GetMapping(path = "/solicitado")
