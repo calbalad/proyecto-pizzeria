@@ -91,6 +91,23 @@ export class RestApiService {
       .pipe(retry(1), catchError(this.handleError));
   }
 
+  createCommet(commet: any, idPizza: any, idUsuario: any): Observable<any> {
+    return this.http
+      .post<any>(
+        this.apiURL + '/api/v1/comentarios',
+        JSON.stringify({
+  "comentario": commet,
+  "date": "2022-04-05T19:18:39.619Z",
+  "idComentario": 0,
+  "idPizza": idPizza,
+  "idUsuario": idUsuario,
+  "rating": 0
+}),
+        this.httpOptions
+      )
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
   uploadFile(file: any, id: string): Observable<any> {
     var auth_token = localStorage.getItem('access_token') || '';
     this.httpOptions = {

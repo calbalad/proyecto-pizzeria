@@ -44,6 +44,8 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {FileUploadModule} from 'primeng/fileupload';
 import {  SecurityModule } from './security';
 import { ResetPassComponent } from './login/reset-pass.component';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+
 
 
 
@@ -94,7 +96,8 @@ import { ResetPassComponent } from './login/reset-pass.component';
     ConfirmDialogModule,
     DialogModule,
     FileUploadModule,
-    SecurityModule
+    SecurityModule,
+    InputTextareaModule
 
   ],
   providers: [],
