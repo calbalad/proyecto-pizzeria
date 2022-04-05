@@ -52,14 +52,15 @@ export class CartaProductComponent implements OnInit {
   }
 
   addComment(){
-    // this.newComment = this.newComment;
+     this.newComment = this.newComment;
 
-    // let idUser = JSON.parse(localStorage.getItem('data') || '[]');
-    // idUser = idUser.data.id;
+     let idUser = JSON.parse(localStorage.getItem('data') || '[]');
 
-    // this.restApi.createCommet(this.newComment, this.product.idPizza, idUser)
-    // .subscribe((data: {}) => {
-    // });
+     this.restApi.createComment(this.newComment, this.product.idPizza, idUser.data.id)
+     .subscribe((data: {}) => {
+       this.ngOnInit();
+       this.newComment = "";
+     });
 
   }
 

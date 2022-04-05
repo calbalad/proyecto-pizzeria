@@ -86,6 +86,7 @@
       <p-button label="Enviar"
         (onClick)="addComment()"
         icon="pi pi-angle-right"
+        [disabled]="newComment == ''"
         iconPos="right"
       ></p-button>
       <br/>
